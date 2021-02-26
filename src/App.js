@@ -3,7 +3,7 @@ import './App.css';
 
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
-import MenuComponent from './components/menucomponent';
+import MenuComponent from './components/admin/menucomponent';
 
 class App extends Component {
   constructor(props) {
