@@ -4,6 +4,7 @@ import './App.css';
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import MenuComponent from './components/admin/menucomponent';
+import PendingTestResults from './components/admin/PendingTestResults';
 
 class App extends Component {
   constructor(props) {
@@ -34,16 +35,16 @@ class App extends Component {
       <div className="App">
         <MenuComponent isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
         
-        {/* <Switch>
+        <Switch>
           <Route 
-            path="/" exact
+            path="/update-test-results" exact
             render={
               this.state.isLoggedIn
-              ? (props) => <CompaniesListComponent {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
-              : (props) => <LoginComponent {...props} login={this.login}/>
+              ? (props) => <PendingTestResults {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
+              : null
             }
           />
-        </Switch> */}
+        </Switch>
       </div>
     );
   }
