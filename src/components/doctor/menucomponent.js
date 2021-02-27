@@ -5,12 +5,15 @@ const MenuComponent = (props) => {
     const isLoggedIn = props.isLoggedIn;
 
     const loggedInMenu = (
-        <ul className="navbar-nav">
+        <ul className="navbar-nav ml-auto mr-auto">
             <li className="nav-item">
-                <Link className="nav-link" to="/registration-approvals">Registrations Approvals</Link>
+                <Link className="nav-link" to="/">View Test Results</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/update-test-results">Update Test Results</Link>
+                <Link className="nav-link" to="/">Patient Records</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/dietexercise">Diet/Exercises</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/" onClick={props.logout}>Logout</Link>

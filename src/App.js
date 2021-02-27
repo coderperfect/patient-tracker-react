@@ -3,7 +3,9 @@ import './App.css';
 
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
-import MenuComponent from './components/admin/menucomponent';
+import MenuComponent from './components/doctor/menucomponent';
+import DisplayPatientsComponent from './components/doctor/DisplayPatientsComponent';
+import TreatmentsForPatientComponent from './components/doctor/TreatmentsForPatientComponent';
 
 class App extends Component {
   constructor(props) {
@@ -34,16 +36,17 @@ class App extends Component {
       <div className="App">
         <MenuComponent isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
         
-        {/* <Switch>
-          <Route 
-            path="/" exact
-            render={
-              this.state.isLoggedIn
-              ? (props) => <CompaniesListComponent {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
-              : (props) => <LoginComponent {...props} login={this.login}/>
-            }
-          />
-        </Switch> */}
+        <Switch>
+          <Route path="/dietexercise" exact>
+            <DisplayPatientsComponent/>
+          </Route>
+          <Route path="/dietexercise/:patientId" exact>
+            <TreatmentsForPatientComponent/>
+          </Route>
+          {/* <Route path="/dietexercise/:patientId/:treatmentId" exact>
+            <TreatmentsForPatientComponent/>
+          </Route> */}
+        </Switch>
       </div>
     );
   }
