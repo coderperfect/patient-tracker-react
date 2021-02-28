@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import MenuComponent from './components/admin/menucomponent';
 import PendingTestResults from './components/admin/PendingTestResults';
+import InPatients from './components/admin/InPatients';
 
 class App extends Component {
   constructor(props) {
@@ -41,6 +42,14 @@ class App extends Component {
             render={
               this.state.isLoggedIn
               ? (props) => <PendingTestResults {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
+              : null
+            }
+          />
+          <Route 
+            path="/in-patient-details" exact
+            render={
+              this.state.isLoggedIn
+              ? (props) => <InPatients {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
               : null
             }
           />
