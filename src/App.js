@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 import React, {Component} from 'react';
@@ -6,6 +5,7 @@ import {Route, Switch} from 'react-router-dom';
 import MenuComponent from './components/admin/menucomponent';
 import PendingTestResults from './components/admin/PendingTestResults';
 import InPatients from './components/admin/InPatients';
+import Billing from './components/admin/Billing';
 
 class App extends Component {
   constructor(props) {
@@ -50,6 +50,14 @@ class App extends Component {
             render={
               this.state.isLoggedIn
               ? (props) => <InPatients {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
+              : null
+            }
+          />
+          <Route 
+            path="/billing" exact
+            render={
+              this.state.isLoggedIn
+              ? (props) => <Billing {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
               : null
             }
           />

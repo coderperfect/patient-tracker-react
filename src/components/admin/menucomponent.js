@@ -16,6 +16,9 @@ const MenuComponent = (props) => {
                 <Link className="nav-link" to="/in-patient-details">In Patient Details</Link>
             </li>
             <li className="nav-item">
+                <Link className="nav-link" to="/billing">Billing</Link>
+            </li>
+            <li className="nav-item">
                 <Link className="nav-link" to="/" onClick={props.logout}>Logout</Link>
             </li>
         </ul>
