@@ -7,7 +7,7 @@ import {MenuComponent} from './components/doctor/menucomponent';
 import TreatmentForm, {TreatmentList} from "./components/doctor/treatmentcomponent";
 import PrescriptionComponent, { PrescriptionForm, PrescriptionView } from './components/doctor/prescriptioncomponent';
 import { TestReportForm, TestReportUpdateForm } from './components/doctor/testreportcomponent';
-class App extends Component {
+class Doctor extends Component {
   constructor(props) {
     localStorage.setItem("meds",JSON.stringify([]))
     localStorage.setItem("med",JSON.stringify({}))
