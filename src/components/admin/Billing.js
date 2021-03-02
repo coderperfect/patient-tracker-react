@@ -1,7 +1,11 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, Table, UncontrolledButtonDropdown } from 'reactstrap';
+import ConsultationBilling from './ConsultationBilling';
+import LabBilling from './LabBilling';
+import NursingBilling from './NursingBilling';
 import PrescriptionBilling from './PrescriptionBilling';
+import StayBilling from './StayBilling';
 
 class Billing extends Component {
     constructor(props) {
@@ -11,10 +15,21 @@ class Billing extends Component {
             patientId: null,
             billing: null,
             showPrescriptionPopUp: false,
-            showConsultationPopUp: false,
+            showConsultationsPopUp: false,
             showStayPopUp: false,
-            showLabPopUp: false,
+            showLabsPopUp: false,
             showNursingPopUp: false,
+            prescription: null,
+            consultations: null,
+            stay: null,
+            nursing: null,
+            labs: null,
+            inPatientRecord: null,
+            billingTotal: 0,
+            consultationsRespose: null,
+            stayRespose: null,
+            labsRespose: null,
+            nursingRespose: null
         }
     }
 
@@ -41,9 +56,9 @@ class Billing extends Component {
                     showPrescriptionPopUp: true
                 });
                 break;
-            case "consultation":
+            case "consultations":
                 this.setState({
-                    showConsultationPopUp: true
+                    showConsultationsPopUp: true
                 });
                 break;
             case "stay":
@@ -51,9 +66,9 @@ class Billing extends Component {
                     showStayPopUp: true
                 });
                 break;
-            case "lab":
+            case "labs":
                 this.setState({
-                    showLabPopUp: true
+                    showLabsPopUp: true
                 });
                 break;
             case "nursing":
@@ -66,9 +81,63 @@ class Billing extends Component {
         }
     }
 
+    setPrescription = (prescription) => {
+        this.setState({
+            prescription: prescription
+        });
+    }
+
     togglePrescriptionPopUp = () => {
         this.setState({
             showPrescriptionPopUp: !this.state.showPrescriptionPopUp
+        })
+    }
+
+    setConsultations = (consultations) => {
+        this.setState({
+            consultations: consultations
+        });
+    }
+
+    toggleConsultationsPopUp = () => {
+        this.setState({
+            showConsultationsPopUp: !this.state.showConsultationsPopUp
+        })
+    }
+
+    setStay = (stay) => {
+        this.setState({
+            stay: stay
+        });
+    }
+
+    toggleStayPopUp = () => {
+        this.setState({
+            showStayPopUp: !this.state.showStayPopUp
+        })
+    }
+
+    setNursing = (nursing) => {
+        this.setState({
+            nursing: nursing
+        });
+    }
+
+    toggleNursingPopUp = () => {
+        this.setState({
+            showNursingPopUp: !this.state.showNursingPopUp
+        })
+    }
+
+    setLabs = (labs) => {
+        this.setState({
+            labs: labs
+        });
+    }
+
+    toggleLabsPopUp = () => {
+        this.setState({
+            showLabsPopUp: !this.state.showLabsPopUp
         })
     }
 
@@ -130,38 +199,104 @@ class Billing extends Component {
     }
 
     renderBillingTable = () => {
-        return (
-            <tbody>
-                <tr key="patientId:">
-                    <td>1</td>
+        let billPrescription = null;
+        let billConsultation = null;
+        let billStay = null;
+        let billNursingCharges = null;
+        let billLabCharges = null;
+        let billTotal = 0;
+        let serialNumber = 0;
+
+        if(this.state.prescription !== null) {
+            billTotal += 1000.00;
+            serialNumber++;
+            billPrescription = (
+                <tr key="billPrescription">
+                    <td>{serialNumber}</td>
                     <td>{"Prescription"}</td>
                     <td>{"15000.00"}</td>
                 </tr>
-                <tr key="First Name:">
-                    <td>2</td>
+            );
+        }
+        else
+            billPrescription = null;
+
+        if(this.state.consultations !== null) {
+            billTotal += 1000.00;
+            serialNumber++;
+            billConsultation = (
+                <tr key="billConsultation">
+                    <td>{serialNumber}</td>
                     <td>{"Consultation"}</td>
                     <td>{"80000.00"}</td>
                 </tr>
-                <tr key="Last Name:">
-                    <td>3</td>
+            );
+        }
+        else
+            billConsultation = null;
+
+        if(this.state.stay !== null) {
+            billTotal += 1000.00;
+            serialNumber++;
+            billStay = (
+                <tr key="billStay">
+                    <td>{serialNumber}</td>
                     <td>{"Stay"}</td>
                     <td>{"100000.00"}</td>
                 </tr>
-                <tr key="Date Of Birth:">
-                    <td>4</td>
+            );
+        }
+        else
+            billStay = null;
+
+        if(this.state.nursing !== null) {
+            billTotal += 1000.00;
+            serialNumber++;
+            billNursingCharges = (
+                <tr key="billNursingCharges">
+                    <td>{serialNumber}</td>
                     <td>{"Nursing Charges"}</td>
                     <td>{"500000.00"}</td>
                 </tr>
-                <tr key="Gender">
-                    <td>5</td>
+            );
+        }
+        else
+            billNursingCharges = null;
+
+        if(this.state.labs !== null) {
+            billTotal += 1000.00;
+            serialNumber++;
+            billLabCharges = (
+                <tr key="billLabCharges">
+                    <td>{serialNumber}</td>
                     <td>{"Lab Charges"}</td>
                     <td>{"300000.00"}</td>
                 </tr>
-                <tr key="Contact Number:">
+            );
+        }
+        else
+            billLabCharges = null;
+
+        if(billTotal !== 0) {
+            billTotal = (
+                <tr key="billTotal">
                     <th></th>
                     <td>{"Total"}</td>
-                    <td>{"995000.00"}</td>
+                    <td>{billTotal}</td>
                 </tr>
+            );
+        }
+        else
+            billTotal = null;
+
+        return (
+            <tbody>
+                {billPrescription}
+                {billConsultation}
+                {billStay}
+                {billNursingCharges}
+                {billLabCharges}
+                {billTotal}
             </tbody>
         );
     }
@@ -190,10 +325,10 @@ class Billing extends Component {
                         
                         <DropdownMenu>
                             <DropdownItem id="prescription" onClick={this.handleComponentClick.bind(this)}>Prescriptions</DropdownItem>
-                            <DropdownItem id="consultation">Consultation</DropdownItem>
-                            <DropdownItem id="stay">Stay</DropdownItem>
-                            <DropdownItem id="lab">Lab Charges</DropdownItem>
-                            <DropdownItem id="nursing">Nursing Charges</DropdownItem>
+                            <DropdownItem id="consultations" onClick={this.handleComponentClick.bind(this)}>Consultation</DropdownItem>
+                            <DropdownItem id="stay" onClick={this.handleComponentClick.bind(this)}>Stay</DropdownItem>
+                            <DropdownItem id="labs" onClick={this.handleComponentClick.bind(this)}>Lab Charges</DropdownItem>
+                            <DropdownItem id="nursing" onClick={this.handleComponentClick.bind(this)}>Nursing Charges</DropdownItem>
                         </DropdownMenu>
                     </UncontrolledButtonDropdown>
                     </Col>
@@ -226,7 +361,11 @@ class Billing extends Component {
 
                 <Button className="mb-5">Generate Bill</Button>
 
-                <PrescriptionBilling modal={this.state.showPrescriptionPopUp} toggle={this.togglePrescriptionPopUp}/>
+                <PrescriptionBilling modal={this.state.showPrescriptionPopUp} toggle={this.togglePrescriptionPopUp} prescription={this.state.prescription} setPrescription={this.setPrescription.bind(this)}/>
+                <ConsultationBilling modal={this.state.showConsultationsPopUp} toggle={this.toggleConsultationsPopUp} consultations={this.state.consultations} setConsultations={this.setConsultations.bind(this)} consultationsRespose={this.state.consultationsRespose}/>
+                <StayBilling modal={this.state.showStayPopUp} toggle={this.toggleStayPopUp} stay={this.state.stay} setStay={this.setStay.bind(this)} stayRespose={this.state.consultationsRespose}/>
+                <LabBilling modal={this.state.showLabsPopUp} toggle={this.toggleLabsPopUp} labs={this.state.labs} setLabs={this.setLabs.bind(this)} labsRespose={this.state.labsRespose}/>
+                <NursingBilling modal={this.state.showNursingPopUp} toggle={this.toggleNursingPopUp} nursing={this.state.nursing} setNursing={this.setNursing.bind(this)} nursingRespose={this.state.nursingRespose}/>
             </div>
         );
     }
