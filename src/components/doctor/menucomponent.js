@@ -7,10 +7,10 @@ const MenuComponent = (props) => {
     const loggedInMenu = (
         <ul className="navbar-nav ml-auto mr-auto">
             <li className="nav-item">
-                <Link className="nav-link" to="/">View Test Results</Link>
+                <Link className="nav-link" to="/viewtestresults">View Test Results</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/">Patient Records</Link>
+                <Link className="nav-link" to="/patientrecords">Patient Records</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/dietexercise">Diet/Exercises</Link>

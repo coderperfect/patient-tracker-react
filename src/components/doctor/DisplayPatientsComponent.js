@@ -7,7 +7,8 @@ class DisplayPatientsComponent extends Component {
         super(props);
         this.state = {
             userId: 32,
-            patients: []
+            patients: [],
+            loaded: false
         }
     }
 
@@ -15,12 +16,18 @@ class DisplayPatientsComponent extends Component {
         Axios.get(`http://localhost:8081/patientrecord/patientids/${this.state.userId}`)
             .then(res => {
                 const data = res.data;
-                console.log(data);
                 this.setState({patients : data});
+                this.setState({loaded: true});
             })
     }
 
     render(){
+        if(!this.state.loaded)
+            return(
+                <div className="spinner-grow" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            );
         if(this.state.patients.length === 0){
             return(
                 <div className='container-fluid'>
@@ -29,27 +36,32 @@ class DisplayPatientsComponent extends Component {
             );
         }
         return(
-            <div className="container-fluid m-auto" style={{width:'50%'}}>
-                <table className="table">
-                    <thead>
-                        <th>Patient Id</th>
-                        <th>Patient Name</th>
-                    </thead>
-                    <tbody>
-                        {this.state.patients.map(patient => {
-                            return(
-                                <tr>
-                                    <td>
-                                        <Link to={`/dietexercise/${patient.patientId}`}>
-                                            {patient.patientId}
-                                        </Link>
-                                    </td>
-                                    <td>{patient.user.firstName + patient.user.lastName}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+            <div className="container-fluid m-auto">
+                <div className='row justify-content-center'>
+                    <div className='col-md-8 col-sm-12'>
+                        <p style={{fontSize:'1.5rem'}}>List of Patients</p>
+                        <table className="table table-hover">
+                            <thead>
+                                <th>Patient Id</th>
+                                <th>Patient Name</th>
+                            </thead>
+                            <tbody>
+                                {this.state.patients.map(patient => {
+                                    return(
+                                        <tr key={patient.patientId}>
+                                            <td>
+                                                <Link to={`/${this.props.from}/${patient.patientId}`}>
+                                                    {patient.patientId}
+                                                </Link>
+                                            </td>
+                                            <td>{patient.user.firstName + ' ' + patient.user.lastName}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -6,6 +6,10 @@ import {Route, Switch} from 'react-router-dom';
 import MenuComponent from './components/doctor/menucomponent';
 import DisplayPatientsComponent from './components/doctor/DisplayPatientsComponent';
 import TreatmentsForPatientComponent from './components/doctor/TreatmentsForPatientComponent';
+import ViewDietDescription from './components/doctor/ViewDietDescription';
+import TestReportsForPatientComponent from './components/doctor/TestReportsForPatientComponent';
+import ViewTestDetails from './components/doctor/ViewTestDetails';
+import ViewPatientRecord from './components/doctor/ViewPatientRecord';
 
 class App extends Component {
   constructor(props) {
@@ -38,14 +42,19 @@ class App extends Component {
         
         <Switch>
           <Route path="/dietexercise" exact>
-            <DisplayPatientsComponent/>
+            <DisplayPatientsComponent from="dietexercise"/>
           </Route>
-          <Route path="/dietexercise/:patientId" exact>
-            <TreatmentsForPatientComponent/>
+          <Route path="/dietexercise/:patientId" exact render={props => <TreatmentsForPatientComponent {...props}/>}/>
+          <Route path="/viewdiet" render={props => <ViewDietDescription {...props}/>}/>
+          <Route path="/viewtestresults" exact>
+            <DisplayPatientsComponent from="viewtestresults"/>
           </Route>
-          {/* <Route path="/dietexercise/:patientId/:treatmentId" exact>
-            <TreatmentsForPatientComponent/>
-          </Route> */}
+          <Route path="/viewtestresults/:patientId" exact render={props => <TestReportsForPatientComponent {...props}/>}/>
+          <Route path="/viewtest" render={props => <ViewTestDetails {...props}/>}/>
+          <Route path="/patientrecords" exact>
+            <DisplayPatientsComponent from="patientrecords"/>
+          </Route>
+          <Route path="/patientrecords/:patientId" exact render={props => <ViewPatientRecord {...props}/>}/>
         </Switch>
       </div>
     );
