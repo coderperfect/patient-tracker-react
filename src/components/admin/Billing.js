@@ -216,7 +216,7 @@ class Billing extends Component {
 
                 <h4>Bill</h4>
 
-                <Table bordered className="container" style={{marginTop:'40px'}}>
+                <Table bordered size="sm" className="container" style={{marginTop:'40px'}}>
                     <thead>
                         <tr key="table-header">
                             <th scope="col">Serial Number</th>
