@@ -133,39 +133,34 @@ class Billing extends Component {
         return (
             <tbody>
                 <tr key="patientId:">
-                    <th>Patient Id:</th>
-                    <td>{"1"}</td>
-                    <td>{"1"}</td>
+                    <td>1</td>
+                    <td>{"Prescription"}</td>
+                    <td>{"15000.00"}</td>
                 </tr>
                 <tr key="First Name:">
-                    <th>First Name:</th>
-                    <td>{"Tony"}</td>
-                    <td>{"1"}</td>
+                    <td>2</td>
+                    <td>{"Consultation"}</td>
+                    <td>{"80000.00"}</td>
                 </tr>
                 <tr key="Last Name:">
-                    <th>Last Name:</th>
-                    <td>{"Stark"}</td>
-                    <td>{"1"}</td>
+                    <td>3</td>
+                    <td>{"Stay"}</td>
+                    <td>{"100000"}</td>
                 </tr>
                 <tr key="Date Of Birth:">
-                    <th>Date Of Birth:</th>
-                    <td>{"inPatientDetails.room.roomNo"}</td>
-                    <td>{"1"}</td>
+                    <td>4</td>
+                    <td>{"Nursing Charges"}</td>
+                    <td>{"500000.00"}</td>
                 </tr>
                 <tr key="Gender">
-                    <th>Gender</th>
-                    <td>{"inPatientDetails.room.roomNo"}</td>
-                    <td>{"1"}</td>
+                    <td>5</td>
+                    <td>{"Lab Charges"}</td>
+                    <td>{"300000.00"}</td>
                 </tr>
                 <tr key="Contact Number:">
-                    <th>Contact Number:</th>
-                    <td>{"inPatientDetails.room.roomNo"}</td>
-                    <td>{"1"}</td>
-                </tr>
-                <tr key="Cause of Visit:">
-                    <th>Cause of Visit:</th>
-                    <td>{"inPatientDetails.room.roomNo"}</td>
-                    <td>{"inPatientDetails.room.roomNo"}</td>
+                    <th></th>
+                    <td>{"Total"}</td>
+                    <td>{"995000.00"}</td>
                 </tr>
             </tbody>
         );
