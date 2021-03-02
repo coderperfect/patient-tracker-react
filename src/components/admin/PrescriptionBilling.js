@@ -27,6 +27,28 @@ const PrescriptionBilling = (props) => {
             <tbody>
                 <tr key="6">
                     <td><Link color="success" onClick={toggleNested}>{"6"}</Link></td>
+                    <td>{"4"}</td>
+                    <td>{"70000.00"}</td>
+                </tr>
+                <tr key="10">
+                    <td><Link color="success" onClick={toggleNested}>{"10"}</Link></td>
+                    <td>{"5"}</td>
+                    <td>{"50000.00"}</td>
+                </tr>
+                <tr key="18">
+                    <td><Link color="success" onClick={toggleNested}>{"18"}</Link></td>
+                    <td>{"3"}</td>
+                    <td>{"140000.00"}</td>
+                </tr>
+            </tbody>
+        );
+    }
+
+    const renderPrescriptionTable = () => {
+        return (
+            <tbody>
+                <tr key="6">
+                    <td><Link color="success" onClick={toggleNested}>{"6"}</Link></td>
                     <td>{"1"}</td>
                     <td>{"70000.00"}</td>
                 </tr>
@@ -69,7 +91,7 @@ const PrescriptionBilling = (props) => {
                         <thead>
                             <tr key="table-header">
                                 <th scope="col">Prescription Id</th>
-                                <th scope="col">PatientId</th>
+                                <th scope="col">Number of Items</th>
                                 <th scope="col">Amount (Rs.)</th>
                             </tr>
                         </thead>
