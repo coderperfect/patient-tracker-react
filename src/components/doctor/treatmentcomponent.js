@@ -22,7 +22,7 @@ export function Treatment(props) {
           <CardTitle className="text-left" tag="h7"><b>Treatment Description:  </b> {props.treatment.treatmentDescription}</CardTitle>
           <CardTitle tag="h7"><b>Diet Description:  </b> {props.treatment.dietExcerciseDescription}</CardTitle>
           <CardTitle  tag="h7"><b>Treatment Cost:  </b>{props.treatment.treatmentCost}</CardTitle>
-          <Button color="info" id={props.treatment.treatmentId} style={{width:"200px", marginLeft: "auto"}} onClick={props.handleUpdate} >Update</Button>
+          <Button color="info" id={props.treatment.treatmentId} style={{width:"200px", marginLeft: "auto", visibility:props.visible}} onClick={props.handleUpdate} >Update</Button>
         </Card>
       
   )
@@ -71,7 +71,7 @@ export function TreatmentList(props) {
               (
               treatments.map(treatment => {
                 treatmentObj[treatment.treatmentId]=treatment;
-                return <Treatment handleUpdate={handleUpdate} treatment={treatment} />
+                return <Treatment visible="visible" handleUpdate={handleUpdate} treatment={treatment} />
               })
               )
               

@@ -7,22 +7,22 @@ const MenuComponent = (props) => {
     const loggedInMenu = (
         <ul className="navbar-nav">
             <li className="nav-item">
-                <Link className="nav-link" to="/registration-approvals-list">Registrations Approvals</Link>
+                <Link className="nav-link" to="/admin/registration-approvals-list">Registrations Approvals</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/patient-list">Patient Details</Link>
+                <Link className="nav-link" to="/admin/patient-list">Patient Details</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/update-test-results">Update Test Results</Link>
+                <Link className="nav-link" to="/admin/update-test-results">Update Test Results</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/in-patient-details">In Patient Details</Link>
+                <Link className="nav-link" to="/admin/in-patient-details">In Patient Details</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/billing">Billing</Link>
+                <Link className="nav-link" to="/admin/billing">Billing</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={props.logout}>Logout</Link>
+                <Link className="nav-link" to="/logout" onClick={props.logout}>Logout</Link>
             </li>
         </ul>
     );

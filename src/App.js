@@ -10,6 +10,7 @@ import { TestReportForm, TestReportUpdateForm } from './components/doctor/testre
 import {Alert } from 'reactstrap';
 import Doctor from "./components/doctor/doctorcomponent";
 import Admin from "./components/admin/admincomponent";
+import Patient from './components/patient/patientcomponent';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -39,8 +40,8 @@ class App extends Component {
       <div className="App">
         <Switch>
          <PrivateRoute path="/doctor" component ={Doctor} />
-         <PrivateRoute component="/admin" component={Admin} />
-         <PrivateRoute component="/patient" component={Admin} />
+         <PrivateRoute path="/admin" component={Admin} />
+         <PrivateRoute path="/patient" component={Patient} />
         </Switch> 
         
       </div> 

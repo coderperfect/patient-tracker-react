@@ -7,16 +7,16 @@ const MenuComponent = (props) => {
     const loggedInMenu = (
         <ul className="navbar-nav">
             <li className="nav-item">
-                <Link className="nav-link" to="/test-results">Test Results</Link>
+                <Link className="nav-link" to="/patient/testresults">Test Details</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/treatment-history">Treatment History</Link>
+                <Link className="nav-link" to="/patient/treatment-history">Treatment History</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/diet">Diet/Exercise Recommendations</Link>
+                <Link className="nav-link" to="/patient/diet">Diet/Exercise Recommendations</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={props.logout}>Logout</Link>
+                <Link className="nav-link" to="/logout" onClick={props.logout}>Logout</Link>
             </li>
         </ul>
     );

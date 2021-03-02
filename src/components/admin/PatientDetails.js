@@ -59,7 +59,7 @@ function PatientDetails(props) {
                         <td scope="row">{item.patientId}</td>
                         <td>{item.user.firstName}  {item.user.lastName}</td>
                         <td><Button color="primary" onClick={() => handleClick(item.patientId)} >View Details</Button>{' '}
-                            <Link to={{ pathname: '/edit-patient', aboutProps: { edit: item } }}>Edit Details</Link>
+                            <Link to={{ pathname: '/admin/edit-patient', aboutProps: { edit: item } }}>Edit Details</Link>
                         </td>
                     </tr>)}
 

@@ -4,7 +4,8 @@ import MenuComponent from './menucomponent';
 import TestDetailsForPatient from './TestDetailsForPatient';
 import TreatmentHistory from './TreatmentHistory';
 import DietComponent from './DietComponent';
-import DietDetails from './DietDetails'
+import DietDetails from './DietDetails';
+import TestResults from "./TestResults";
 class Patient extends Component {
   constructor(props) {
     super(props);
@@ -33,12 +34,12 @@ class Patient extends Component {
     return (
       <div className="App">
         <MenuComponent isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
-        
         <Switch>
-          <Route path="/test-details-for-patient" render={props => <TestDetailsForPatient {...props} />} />
-          <Route path="/treatment-history" component={TreatmentHistory} />
-          <Route path="/diet" component={DietComponent} />
-          <Route path="/view-diet-details" component={DietDetails} />
+          <Route path="/patient/testresults" exact render={props => <TestResults {...props} />} />
+          <Route path="/patient/test-details-for-patient" render={props => <TestDetailsForPatient {...props} />} />
+          <Route path="/patient/treatment-history" component={TreatmentHistory} />
+          <Route path="/patient/diet" component={DietComponent} />
+          <Route path="/patient/view-diet-details" component={DietDetails} />
         </Switch>
       </div>
     );

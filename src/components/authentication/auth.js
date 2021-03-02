@@ -3,7 +3,7 @@ class Auth {
         this.isloggedin=false;
         this.doctorId=32;
         localStorage.setItem("doctorId",this.doctorId);
-        localStorage.setItem("token","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDAiLCJpYXQiOjE2MTQ2ODMzMjIsInJvbGUiOiJST0xFX0FETUlOIiwiZXhwIjoxNjE0NzIyMzIyfQ.ObTHYRCvZpSJUFuk_X3fCtrB3WpqlHZ7xpp4BBcIm6k");
+        localStorage.setItem("token","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDAiLCJpYXQiOjE2MTQ2OTYxMTYsInJvbGUiOiJST0xFX0FETUlOIiwiZXhwIjoxNjE0NzM1MTE2fQ.SoLfY_-0573GXMGsKDjzjc9TLq04TTrV6wyF0t-pkHk");
         //localStorage.setItem("token","");
     }
 

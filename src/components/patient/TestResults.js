@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import API from '../api/api';
 import { Link } from 'react-router-dom';
-
+import auth from "../authentication/auth";
 class TestResults extends Component {
     constructor(props) {
         super(props);
@@ -9,11 +9,11 @@ class TestResults extends Component {
             testreports: [],
             loaded: false
         }
+        
     }
 
     async componentDidMount() {
-        let patientId = 31
-        API.get(`/patientrecord/patientrecord/${patientId}`)
+        API.get(`patient/patientrecord/${auth.getRecordId()}`)
             .then(res => {
                 const data = res.data;
                 this.setState({ testreports: data.testreports });
@@ -25,18 +25,23 @@ class TestResults extends Component {
     }
 
     render() {
-        if (!this.state.loaded)
+    
+        if (!this.state.loaded) {
             return (
                 <div className="spinner-grow" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
             );
-        if (this.state.testreports.length <= 0)
+        }
+        else if (this.state.testreports.length === 0) {
             return (
                 <div className="container-fluid justify-content-center">
                     <span>No Test Report present</span>
                 </div>
             );
+        }
+           
+        else {
         return (
             <div className='container-fluid'>
                 <p className='justify-content-center' style={{ fontSize: '1.5rem' }}>Patient Details</p>
@@ -107,6 +112,7 @@ class TestResults extends Component {
                 </div>
             </div>
         );
+        }
     }
 }
 

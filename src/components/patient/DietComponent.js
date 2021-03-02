@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import API from '../api/api';
 import { Link } from 'react-router-dom';
-
+import auth from "../authentication/auth";
 
 class DietComponent extends Component {
     constructor(props) {
@@ -23,8 +23,8 @@ class DietComponent extends Component {
     };
 
     async componentDidMount() {
-        let patientId = 31
-        API.get(`/patientrecord/patientrecord/${patientId}`)
+       
+        API.get(`patient/patientrecord/${auth.getRecordId()}`)
             .then(res => {
                 const data = res.data;
                 this.setState({ patientrecord: data });
@@ -61,7 +61,7 @@ class DietComponent extends Component {
                                             <td><p>Treatment ID: <span>{treatment.treatmentId}</span></p></td>
                                             <td>
                                                 {treatment.dietExcerciseDescription ?
-                                                    <Link to={{ pathname: '/view-diet-details', aboutProps: { treatment: treatment } }}>Read Diet & Exercise Description</Link>
+                                                    <Link to={{ pathname: '/patient/view-diet-details', aboutProps: { treatment: treatment } }}>Read Diet & Exercise Description</Link>
                                                     : <span>No Diet or Exercise Available </span>
                                                 }
 

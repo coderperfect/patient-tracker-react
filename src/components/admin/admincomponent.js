@@ -37,12 +37,12 @@ class Admin extends Component {
         <MenuComponent isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
         
         <Switch>
-        <Route path="/registration-approvals-list" component={RegistrationApprovalList} />
-          <Route path="/patient-list" component={PatientList} />
+        <Route path="/admin/registration-approvals-list" component={RegistrationApprovalList} />
+          <Route path="/admin/patient-list" component={PatientList} />
           
-          <Route path="/edit-patient" component={EditPatient} />
+          <Route path="/admin/edit-patient" component={EditPatient} />
           <Route 
-            path="/update-test-results" exact
+            path="/admin/update-test-results" exact
             render={
               this.state.isLoggedIn
               ? (props) => <PendingTestResults {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
@@ -50,7 +50,7 @@ class Admin extends Component {
             }
           />
           <Route 
-            path="/in-patient-details" exact
+            path="/admin/in-patient-details" exact
             render={
               this.state.isLoggedIn
               ? (props) => <InPatients {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
@@ -58,7 +58,7 @@ class Admin extends Component {
             }
           />
           <Route 
-            path="/billing" exact
+            path="/admin/billing" exact
             render={
               this.state.isLoggedIn
               ? (props) => <Billing {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>

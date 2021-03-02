@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap';
-import API from '../api/api'
+import API from '../api/api';
+import {Treatment, TreatmentList } from "../doctor/treatmentcomponent";
 class TreatmentHistory extends Component {
 
 
@@ -16,7 +17,7 @@ class TreatmentHistory extends Component {
     componentDidMount() {
         let tList = []
         let patientId = 31;
-        API.get(`/treatment/history/${patientId}`).then(
+        API.get(`treatment/history/${patientId}`).then(
             (response) => {
                 response.data.map(
                     (treat) => {
@@ -35,26 +36,18 @@ class TreatmentHistory extends Component {
 
     render() {
         return (
-            <div>
-                <Table striped>
-                    <thead>
-                        <tr>
-                            <th>Treatment Id</th>
-                            <th>Treatment Description</th>
-                            <th>Treatment Cost</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.treatmentHistory.map((item) =>
-                            <tr>
-                                <th scope="row">{item.treatmentId}</th>
-                                <td>{item.treatmentDescription}</td>
-                                <td>{item.treatmentCost}</td>
-                            </tr>)}
-
-                    </tbody>
-                </Table>
+            <div className="row">
+                <div className="container col col-md-2"></div>
+                <div className="container col col-md-8">
+                    
+                            {
+                            this.state.treatmentHistory.map((item) => {
+                                return <Treatment treatment={item} visible="collapse" />
+                            })
+                            }                 
+                                
+                </div>
+                <div className="container col col-md-2"></div>
             </div>
         )
     }
