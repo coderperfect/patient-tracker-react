@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 
 const PrescriptionBilling = (props) => {
     const {
@@ -22,6 +22,28 @@ const PrescriptionBilling = (props) => {
         setCloseAll(true);
     }
 
+    const renderPrescriptionListTable = () => {
+        return (
+            <tbody>
+                <tr key="6">
+                    <td><Link color="success" onClick={toggleNested}>{"6"}</Link></td>
+                    <td>{"1"}</td>
+                    <td>{"70000.00"}</td>
+                </tr>
+                <tr key="10">
+                    <td><Link color="success" onClick={toggleNested}>{"10"}</Link></td>
+                    <td>{"15"}</td>
+                    <td>{"50000.00"}</td>
+                </tr>
+                <tr key="18">
+                    <td><Link color="success" onClick={toggleNested}>{"18"}</Link></td>
+                    <td>{"1"}</td>
+                    <td>{"140000.00"}</td>
+                </tr>
+            </tbody>
+        );
+    }
+
     const nestedModalContent = (
         <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
             <ModalHeader>Prescription Id: One</ModalHeader>
@@ -41,7 +63,18 @@ const PrescriptionBilling = (props) => {
                 <ModalHeader toggle={toggle}>Prescriptions Not Billed</ModalHeader>
 
                 <ModalBody>
-                    Select <Link color="success" onClick={toggleNested}>One</Link> Prescription
+                    <h6>Select  Prescription</h6>
+
+                    <Table bordered size="sm" className="container" style={{marginTop:'40px'}}>
+                        <thead>
+                            <tr key="table-header">
+                                <th scope="col">Prescription Id</th>
+                                <th scope="col">PatientId</th>
+                                <th scope="col">Amount (Rs.)</th>
+                            </tr>
+                        </thead>
+                        {renderPrescriptionListTable()}
+                    </Table>
                     
                     <br/>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Form, FormGroup, Input, Label, Row, Table } from 'reactstrap';
+import { Button, Col, Form, FormGroup, Input, Label, Row} from 'reactstrap';
 
 const AddInPatient = (props) => {
     return (

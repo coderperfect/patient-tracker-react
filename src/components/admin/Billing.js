@@ -145,7 +145,7 @@ class Billing extends Component {
                 <tr key="Last Name:">
                     <td>3</td>
                     <td>{"Stay"}</td>
-                    <td>{"100000"}</td>
+                    <td>{"100000.00"}</td>
                 </tr>
                 <tr key="Date Of Birth:">
                     <td>4</td>
