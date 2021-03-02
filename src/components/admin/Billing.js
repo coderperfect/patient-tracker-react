@@ -1,4 +1,4 @@
-import axios from 'axios';
+import API from '../api/api';
 import React, {Component} from 'react';
 import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, Table, UncontrolledButtonDropdown } from 'reactstrap';
 import PrescriptionBilling from './PrescriptionBilling';
@@ -76,8 +76,8 @@ class Billing extends Component {
         event.preventDefault();
 
         try {
-            const response = await axios.get(
-                `http://localhost:8081/billing/${this.state.patientId}`
+            const response = await API.get(
+                `billing/${this.state.patientId}`
             );
 
             this.setState({

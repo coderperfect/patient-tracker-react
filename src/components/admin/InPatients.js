@@ -1,4 +1,4 @@
-import axios from 'axios';
+import API from '../api/api';
 import React, {Component} from 'react';
 import { Button, Col, Row} from 'reactstrap';
 import AddInPatient from './AddInPatient';
@@ -23,7 +23,7 @@ class InPatients extends Component {
 
     async componentDidMount() {
         try {
-            const response = await axios.get("http://localhost:8081/inpatientrecord");
+            const response = await API.get("inpatientrecord");
             this.setState({
                 inPatientList: response.data
             });
@@ -90,8 +90,8 @@ class InPatients extends Component {
         event.preventDefault();
 
         try {
-            const response = await axios.post(
-                `http://localhost:8081/inpatientrecord/${this.state.addPatientId}/${this.state.addRoomNo}`,
+            const response = await API.post(
+                `inpatientrecord/${this.state.addPatientId}/${this.state.addRoomNo}`,
                 {
                     admissionDate: this.state.addAdmissionDate
                 }
@@ -108,8 +108,8 @@ class InPatients extends Component {
         event.preventDefault();
 
         try {
-            const response = await axios.put(
-                `http://localhost:8081/inpatientrecord`,
+            const response = await API.put(
+                `inpatientrecord`,
                 {
                     inPatientRecordId: this.state.inPatientDetails.inPatientRecordId,
                     admissionDate: this.state.addAdmissionDate,
@@ -130,7 +130,7 @@ class InPatients extends Component {
         });
 
         try {
-            const response = await axios.get("http://localhost:8081/inpatientrecord");
+            const response = await API.get("inpatientrecord");
             this.setState({
                 inPatientList: response.data
             });
@@ -146,7 +146,7 @@ class InPatients extends Component {
         });
 
         try {
-            const response = await axios.get(`http://localhost:8081/inpatientrecord/${this.state.inPatientDetails.inPatientRecordId}`);
+            const response = await API.get(`inpatientrecord/${this.state.inPatientDetails.inPatientRecordId}`);
             this.setState({
                 inPatientDetails: response.data
             });
