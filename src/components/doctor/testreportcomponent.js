@@ -11,9 +11,11 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import AsyncSelect from 'react-select/async';
 import auth from "../authentication/auth";
 import { Alert } from "bootstrap";
+import { useHistory } from "react-router";
 
 export function TestReportForm(props) {
 
+    const history = useHistory();
     const test={
         "testId": "",
         "testName": "",
@@ -58,7 +60,7 @@ export function TestReportForm(props) {
         .then(response => {
             console.log(response);
             alert("Test Created Successfully");
-            props.history.push("/")
+            history.push("/")
         })
     }
 

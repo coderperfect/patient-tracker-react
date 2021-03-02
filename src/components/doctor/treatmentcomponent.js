@@ -68,7 +68,6 @@ export function TreatmentList(props) {
           <div className="col col-md-8 col-sm-12">
           <Alert color="info"><b>Patient Treatment History</b></Alert>
             {
-            
               (
               treatments.map(treatment => {
                 treatmentObj[treatment.treatmentId]=treatment;

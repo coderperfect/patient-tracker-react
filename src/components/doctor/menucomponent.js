@@ -10,22 +10,16 @@ export function NavbarUser() {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
               <li class="nav-item">
-                  <a class="nav-link" href="/treatments">Treatments</a>
+                  <a class="nav-link" href="/doctor/patientrecord/patientrecords">Patient Records</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/prescriptions">Prescriptions</a>
+                  <a class="nav-link" href="/doctor/patientrecord/viewtestresults">View Test Reports</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/viewprescriptions">View Prescription</a>
+                  <a class="nav-link" href="/doctor/patientrecord/dietexercise">Diet/Exercises</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/testreports">Test Reports</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/updatetestreports">Add Test Reports</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/logout">Logout</a>
+                  <a class="nav-link" href="/doctor/patientrecord/logout">Logout</a>
               </li>
           </ul>
         </div>

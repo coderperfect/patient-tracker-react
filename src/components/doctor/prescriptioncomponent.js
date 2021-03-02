@@ -20,8 +20,10 @@ export function PrescriptionView(props) {
     useEffect(() => {
         API.get(`patientrecord/prescriptions/${auth.getRecordId()}/${auth.getDoctorId()}`)
         .then(response => {
+            console.log(response.data);
             setPrescriptions(response.data);
             setLoading(false);
+            
         })
     }, []);
 
@@ -240,7 +242,8 @@ export function Prescription(props) {
         var meds = JSON.parse(localStorage.getItem("meds"));
         meds = meds.map(object => {
             var temp = Object.assign({}, object);
-            if(temp.medicineQuantityId===medq.medicineQuantityId)
+            console.log(medq,temp)
+            if(temp.medicineQuantityid===medq.medicineQuantityid)
             {
                 temp.quantity = quant;
                 temp.noOfDays = days;

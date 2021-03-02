@@ -1,11 +1,10 @@
 class Auth {
     constructor(){
         this.isloggedin=false;
-        this.recordId=1;
-        this.doctorId=2;
-        localStorage.setItem("recordId",this.recordId);
+        this.doctorId=32;
         localStorage.setItem("doctorId",this.doctorId);
-        localStorage.setItem("token","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjE0NjMzMTQyLCJyb2xlIjoiUk9MRV9ET0NUT1IiLCJleHAiOjE2MTQ2NzIxNDJ9.qXtsNHr1Ffms3g4atInHPaW12WxlLBkplzQ4BwjA-Yg");
+        localStorage.setItem("token","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDAiLCJpYXQiOjE2MTQ2ODMzMjIsInJvbGUiOiJST0xFX0FETUlOIiwiZXhwIjoxNjE0NzIyMzIyfQ.ObTHYRCvZpSJUFuk_X3fCtrB3WpqlHZ7xpp4BBcIm6k");
+        //localStorage.setItem("token","");
     }
 
     getRecordId() {
