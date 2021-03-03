@@ -5,21 +5,22 @@ const MenuComponent = (props) => {
     const isLoggedIn = props.isLoggedIn;
 
     const loggedInMenu = (
-        <ul className="navbar-nav">
+        <ul className="navbar-nav" style={{backgroundColor:"#138496"}}>
+            
             <li className="nav-item">
-                <Link className="nav-link" to="/login">Login</Link>
+                <Link className="nav-link" to="/clerk/patient-list">Patient Details</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/register">Register</Link>
+                <Link className="nav-link" to="/clerk/billing">Billing</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/help">Help</Link>
+                <Link className="nav-link" to="/login" onClick={props.logout}>Logout</Link>
             </li>
         </ul>
     );
 
     const notLoggedInMenu = (
-        <ul className="navbar-nav">
+        <ul className="navbar navbar-expand-md navbar-bg-white" style={{backgroundColor:"#138496"}}>
             <li className="nav-item">
                 <Link className="nav-link" to="/login">Login</Link>
             </li>
@@ -34,8 +35,7 @@ const MenuComponent = (props) => {
         menu = notLoggedInMenu;
 
     return (
-        <div>
-        <nav className="navbar navbar-expand-md navbar-bg-white" style={{backgroundColor:"#138496"}}>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <Link className="navbar-brand" to="/">Patient Tracker</Link>
 
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,12 +43,8 @@ const MenuComponent = (props) => {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
                 {menu}
-                
             </div>
         </nav>
-        <div>
-        </div>
-        </div>
     );
 }
 

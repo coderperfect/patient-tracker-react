@@ -1,9 +1,7 @@
 class Auth {
     constructor(){
         this.isloggedin=false;
-        this.doctorId=32;
-        localStorage.setItem("doctorId",this.doctorId);
-        localStorage.setItem("token","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDAiLCJpYXQiOjE2MTQ3NTA5NTUsInJvbGUiOiJST0xFX0FETUlOIiwiZXhwIjoxNjE0Nzg5OTU1fQ.wQpYL2sDLoLFGZqq5EhC6qaW6ef8bTTQ0Oo9iMW0-CE");
+        //localStorage.setItem("token","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDAiLCJpYXQiOjE2MTQ3NDczNzgsInJvbGUiOiJST0xFX0FETUlOIiwiZXhwIjoxNjE0Nzg2Mzc4fQ.W2kwa90Gf-CbDvgQvDeyC838BgxTsnZk7DAk8r2hbUs");
         //localStorage.setItem("token","");
     }
 
@@ -12,7 +10,11 @@ class Auth {
     }
 
     getDoctorId() {
-        return localStorage.getItem("doctorId");
+        return localStorage.getItem("userId");
+    }
+
+    getUserId() {
+        return localStorage.getItem("userId");
     }
 
     getAuthToken() {

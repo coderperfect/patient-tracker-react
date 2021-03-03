@@ -65,3 +65,16 @@
 .text-bold {
     font-weight: bolder;
 }
+
+td {
+    width:200px;
+}
+
+.nav-link, .navbar-brand {
+    color: white;
+    
+}
+
+nav-link:hover {
+    background-color: "#138496";
+}

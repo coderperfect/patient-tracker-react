@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import "../Stylesheets/mystyle.css";
 const MenuComponent = (props) => {
     const isLoggedIn = props.isLoggedIn;
 
@@ -22,7 +22,7 @@ const MenuComponent = (props) => {
                 <Link className="nav-link" to="/admin/billing">Billing</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/logout" onClick={props.logout}>Logout</Link>
+                <Link className="nav-link" to="/login" onClick={props.logout}>Logout</Link>
             </li>
         </ul>
     );
@@ -43,7 +43,7 @@ const MenuComponent = (props) => {
         menu = notLoggedInMenu;
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-md navbar-bg-white" style={{backgroundColor:"#138496"}}>
             <Link className="navbar-brand" to="/">Patient Tracker</Link>
 
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import MenuComponent from './menucomponent';
-import PendingTestResults from './PendingTestResults';
-import InPatients from './InPatients';
 import Billing from './Billing';
 import EditPatient from './EditPatient';
-import RegistrationApprovalList from './RegistrationApprovalList';
 import PatientList from './PatientList';
-import UserRegistrationComponent from '../admin/UserRegistration';
-class Admin extends Component {
+class Clerk extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,28 +37,28 @@ class Admin extends Component {
         <MenuComponent isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
         
         <Switch>
-        <Route path="/admin/registration-approvals-list" component={RegistrationApprovalList} />
-          <Route path="/admin/patient-list" component={PatientList} />
-          <Route path="/admin/edit-patient" component={EditPatient} />
-          <Route path="/admin/add-patient" component={UserRegistrationComponent} />
-          <Route 
-            path="/admin/update-test-results" exact
+        {/* <Route path="/clerk/registration-approvals-list" component={RegistrationApprovalList} /> */}
+          <Route path="/clerk/patient-list" component={PatientList} />
+          <Route path="/clerk/edit-patient" component={EditPatient} />
+          {/* <Route path="/clerk/add-patient" component={UserRegistrationComponent} /> */}
+          {/* <Route 
+            path="/clerk/update-test-results" exact
             render={
               this.state.isLoggedIn
               ? (props) => <PendingTestResults {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
               : null
             }
-          />
-          <Route 
-            path="/admin/in-patient-details" exact
+          /> */}
+          {/* <Route 
+            path="/clerk/in-patient-details" exact
             render={
               this.state.isLoggedIn
               ? (props) => <InPatients {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
               : null
             }
-          />
+          /> */}
           <Route 
-            path="/admin/billing" exact
+            path="/clerk/billing" exact
             render={
               this.state.isLoggedIn
               ? (props) => <Billing {...props} isLoggedIn={this.state.isLoggedIn} user={this.state.user}/>
@@ -75,4 +71,4 @@ class Admin extends Component {
   }
 }
 
-export default Admin;
+export default Clerk;

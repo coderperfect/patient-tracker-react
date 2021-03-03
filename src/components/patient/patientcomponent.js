@@ -18,8 +18,12 @@ class Patient extends Component {
   logout = () => {
     this.setState({
       isLoggedIn: false,
-      user: null
+      user: null,
+      
     })
+    localStorage.setItem("role","");
+    localStorage.setItem("token","");
+    localStorage.setItem("userId","");
   }
 
   login = (user) => {

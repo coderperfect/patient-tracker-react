@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap';
+import auth from "../authentication/auth";
 import API from '../api/api';
 import {Treatment, TreatmentList } from "../doctor/treatmentcomponent";
 class TreatmentHistory extends Component {
@@ -16,8 +17,7 @@ class TreatmentHistory extends Component {
 
     componentDidMount() {
         let tList = []
-        let patientId = 31;
-        API.get(`treatment/history/${patientId}`).then(
+        API.get(`treatment/history/${auth.getUserId()}`).then(
             (response) => {
                 response.data.map(
                     (treat) => {

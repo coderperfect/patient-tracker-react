@@ -1,6 +1,7 @@
 import API from '../api/api';
 import React, {Component} from 'react';
 import UpdatePendingTestResult from './UpdatePendingTestResult';
+import LoadingComponent from '../LoadingComponent';
 
 class PendingTestResults extends Component {
     constructor(props) {
@@ -103,7 +104,7 @@ class PendingTestResults extends Component {
 
     renderTableSkeleton = () => {
         if(this.state.testReportList === null){
-            return "loading";
+            return <LoadingComponent/>
         }
         
         let table = (
@@ -150,7 +151,6 @@ class PendingTestResults extends Component {
             );
         }
     }
-
     render() {
         return (
             this.renderContent()

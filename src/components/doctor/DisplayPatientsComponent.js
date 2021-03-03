@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import API from '../api/api';
 import {Link} from 'react-router-dom';
-
+import auth from '../authentication/auth';
+import LoadingComponent from '../LoadingComponent';
+import {Alert} from "reactstrap";
 class DisplayPatientsComponent extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userId: 32,
+            userId: auth.getDoctorId(),
             patients: [],
             loaded: false
         }
@@ -24,22 +26,19 @@ class DisplayPatientsComponent extends Component {
     render(){
         if(!this.state.loaded)
             return(
-                <div className="spinner-grow" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
+               <LoadingComponent/>
             );
         if(this.state.patients.length === 0){
             return(
-                <div className='container-fluid'>
-                    <h2>There are no patients present</h2>
-                </div>
-            );
+               
+                    <Alert color="danger">There are no patients present</Alert>
+            )     
         }
         return(
             <div className="container-fluid m-auto">
                 <div className='row justify-content-center'>
                     <div className='col-md-8 col-sm-12'>
-                        <p style={{fontSize:'1.5rem'}}>List of Patients</p>
+                        <Alert color="info"><p style={{fontSize:'1.5rem'}}>List of Patients</p></Alert>
                         <table className="table table-hover">
                             <thead>
                                 <th>Patient Id</th>

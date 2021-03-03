@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import API from '../api/api'
+import LoadingComponent from '../LoadingComponent'
 import RegistrationApproval from './RegistrationApproval'
 class RegistrationApprovalList extends Component {
 
@@ -36,7 +37,7 @@ class RegistrationApprovalList extends Component {
 
                 {
                     this.state.approvalList.length > 0 ? <RegistrationApproval u={this.state.approvalList} />
-                        : "No Users for pending Approval"
+                        : <LoadingComponent/>
                 }
             </div>
         )
