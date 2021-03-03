@@ -1,29 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom"
-import MenuComponent from './components/admin/menucomponent';
-
-import RegistrationApprovalList from './components/admin/RegistrationApprovalList';
-import axios from "axios";
-import PatientList from './components/admin/PatientList';
-import TestResults from './components/patient/TestResults';
-import TestDetailsForPatient from './components/patient/TestDetailsForPatient';
-import TreatmentHistory from './components/patient/TreatmentHistory';
-import DietComponent from './components/patient/DietComponent';
-import DietDetails from './components/patient/DietDetails';
-import EditPatient from './components/admin/EditPatient';
-
-
+import auth from "../src/components/authentication/auth";
+import React, {Component, Redirect} from 'react';
+import {Route, Switch} from 'react-router-dom';
+import {MenuComponent} from './components/doctor/menucomponent';
+import TreatmentForm, {TreatmentList} from "./components/doctor/treatmentcomponent";
+import PrescriptionComponent, { PrescriptionForm, PrescriptionView } from './components/doctor/prescriptioncomponent';
+import { TestReportForm, TestReportUpdateForm } from './components/doctor/testreportcomponent';
+import {Alert } from 'reactstrap';
+import Doctor from "./components/doctor/doctorcomponent";
+import Admin from "./components/admin/admincomponent";
+import Patient from './components/patient/patientcomponent';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoggedIn: true,
-      user: null
-    }
+      user: null,
+    }  
   }
+  
 
   logout = () => {
     this.setState({
@@ -38,25 +33,36 @@ class App extends Component {
       user: user
     })
   }
-
-  render() {
+ 
+ render() {
     return (
       <div className="App">
-        <Router>
-          <MenuComponent isLoggedIn={this.state.isLoggedIn} logout={this.logout} />
-
-          <Route path="/registration-approvals-list" component={RegistrationApprovalList} />
-          <Route path="/patient-list" component={PatientList} />
-          <Route path="/test-results" exact render={props => <TestResults {...props} />} />
-          <Route path="/test-details-for-patient" render={props => <TestDetailsForPatient {...props} />} />
-          <Route path="/treatment-history" component={TreatmentHistory} />
-          <Route path="/diet" component={DietComponent} />
-          <Route path="/view-diet-details" component={DietDetails} />
-          <Route path="/edit-patient" component={EditPatient} />
-        </Router>
-      </div>
+        <Switch>
+         <PrivateRoute path="/doctor" component ={Doctor} />
+         <PrivateRoute path="/admin" component={Admin} />
+         <PrivateRoute path="/patient" component={Patient} />
+        </Switch> 
+        
+      </div> 
     );
   }
 }
+
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+  {...rest}
+  render={props =>
+  
+  auth.getAuthToken().length > 1 ? 
+  (
+  <Component {...props} />
+  ) :
+  (
+    <Alert color="danger">Invalid Access</Alert>
+  )
+  }
+  />
+  );
 
 export default App;

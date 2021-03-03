@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from "axios";
+import API from '../api/api'
 import PatientDetails from './PatientDetails'
 class PatientList extends Component {
 
@@ -13,7 +13,7 @@ class PatientList extends Component {
 
     componentDidMount() {
         let pList = []
-        axios.get("http://localhost:8081/patient").then(
+        API.get("patient/getallpatients").then(
             (response) => {
                 response.data.map(
                     (patient) => {

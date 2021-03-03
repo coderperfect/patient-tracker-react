@@ -1,13 +1,15 @@
 import React from 'react'
 import { Table, Button } from 'reactstrap';
-import base_url from '../api/bootapi';
-import axios from "axios";
+import API from '../api/api';
+import TestResults from '../patient/TestResults';
+import DietComponent from '../patient/DietComponent';
+import TreatmentHistory from '../patient/TreatmentHistory';
 function RegistrationApproval(props) {
 
     console.log(props)
     function handleApproval(userId) {
         console.log(userId)
-        axios.patch(`http://localhost:8081/user/approval/${userId}`).then(
+        API.patch(`/user/approval/${userId}`).then(
             (response) => {
                 alert("Request Approved")
                 window.location.reload();
@@ -16,7 +18,7 @@ function RegistrationApproval(props) {
     }
     function handleDenial(userId) {
         console.log(userId)
-        axios.patch(`http://localhost:8081/user/denial/${userId}`).then(
+        API.patch(`/user/denial/${userId}`).then(
             (response) => {
                 alert("Request Denied")
                 window.location.reload();

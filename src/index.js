@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/js/src/collapse.js";
+import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.js';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 const app = (
   <BrowserRouter>
     <App />

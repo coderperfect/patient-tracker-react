@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Table, Button, NavLink, Modal, ModalHeader, ModalBody, ModalFooter, buttonLabel } from 'reactstrap';
-import axios from "axios";
+import API from '../api/api'
 import { Link } from 'react-router-dom';
 import EditPatient from './EditPatient'
 function PatientDetails(props) {
 
 
     function handleClick(patientId) {
-        axios.get(`http://localhost:8081/patient/details/${patientId}`).then(
+        API.get(`patient/details/${patientId}`).then(
             (response) => {
 
                 setdetails(response.data)
@@ -51,7 +51,6 @@ function PatientDetails(props) {
                         <th>Patient Id</th>
                         <th>Name</th>
                         <th></th>
-                        <th></th>
 
                     </tr>
                 </thead>
@@ -59,9 +58,9 @@ function PatientDetails(props) {
                     {props.u.map((item) => <tr>
                         <td scope="row">{item.patientId}</td>
                         <td>{item.user.firstName}  {item.user.lastName}</td>
-                        <td><Link to={{ pathname: '/edit-patient', aboutProps: { edit: item } }}>Edit Details</Link>{' '}</td>
-                            <td><Button color="primary" onClick={() => handleClick(item.patientId)} >View Details</Button></td>
-                        
+                        <td><Button color="primary" onClick={() => handleClick(item.patientId)} >View Details</Button>{' '}
+                            <Link to={{ pathname: '/admin/edit-patient', aboutProps: { edit: item } }}>Edit Details</Link>
+                        </td>
                     </tr>)}
 
                 </tbody>

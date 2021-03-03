@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from "axios";
+import API from '../api/api'
 import RegistrationApproval from './RegistrationApproval'
 class RegistrationApprovalList extends Component {
 
@@ -13,14 +13,13 @@ class RegistrationApprovalList extends Component {
 
     componentDidMount() {
         let appList = []
-        axios.get("http://localhost:8081/user").then(
+        API.get("/user").then(
             (response) => {
                 response.data.map(
                     (user) => {
                         appList.push(user)
                     }
                 )
-                
                 this.setState({ approvalList: appList });
             },
             (error) => {

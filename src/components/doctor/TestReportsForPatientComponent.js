@@ -1,50 +1,44 @@
 import React, { Component } from 'react';
 import API from '../api/api';
-import { Link } from 'react-router-dom';
-import auth from "../authentication/auth";
-class TestResults extends Component {
-    constructor(props) {
+import {Link} from 'react-router-dom';
+
+class TestReportsForPatientComponent extends Component {
+    constructor(props){
         super(props);
         this.state = {
             testreports: [],
             loaded: false
         }
-        
     }
 
-    async componentDidMount() {
-        API.get(`patient/patientrecord/${auth.getRecordId()}`)
+    async componentDidMount(){
+        API.get(`patientrecord/patientrecord/${this.props.match.params.patientId}`)
             .then(res => {
                 const data = res.data;
-                this.setState({ testreports: data.testreports });
-                this.setState({ loaded: true });
+                this.setState({testreports : data.testreports});
+                this.setState({loaded: true});
             })
             .catch(error => {
                 alert(error);
             })
     }
 
-    render() {
-    
-        if (!this.state.loaded) {
-            return (
+    render(){
+        if(!this.state.loaded)
+            return(
                 <div className="spinner-grow" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
             );
-        }
-        else if (this.state.testreports.length === 0) {
-            return (
+        if(this.state.testreports.length <= 0)
+            return(
                 <div className="container-fluid justify-content-center">
                     <span>No Test Report present</span>
                 </div>
             );
-        }
-           
-        else {
-        return (
+        return(
             <div className='container-fluid'>
-                <p className='justify-content-center' style={{ fontSize: '1.5rem' }}>Patient Details</p>
+                <p className='justify-content-center' style={{fontSize:'1.5rem'}}>Patient Details</p>
                 <div className='row'>
                     <div className='col-md-6 col-xs-12'>
                         <table className='table'>
@@ -85,8 +79,8 @@ class TestResults extends Component {
                 </div>
                 <div className='row justify-content-center'>
                     <div className='col-md-8 col-xs-12'>
-                        <p style={{ fontSize: '1.5rem' }}>Test Details</p>
-                        <table className='table table-hover' style={{ width: '100%' }}>
+                        <p style={{fontSize:'1.5rem'}}>Test Details</p>
+                        <table className='table table-hover' style={{width:'100%'}}>
                             <thead>
                                 <tr>
                                     <th>Test Report ID</th>
@@ -96,10 +90,10 @@ class TestResults extends Component {
                             </thead>
                             <tbody>
                                 {this.state.testreports.map(report => {
-                                    return (
+                                    return(
                                         <tr key={report.testResultId}>
                                             <td>
-                                                <Link to={{ pathname: '/test-details-for-patient', aboutProps: { report: report } }}>{report.testResultId}</Link>
+                                                <Link to={{pathname:'/doctor/patientrecord/viewtest', aboutProps:{report: report}}}>{report.testResultId}</Link>
                                             </td>
                                             <td>{report.test.testName}</td>
                                             <td>{report.testResult ? 'Done' : 'Pending'}</td>
@@ -112,8 +106,7 @@ class TestResults extends Component {
                 </div>
             </div>
         );
-        }
     }
 }
 
-export default TestResults;
+export default TestReportsForPatientComponent;

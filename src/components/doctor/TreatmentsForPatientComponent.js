@@ -1,70 +1,60 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import API from '../api/api';
-import { Link } from 'react-router-dom';
-import auth from "../authentication/auth";
+import {Link} from 'react-router-dom';
+import ViewDietDescription from './ViewDietDescription';
 
-class DietComponent extends Component {
-    constructor(props) {
+class TreatmentsForPatientComponent extends Component {
+    constructor(props){
         super(props);
         this.state = {
             patientrecord: {},
-            loaded: false,
-            show: false
+            loaded: false
         }
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
     }
-    showModal = () => {
-        this.setState({ show: true });
-    };
 
-    hideModal = () => {
-        this.setState({ show: false });
-    };
-
-    async componentDidMount() {
-       
-        API.get(`patient/patientrecord/${auth.getRecordId()}`)
+    async componentDidMount(){
+        API.get(`patientrecord/patientrecord/${this.props.match.params.patientId}`)
             .then(res => {
                 const data = res.data;
-                this.setState({ patientrecord: data });
-                this.setState({ loaded: true });
+                console.log(data);
+                this.setState({patientrecord : data});
+                this.setState({loaded: true});
+                
             })
             .catch(error => {
                 alert(error);
             })
     }
 
-    render() {
-        if (!this.state.loaded)
-            return (
+    render(){ 
+        if(!this.state.loaded)
+            return(
                 <div className="spinner-grow" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
             );
-        if (this.state.patientrecord.treatments.length <= 0)
-            return (
+        if(this.state.patientrecord.treatments.length <= 0)
+            return(
                 <div className="container-fluid justify-content-center">
-                    <span>No Diets or Exercises are Present</span>
+                    <span>No Treatments present</span>
                 </div>
             );
-        return (
+        return(
             <div className='container-fluid'>
                 <div className='row justify-content-center'>
                     <div className='col-md-6 col-sm-12'>
-                        <p style={{ fontSize: '1.5rem' }}>Diets And Exercises</p>
+                        <p style={{fontSize:'1.5rem'}}>Treatments</p>
                         <table className='table table-hover'>
                             <tbody>
                                 {this.state.patientrecord.treatments.map(treatment => {
-                                    return (
+                                    return(
                                         <tr key={treatment.treatmentId}>
                                             <td><p>Treatment ID: <span>{treatment.treatmentId}</span></p></td>
                                             <td>
-                                                {treatment.dietExcerciseDescription ?
-                                                    <Link to={{ pathname: '/patient/view-diet-details', aboutProps: { treatment: treatment } }}>Read Diet & Exercise Description</Link>
-                                                    : <span>No Diet or Exercise Available </span>
+                                                {treatment.dietExcerciseDescription ? 
+                                                <Link to={{pathname:'/doctor/patientrecord/viewdiet', aboutProps:{treatment: treatment,fromAdd: false}}}>Read the Diet Description</Link>
+                                                :<span>No Diet description Available <Link to={{pathname:'/doctor/patientrecord/viewdiet', aboutProps:{treatment: treatment,fromAdd: true}}}>Add Diet Description</Link></span>
                                                 }
-
                                             </td>
                                         </tr>
                                     )
@@ -78,4 +68,4 @@ class DietComponent extends Component {
     }
 }
 
-export default DietComponent;
+export default TreatmentsForPatientComponent;
