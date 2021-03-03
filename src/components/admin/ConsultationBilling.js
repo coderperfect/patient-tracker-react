@@ -12,38 +12,29 @@ const ConsultationBilling = (props) => {
     } = props;
 
     const renderConsultationListTable = () => {
-        return (
-            <tbody>
-                <tr key="1">
-                    <td>{"1"}</td>
-                    <td>{"Lee"}</td>
-                    <td>{"22-07-7070"}</td>
-                    <td>{"MD"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="2">
-                    <td>{"2"}</td>
-                    <td>{"Anne"}</td>
-                    <td>{"24-08-3030"}</td>
-                    <td>{"MD"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="3">
-                    <td>{"3"}</td>
-                    <td>{"Henry"}</td>
-                    <td>{"140000.00"}</td>
-                    <td>{"MD"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="4">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{"Total"}</td>
-                    <td>{"21000"}</td>
-                </tr>
-            </tbody>
-        );
+        
+        if(consultationsResponse === null || consultationsResponse.length === 0)
+            return null;
+        else{
+            return (
+                <tbody>
+                    <tr key="1">
+                        <td>{"1"}</td>
+                        <td>{consultationsResponse[0].doctorId.user.firstName + " " + consultationsResponse[0].doctorId.user.lastName}</td>
+                        <td>{consultationsResponse[0].date}</td>
+                        <td>{consultationsResponse[0].doctorId.specialization}</td>
+                        <td>{consultationsResponse[0].doctorId.consultationFee}</td>
+                    </tr>
+                    <tr key="1">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{"Total"}</td>
+                        <td>{consultationsResponse[0].doctorId.consultationFee}</td>
+                    </tr>
+                </tbody>
+            );
+        }
     }
 
     return (
@@ -74,7 +65,7 @@ const ConsultationBilling = (props) => {
                 
                 <ModalFooter>
                     <Button color="danger" onClick={toggle}>Cancel</Button>
-                    <Button color="primary" onClick={() => {setConsultations(true); toggle()}}>Add to Bill</Button>
+                    <Button color="primary" disabled={consultations===null?false:true} onClick={() => {setConsultations(consultationsResponse); toggle()}}>Add to Bill</Button>
                 </ModalFooter>
             </Modal>
         </div>

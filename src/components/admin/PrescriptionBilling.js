@@ -8,7 +8,8 @@ const PrescriptionBilling = (props) => {
         toggle,
         className,
         prescription,
-        setPrescription
+        setPrescription,
+        prescriptionsResponse
     } = props;
 
     const [popUpPrescription, setPopUpPrescription] = useState(null);
@@ -27,49 +28,56 @@ const PrescriptionBilling = (props) => {
     }
 
     const renderPrescriptionListTable = () => {
+        let prescriptions = () => {
+            if(prescriptionsResponse !== null){
+                return (
+                    prescriptionsResponse.map((prescription) => {
+                        return (
+                            <tr key={prescription.prescriptionId}>
+                                <td><Link color="success" onClick={() => {setPopUpPrescription(prescription); toggleNested()}}>{prescription.prescriptionId}</Link></td>
+                                <td>{prescription.medicineQuantities !== null ? prescription.medicineQuantities.length : "loading...."}</td>
+                                <td>{prescription.prescriptionCost}</td>
+                            </tr> 
+                        )
+                    })
+                );
+            }
+            else {
+                return null;
+            }
+        }
+
         return (
             <tbody>
-                <tr key="6">
-                    <td><Link color="success" onClick={() => {setPopUpPrescription(6); toggleNested()}}>{"6"}</Link></td>
-                    <td>{"4"}</td>
-                    <td>{"70000.00"}</td>
-                </tr>
-                <tr key="10">
-                    <td><Link color="success" onClick={() => {setPopUpPrescription(10); toggleNested()}}>{"10"}</Link></td>
-                    <td>{"5"}</td>
-                    <td>{"50000.00"}</td>
-                </tr>
-                <tr key="18">
-                    <td><Link color="success" onClick={() => {setPopUpPrescription(18); toggleNested()}}>{"18"}</Link></td>
-                    <td>{"3"}</td>
-                    <td>{"140000.00"}</td>
-                </tr>
+                {prescriptions()}
             </tbody>
         );
     }
 
     const renderPrescriptionTable = () => {
+        let medicines = null;
+        let serialNumber = 0;
+
+        if(popUpPrescription !== null) {
+            medicines = popUpPrescription.medicineQuantities.map((medicineQuantity) => {
+                serialNumber++;
+                return (
+                    <tr key={medicineQuantity.medicineQuantityid}>
+                        <td>{serialNumber}</td>
+                        <td>{medicineQuantity.medicine.medicineName}</td>
+                        <td>{medicineQuantity.quantity*medicineQuantity.medicine.medicineCost}</td>
+                    </tr>
+                )
+            });
+        }
+
         return (
             <tbody>
-                <tr key="1">
-                    <td>{"1"}</td>
-                    <td>{"Paracetamol"}</td>
-                    <td>{"100.00"}</td>
-                </tr>
-                <tr key="2">
-                    <td>{"2"}</td>
-                    <td>{"Vitamin C"}</td>
-                    <td>{"500.00"}</td>
-                </tr>
-                <tr key="3">
-                    <td>{"3"}</td>
-                    <td>{"Penicillin"}</td>
-                    <td>{"1400.00"}</td>
-                </tr>
+                {medicines}
                 <tr key="total">
                     <td>{}</td>
                     <td>{"Total"}</td>
-                    <td>{"2000.00"}</td>
+                    <td>{popUpPrescription ? popUpPrescription.prescriptionCost : null}</td>
                 </tr>
             </tbody>
         );
@@ -77,7 +85,7 @@ const PrescriptionBilling = (props) => {
 
     const nestedModalContent = (
         <Modal size="lg" isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
-            <ModalHeader>Prescription Id: {popUpPrescription}</ModalHeader>
+            <ModalHeader>Prescription Id: {popUpPrescription ? popUpPrescription.prescriptionId : null}</ModalHeader>
 
             <ModalBody>
                 

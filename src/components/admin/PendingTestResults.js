@@ -7,7 +7,7 @@ class PendingTestResults extends Component {
         super(props);
 
         this.state = {
-            testReportList: [],
+            testReportList: null,
             update: false,
             updateTestResultId: null,
             updateTestResultText: null
@@ -101,12 +101,13 @@ class PendingTestResults extends Component {
         );
     }
 
-    renderContent = () => {
-        const testResultsPendingUpdate = (
-            <div className="container-fluid">
-                <h3>Test Results Pending Update</h3>
-
-                <table className="table container" style={{marginTop:'40px'}}>
+    renderTableSkeleton = () => {
+        if(this.state.testReportList === null){
+            return "loading";
+        }
+        
+        let table = (
+            <table className="table container" style={{marginTop:'40px'}}>
                 <thead>
                     <tr key="table-header">
                         <th scope="col">Test Result Id</th>
@@ -119,6 +120,17 @@ class PendingTestResults extends Component {
                     {this.renderTable()}
                 </tbody>
             </table>
+        );
+
+        return table;
+    }
+
+    renderContent = () => {
+        const testResultsPendingUpdate = (
+            <div className="container-fluid">
+                <h3>Test Results Pending Update</h3>
+
+                {this.renderTableSkeleton()}
             </div>
         );
 

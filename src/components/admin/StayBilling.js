@@ -11,35 +11,30 @@ const StayBilling = (props) => {
         stayResponse
     } = props;
 
+    let stayTotal = null;
+
     const renderStayTable = () => {
-        return (
-            <tbody>
-                <tr key="1">
-                    <td>{"1"}</td>
-                    <td>{"Lee"}</td>
-                    <td>{"22-07-7070"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="2">
-                    <td>{"2"}</td>
-                    <td>{"Anne"}</td>
-                    <td>{"24-08-3030"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="3">
-                    <td>{"3"}</td>
-                    <td>{"Henry"}</td>
-                    <td>{"140000.00"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="4">
-                    <td></td>
-                    <td></td>
-                    <td>{"Total"}</td>
-                    <td>{"21000"}</td>
-                </tr>
-            </tbody>
-        );
+        if(stayResponse === null || stayResponse === undefined)
+            return null;
+        else{
+            var dateAdmission = new Date(stayResponse.admissionDate);
+            var dateToday = new Date();
+            var Difference_In_Time = dateToday.getTime() - dateAdmission.getTime(); 
+            var numberOfDays = Difference_In_Time / (1000 * 3600 * 24);
+
+            stayTotal =  numberOfDays*stayResponse.room.tariff;
+
+            return (
+                <tbody>
+                    <tr key={stayResponse.inPatientRecordId}>
+                        <td>{stayResponse.room.roomType}</td>
+                        <td>{stayResponse.room.tariff}</td>
+                        <td>{numberOfDays}</td>
+                        <td>{numberOfDays*stayResponse.room.tariff}</td>
+                    </tr>
+                </tbody>
+            );
+        }
     }
 
     return (
@@ -68,7 +63,7 @@ const StayBilling = (props) => {
                 
                 <ModalFooter>
                     <Button color="danger" onClick={toggle}>Cancel</Button>
-                    <Button color="primary" onClick={() => {setStay(true); toggle()}}>Add to Bill</Button>
+                    <Button color="primary" disabled={stay===null?false:true} onClick={() => {setStay(stayResponse, stayTotal); toggle()}}>Add to Bill</Button>
                 </ModalFooter>
             </Modal>
         </div>

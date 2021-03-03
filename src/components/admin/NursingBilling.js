@@ -11,31 +11,29 @@ const NursingBilling = (props) => {
         nursingResponse
     } = props;
 
+    let nursingTotal = null;
+
     const renderNursingTable = () => {
-        return (
-            <tbody>
-                <tr key="1">
-                    <td>{"1"}</td>
-                    <td>{"Lee"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="2">
-                    <td>{"2"}</td>
-                    <td>{"Anne"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="3">
-                    <td>{"3"}</td>
-                    <td>{"Henry"}</td>
-                    <td>{"7000"}</td>
-                </tr>
-                <tr key="4">
-                    <td></td>
-                    <td>{"Total"}</td>
-                    <td>{"21000"}</td>
-                </tr>
-            </tbody>
-        );
+        if(nursingResponse === null || nursingResponse === undefined)
+            return null;
+        else{
+            var dateAdmission = new Date(nursingResponse.admissionDate);
+            var dateToday = new Date();
+            var Difference_In_Time = dateToday.getTime() - dateAdmission.getTime(); 
+            var numberOfDays = Difference_In_Time / (1000 * 3600 * 24);
+
+            nursingTotal =  numberOfDays*nursingResponse.room.tariff;
+
+            return (
+                <tbody>
+                    <tr key="1">
+                        <td>{nursingResponse.room.roomType}</td>
+                        <td>{numberOfDays}</td>
+                        <td>{numberOfDays*nursingResponse.room.tariff}</td>
+                    </tr>
+                </tbody>
+            );
+        }
     }
 
     return (
@@ -63,7 +61,7 @@ const NursingBilling = (props) => {
                 
                 <ModalFooter>
                     <Button color="danger" onClick={toggle}>Cancel</Button>
-                    <Button color="primary" onClick={() => {setNursing(true); toggle()}}>Add to Bill</Button>
+                    <Button color="primary" disabled={nursing===null?false:true} onClick={() => {setNursing(nursingResponse, nursingTotal); toggle()}}>Add to Bill</Button>
                 </ModalFooter>
             </Modal>
         </div>

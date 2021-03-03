@@ -22,15 +22,18 @@ class Billing extends Component {
             prescription: null,
             consultations: null,
             stay: null,
+            stayTotal: null,
             nursing: null,
+            nursingTotal: null,
             labs: null,
+            labsTotal: null,
             inPatientRecord: null,
             billingTotal: 0,
             prescriptionsResponse: null,
-            consultationsRespose: null,
-            stayRespose: null,
-            labsRespose: null,
-            nursingRespose: null
+            consultationsResponse: null,
+            stayResponse: null,
+            labsResponse: null,
+            nursingResponse: null
         }
     }
 
@@ -83,6 +86,64 @@ class Billing extends Component {
         }
     }
 
+    async handleGenerateBill() {
+        let billing = {...this.state.billing};
+        let inPatientRecord = {...this.state.inPatientRecord};
+        
+        if(this.state.prescription !== null) {
+            let prescription = this.state.prescription;
+            prescription.billed = true;
+            billing.prescription = prescription;
+        }
+
+        if(this.state.consultations !== null) {
+            let consultations = this.state.consultations;
+            consultations.forEach(consultation => {
+                consultation.bill = billing;
+            });
+            billing.consultations = consultations;
+        }
+
+        if(this.state.labs !== null) {
+            let testReports = this.state.labs;
+            testReports.forEach(testReport => {
+                testReport.billed = true;
+            });
+
+            billing.testReports = testReports
+        }
+
+        if(this.state.stay !== null) {
+            inPatientRecord.roomChargesBilled = true;
+        }
+
+        if(this.state.nursing !== null) {
+            inPatientRecord.nursingChargesBilled = true;
+        }
+
+        billing.inPatientRecord = inPatientRecord;
+        billing.patient = this.state.billing.patient;
+        billing.timestamp = new Date();
+        billing.dueDate = new Date().setDate(new Date() + 30)
+        billing.user = {userId: 100}
+        billing.patient.patientId = this.state.patientId;
+
+
+        try {
+            let response = await API.post(
+                `billing`,
+                {billing}
+            );
+
+            if(response.data) {
+                alert("Billed");
+            }
+        }
+        catch(error) {
+            alert(error);
+        }
+    }
+
     setPrescription = (prescription) => {
         this.setState({
             prescription: prescription
@@ -107,9 +168,10 @@ class Billing extends Component {
         })
     }
 
-    setStay = (stay) => {
+    setStay = (stay, stayTotal) => {
         this.setState({
-            stay: stay
+            stay: stay,
+            stayTotal: stayTotal
         });
     }
 
@@ -119,9 +181,10 @@ class Billing extends Component {
         })
     }
 
-    setNursing = (nursing) => {
+    setNursing = (nursing, nursingTotal) => {
         this.setState({
-            nursing: nursing
+            nursing: nursing,
+            nursingTotal: nursingTotal
         });
     }
 
@@ -134,6 +197,12 @@ class Billing extends Component {
     setLabs = (labs) => {
         this.setState({
             labs: labs
+        });
+    }
+
+    setLabsTotal = (labsTotal) => {
+        this.setState({
+            labsTotal: labsTotal
         });
     }
 
@@ -154,20 +223,83 @@ class Billing extends Component {
             this.setState({
                 billing: response.data
             })
+
+            this.getInPatientRecord();
+
+            if(this.state.inPatientRecord) {
+                this.setState({
+                    stayRespose: this.state.inPatientRecord.room
+                });
+
+                this.setState({
+                    nursingRespose: this.state.inPatientRecord.room
+                });
+            }
+        }
+        catch(error) {
+            alert(error);
+        }
+
+        this.getPrescriptions();
+        this.getConsultations();
+        this.getLabs();
+    }
+
+    async getPrescriptions() {
+        try {
+            let response = await API.get(
+                `billing/prescription/${this.state.patientId}`
+            );
+
+            this.setState({
+                prescriptionsResponse: response.data
+            })
         }
         catch(error) {
             alert(error);
         }
     }
 
-    async handlePrescriptionsClick() {
+    async getConsultations() {
         try {
-            const response = await API.get(
-                `billing/${this.state.patientId}`
+            let response = await API.get(
+                `billing/consultation/${this.state.patientId}`
             );
 
             this.setState({
-                billing: response.data
+                consultationsResponse: response.data
+            })
+        }
+        catch(error) {
+            alert(error);
+        }
+    }
+
+    async getLabs() {
+        try {
+            let response = await API.get(
+                `billing/testreport/${this.state.patientId}`
+            );
+
+            this.setState({
+                labsResponse: response.data
+            })
+        }
+        catch(error) {
+            alert(error);
+        }
+    }
+
+    async getInPatientRecord() {
+        try {
+            let response = await API.get(
+                `billing/inpatientrecord/${this.state.patientId}`
+            );
+
+            this.setState({
+                inPatientRecord: response.data[0],
+                stayResponse: response.data[0],
+                nursingResponse: response.data[0]
             })
         }
         catch(error) {
@@ -225,13 +357,13 @@ class Billing extends Component {
         let serialNumber = 0;
 
         if(this.state.prescription !== null) {
-            billTotal += 1000.00;
+            billTotal += this.state.prescription.prescriptionCost;
             serialNumber++;
             billPrescription = (
                 <tr key="billPrescription">
                     <td>{serialNumber}</td>
                     <td>{"Prescription"}</td>
-                    <td>{"15000.00"}</td>
+                    <td>{this.state.prescription.prescriptionCost}</td>
                 </tr>
             );
         }
@@ -239,55 +371,55 @@ class Billing extends Component {
             billPrescription = null;
 
         if(this.state.consultations !== null) {
-            billTotal += 1000.00;
+            billTotal += this.state.consultations[0].doctorId.consultationFee;
             serialNumber++;
             billConsultation = (
                 <tr key="billConsultation">
                     <td>{serialNumber}</td>
                     <td>{"Consultation"}</td>
-                    <td>{"80000.00"}</td>
+                    <td>{this.state.consultations[0].doctorId.consultationFee}</td>
                 </tr>
             );
         }
         else
             billConsultation = null;
 
-        if(this.state.stay !== null) {
-            billTotal += 1000.00;
+        if(this.state.stayTotal !== null) {
+            billTotal += this.state.stayTotal;
             serialNumber++;
             billStay = (
                 <tr key="billStay">
                     <td>{serialNumber}</td>
                     <td>{"Stay"}</td>
-                    <td>{"100000.00"}</td>
+                    <td>{this.state.stayTotal}</td>
                 </tr>
             );
         }
         else
             billStay = null;
 
-        if(this.state.nursing !== null) {
-            billTotal += 1000.00;
+        if(this.state.nursingTotal !== null) {
+            billTotal += this.state.nursingTotal;
             serialNumber++;
             billNursingCharges = (
                 <tr key="billNursingCharges">
                     <td>{serialNumber}</td>
                     <td>{"Nursing Charges"}</td>
-                    <td>{"500000.00"}</td>
+                    <td>{this.state.nursingTotal}</td>
                 </tr>
             );
         }
         else
             billNursingCharges = null;
 
-        if(this.state.labs !== null) {
-            billTotal += 1000.00;
+        if(this.state.labsTotal !== null) {
+            billTotal += this.state.labsTotal;
             serialNumber++;
             billLabCharges = (
                 <tr key="billLabCharges">
                     <td>{serialNumber}</td>
                     <td>{"Lab Charges"}</td>
-                    <td>{"300000.00"}</td>
+                    <td>{this.state.labsTotal}</td>
                 </tr>
             );
         }
@@ -376,13 +508,13 @@ class Billing extends Component {
 
                 <hr/>
 
-                <Button className="mb-5">Generate Bill</Button>
+                <Button className="mb-5" onClick={this.handleGenerateBill.bind(this)}>Generate Bill</Button>
 
-                <PrescriptionBilling modal={this.state.showPrescriptionPopUp} toggle={this.togglePrescriptionPopUp} prescription={this.state.prescription} setPrescription={this.setPrescription.bind(this)}/>
-                <ConsultationBilling modal={this.state.showConsultationsPopUp} toggle={this.toggleConsultationsPopUp} consultations={this.state.consultations} setConsultations={this.setConsultations.bind(this)} consultationsRespose={this.state.consultationsRespose}/>
-                <StayBilling modal={this.state.showStayPopUp} toggle={this.toggleStayPopUp} stay={this.state.stay} setStay={this.setStay.bind(this)} stayRespose={this.state.consultationsRespose}/>
-                <LabBilling modal={this.state.showLabsPopUp} toggle={this.toggleLabsPopUp} labs={this.state.labs} setLabs={this.setLabs.bind(this)} labsRespose={this.state.labsRespose}/>
-                <NursingBilling modal={this.state.showNursingPopUp} toggle={this.toggleNursingPopUp} nursing={this.state.nursing} setNursing={this.setNursing.bind(this)} nursingRespose={this.state.nursingRespose}/>
+                <PrescriptionBilling modal={this.state.showPrescriptionPopUp} toggle={this.togglePrescriptionPopUp} prescription={this.state.prescription} setPrescription={this.setPrescription.bind(this)} prescriptionsResponse={this.state.prescriptionsResponse}/>
+                <ConsultationBilling modal={this.state.showConsultationsPopUp} toggle={this.toggleConsultationsPopUp} consultations={this.state.consultations} setConsultations={this.setConsultations.bind(this)} consultationsResponse={this.state.consultationsResponse}/>
+                <StayBilling modal={this.state.showStayPopUp} toggle={this.toggleStayPopUp} stay={this.state.stay} setStay={this.setStay.bind(this)} stayResponse={this.state.stayResponse}/>
+                <LabBilling modal={this.state.showLabsPopUp} toggle={this.toggleLabsPopUp} labs={this.state.labs} setLabs={this.setLabs.bind(this)} labsResponse={this.state.labsResponse} setLabsTotal={this.setLabsTotal.bind(this)}/>
+                <NursingBilling modal={this.state.showNursingPopUp} toggle={this.toggleNursingPopUp} nursing={this.state.nursing} setNursing={this.setNursing.bind(this)} nursingResponse={this.state.nursingResponse}/>
             </div>
         );
     }
