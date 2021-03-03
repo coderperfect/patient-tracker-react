@@ -65,7 +65,7 @@ const PrescriptionBilling = (props) => {
                     <tr key={medicineQuantity.medicineQuantityid}>
                         <td>{serialNumber}</td>
                         <td>{medicineQuantity.medicine.medicineName}</td>
-                        <td>{medicineQuantity.quantity*medicineQuantity.medicine.medicineCost}</td>
+                        <td>{(medicineQuantity.quantity*medicineQuantity.medicine.medicineCost).toFixed(2)}</td>
                     </tr>
                 )
             });

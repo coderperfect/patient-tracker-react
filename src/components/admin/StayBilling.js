@@ -20,9 +20,9 @@ const StayBilling = (props) => {
             var dateAdmission = new Date(stayResponse.admissionDate);
             var dateToday = new Date();
             var Difference_In_Time = dateToday.getTime() - dateAdmission.getTime(); 
-            var numberOfDays = Difference_In_Time / (1000 * 3600 * 24);
+            var numberOfDays = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
 
-            stayTotal =  numberOfDays*stayResponse.room.tariff;
+            stayTotal =  (numberOfDays*stayResponse.room.tariff).toFixed(2);
 
             return (
                 <tbody>

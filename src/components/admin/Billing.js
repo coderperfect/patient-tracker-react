@@ -91,26 +91,23 @@ class Billing extends Component {
         let inPatientRecord = {...this.state.inPatientRecord};
         
         if(this.state.prescription !== null) {
-            let prescription = this.state.prescription;
+            let prescription = {...this.state.prescription};
             prescription.billed = true;
-            billing.prescription = prescription;
+            billing.prescription = {...prescription};
         }
 
         if(this.state.consultations !== null) {
-            let consultations = this.state.consultations;
-            consultations.forEach(consultation => {
-                consultation.bill = billing;
-            });
-            billing.consultations = consultations;
+            let consultations = [...this.state.consultations];
+            billing.consultations = [...consultations];
         }
 
         if(this.state.labs !== null) {
-            let testReports = this.state.labs;
+            let testReports = [...this.state.labs];
             testReports.forEach(testReport => {
                 testReport.billed = true;
             });
 
-            billing.testReports = testReports
+            billing.testReports = [...testReports];
         }
 
         if(this.state.stay !== null) {
@@ -121,23 +118,42 @@ class Billing extends Component {
             inPatientRecord.nursingChargesBilled = true;
         }
 
-        billing.inPatientRecord = inPatientRecord;
-        billing.patient = this.state.billing.patient;
-        billing.timestamp = new Date();
-        billing.dueDate = new Date().setDate(new Date() + 30)
-        billing.user = {userId: 100}
-        billing.patient.patientId = this.state.patientId;
-
+        if(this.state.stay !== null || this.state.nursing !== null)
 
         try {
             let response = await API.post(
-                `billing`,
-                {billing}
+                `billing/${this.state.patientId}/${localStorage.getItem("userId")}`,
+                billing
             );
 
             if(response.data) {
                 alert("Billed");
             }
+
+            this.setState({
+                showPrescriptionPopUp: false,
+                showConsultationsPopUp: false,
+                showStayPopUp: false,
+                showLabsPopUp: false,
+                showNursingPopUp: false,
+                prescription: null,
+                consultations: null,
+                stay: null,
+                stayTotal: null,
+                nursing: null,
+                nursingTotal: null,
+                labs: null,
+                labsTotal: null,
+                inPatientRecord: null,
+                billingTotal: 0,
+                prescriptionsResponse: null,
+                consultationsResponse: null,
+                stayResponse: null,
+                labsResponse: null,
+                nursingResponse: null
+            })
+
+            this.handleRefreshAfterBilling();
         }
         catch(error) {
             alert(error);
@@ -215,6 +231,37 @@ class Billing extends Component {
     async handleSubmit(event) {
         event.preventDefault();
 
+        try {
+            const response = await API.get(
+                `billing/${this.state.patientId}`
+            );
+
+            this.setState({
+                billing: response.data
+            })
+
+            this.getInPatientRecord();
+
+            if(this.state.inPatientRecord) {
+                this.setState({
+                    stayRespose: this.state.inPatientRecord.room
+                });
+
+                this.setState({
+                    nursingRespose: this.state.inPatientRecord.room
+                });
+            }
+        }
+        catch(error) {
+            alert(error);
+        }
+
+        this.getPrescriptions();
+        this.getConsultations();
+        this.getLabs();
+    }
+
+    async handleRefreshAfterBilling() {
         try {
             const response = await API.get(
                 `billing/${this.state.patientId}`

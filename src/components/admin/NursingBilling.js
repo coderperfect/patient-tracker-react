@@ -20,9 +20,9 @@ const NursingBilling = (props) => {
             var dateAdmission = new Date(nursingResponse.admissionDate);
             var dateToday = new Date();
             var Difference_In_Time = dateToday.getTime() - dateAdmission.getTime(); 
-            var numberOfDays = Difference_In_Time / (1000 * 3600 * 24);
+            var numberOfDays = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
 
-            nursingTotal =  numberOfDays*nursingResponse.room.tariff;
+            nursingTotal =  (numberOfDays*nursingResponse.room.tariff).toFixed(2);
 
             return (
                 <tbody>
