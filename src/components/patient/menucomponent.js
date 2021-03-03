@@ -7,10 +7,13 @@ const MenuComponent = (props) => {
     const loggedInMenu = (
         <ul className="navbar-nav">
             <li className="nav-item">
-                <Link className="nav-link" to="/registration-approvals">Registrations Approvals</Link>
+                <Link className="nav-link" to="/test-results">Test Results</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/update-test-results">Update Test Results</Link>
+                <Link className="nav-link" to="/treatment-history">Treatment History</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/diet">Diet/Exercise Recommendations</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/" onClick={props.logout}>Logout</Link>
@@ -28,7 +31,7 @@ const MenuComponent = (props) => {
 
     let menu = null;
 
-    if(isLoggedIn)
+    if (isLoggedIn)
         menu = loggedInMenu;
     else
         menu = notLoggedInMenu;
