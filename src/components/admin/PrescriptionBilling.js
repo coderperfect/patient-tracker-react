@@ -6,7 +6,6 @@ const PrescriptionBilling = (props) => {
     const {
         modal,
         toggle,
-<<<<<<< HEAD
         className,
         prescription,
         setPrescription
@@ -14,11 +13,6 @@ const PrescriptionBilling = (props) => {
 
     const [popUpPrescription, setPopUpPrescription] = useState(null);
 
-=======
-        className
-    } = props;
-
->>>>>>> main
     const [nestedModal, setNestedModal] = useState(false);
     const [closeAll, setCloseAll] = useState(false);
 
@@ -36,7 +30,6 @@ const PrescriptionBilling = (props) => {
         return (
             <tbody>
                 <tr key="6">
-<<<<<<< HEAD
                     <td><Link color="success" onClick={() => {setPopUpPrescription(6); toggleNested()}}>{"6"}</Link></td>
                     <td>{"4"}</td>
                     <td>{"70000.00"}</td>
@@ -77,28 +70,12 @@ const PrescriptionBilling = (props) => {
                     <td>{}</td>
                     <td>{"Total"}</td>
                     <td>{"2000.00"}</td>
-=======
-                    <td><Link color="success" onClick={toggleNested}>{"6"}</Link></td>
-                    <td>{"1"}</td>
-                    <td>{"70000.00"}</td>
-                </tr>
-                <tr key="10">
-                    <td><Link color="success" onClick={toggleNested}>{"10"}</Link></td>
-                    <td>{"15"}</td>
-                    <td>{"50000.00"}</td>
-                </tr>
-                <tr key="18">
-                    <td><Link color="success" onClick={toggleNested}>{"18"}</Link></td>
-                    <td>{"1"}</td>
-                    <td>{"140000.00"}</td>
->>>>>>> main
                 </tr>
             </tbody>
         );
     }
 
     const nestedModalContent = (
-<<<<<<< HEAD
         <Modal size="lg" isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
             <ModalHeader>Prescription Id: {popUpPrescription}</ModalHeader>
 
@@ -122,26 +99,13 @@ const PrescriptionBilling = (props) => {
             <ModalFooter>
                 <Button color="danger" onClick={toggleNested}>Back</Button>
                 <Button color="info" disabled={prescription ? true : false} onClick={()=>{setPrescription(popUpPrescription); toggleAll()}}>Add To Bill</Button>
-=======
-        <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
-            <ModalHeader>Prescription Id: One</ModalHeader>
-
-            <ModalBody>Medicines</ModalBody>
-
-            <ModalFooter>
-                <Button color="secondary" onClick={toggleAll}>Add To Bill</Button>
->>>>>>> main
             </ModalFooter>
         </Modal>
     );
 
     return (
         <div>
-<<<<<<< HEAD
             <Modal size="lg" isOpen={modal} toggle={toggle} className={className}>
-=======
-            <Modal isOpen={modal} toggle={toggle} className={className}>
->>>>>>> main
 
                 <ModalHeader toggle={toggle}>Prescriptions Not Billed</ModalHeader>
 
@@ -152,11 +116,7 @@ const PrescriptionBilling = (props) => {
                         <thead>
                             <tr key="table-header">
                                 <th scope="col">Prescription Id</th>
-<<<<<<< HEAD
                                 <th scope="col">Number of Items</th>
-=======
-                                <th scope="col">PatientId</th>
->>>>>>> main
                                 <th scope="col">Amount (Rs.)</th>
                             </tr>
                         </thead>
