@@ -37,6 +37,9 @@ class Doctor extends Component {
       isLoggedIn: true,
       user: user
     })
+    localStorage.setItem("role","");
+    localStorage.setItem("token","");
+    localStorage.setItem("userId","");
   }
  
  render() {

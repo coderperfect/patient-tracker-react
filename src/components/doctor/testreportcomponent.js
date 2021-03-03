@@ -60,7 +60,7 @@ export function TestReportForm(props) {
         .then(response => {
             console.log(response);
             alert("Test Created Successfully");
-            history.push("/")
+            history.push("/doctor/patientrecord/viewtestresults/"+auth.getRecordId())
         })
     }
 

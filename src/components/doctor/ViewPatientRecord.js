@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import API from '../api/api';
 import {Link} from 'react-router-dom';
 import { Button } from 'bootstrap';
+import {Alert} from "reactstrap";
 import auth from "../authentication/auth";
+import LoadingComponent from '../LoadingComponent';
 class ViewPatientRecord extends Component {
     constructor(props){
         super(props);
@@ -33,13 +35,11 @@ class ViewPatientRecord extends Component {
     render(){
         if(!this.state.loaded)
             return(
-                <div className="spinner-grow" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
+                <LoadingComponent/>
             );
         return(
             <div className='container-fluid'>
-                <p className='justify-content-center' style={{fontSize:'1.5rem'}}>Patient Details</p>
+                <Alert color="info"><b>Patient Details</b></Alert>
                 <div className='row'>
                     <div className='col-md-6 col-xs-12'>
                         <table className='table'>
@@ -81,24 +81,24 @@ class ViewPatientRecord extends Component {
                 <form>
                     <div className='row mt-5'>
                         <div className='col-md-4 col-xs-12'>
-                            <label className='form-label mr-2'>Treatments</label>
-                            <select class="form-select"  onChange={this.handleSelect}>
+                            {/* <label className='form-label mr-2'>Treatments</label> */}
+                            <select class="form-select form-control" style={{width:"300px"}}  onChange={this.handleSelect}>
                                 <option disabled='disabled' selected='selected'>Select an action for Treatments</option>
                                 <option value="/doctor/patientrecord/treatments">View Treatments</option>
                                 <option value="/doctor/patientrecord/addtreatment">Add Treatment</option>
                             </select>
                         </div>
                         <div className='col-md-4 col-xs-12'>
-                            <label className='form-label mr-2'>Prescriptions</label>
-                            <select class="form-select" onChange={this.handleSelect}>
+                            {/* <label className='form-label mr-2'>Prescriptions</label> */}
+                            <select class="form-select form-control" style={{width:"300px"}}  onChange={this.handleSelect}>
                                 <option disabled='disabled' selected='selected'>Select an action for Prescriptions</option>
                                 <option value="/doctor/patientrecord/prescriptions">View Prescriptions</option>
                                 <option value="/doctor/patientrecord/addprescription">Add Prescriptions</option>
                             </select>
                         </div>
                         <div className='col-md-4 col-xs-12'>
-                            <label className='form-label mr-2'>Test Reports</label>
-                            <select class="form-select" onChange={this.handleSelect}>
+                            {/* <label className='form-label mr-2'>Test Reports</label> */}
+                            <select class="form-select form-control" style={{width:"300px"}}  onChange={this.handleSelect}>
                                 <option disabled='disabled' selected='selected'>Select an action for Test Reports</option>
                                 <option value={`/doctor/patientrecord/viewtestresults/${auth.getRecordId()}`}>View Test Reports</option>
                                 <option value="/doctor/patientrecord/addtestreport">Add Test Reports</option>

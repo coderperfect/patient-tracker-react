@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import API from '../api/api';
 import {Link} from 'react-router-dom';
 import ViewDietDescription from './ViewDietDescription';
+import LoadingComponent from '../LoadingComponent';
 
 class TreatmentsForPatientComponent extends Component {
     constructor(props){
@@ -29,9 +30,7 @@ class TreatmentsForPatientComponent extends Component {
     render(){ 
         if(!this.state.loaded)
             return(
-                <div className="spinner-grow" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
+               <LoadingComponent/>
             );
         if(this.state.patientrecord.treatments.length <= 0)
             return(

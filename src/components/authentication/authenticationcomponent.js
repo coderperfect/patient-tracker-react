@@ -1,15 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import auth from "../src/components/authentication/auth";
 import React, {Component, Redirect} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {Alert } from 'reactstrap';
-import Doctor from "./components/doctor/doctorcomponent";
-import Admin from "./components/admin/admincomponent";
-import Patient from './components/patient/patientcomponent';
-import Auth from "../src/components/authentication/authenticationcomponent";
-import Clerk from './components/clerk/clerkcomponent';
-class App extends Component {
+import LoginComponent from './LoginPage';
+import UserRegistrationComponent from './UserRegistration';
+import auth from "./auth";
+import MenuComponent from "./menucomponent";
+import HomeComponent from './HomePage';
+class Auth extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +20,7 @@ class App extends Component {
     this.setState({
       isLoggedIn: false,
       user: null
+      
     })
   }
 
@@ -36,12 +34,14 @@ class App extends Component {
  render() {
     return (
       <div className="App">
+        <MenuComponent isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
+        
         <Switch>
-         <PrivateRoute path="/doctor" component ={Doctor} />
-         <PrivateRoute path="/admin" component={Admin} />
-         <PrivateRoute path="/patient" component={Patient} />
-         <PrivateRoute path="/clerk" component={Clerk} />
-         <Route path="/" component={Auth} />
+         <Route path="/login" component ={LoginComponent} />
+         <Route path="/help" component ={LoginComponent} />
+         <Route path="/register" component={HomeComponent} />
+         <Route path="/registration" component={UserRegistrationComponent} />
+         <PrivateRoute path="/patient" component={LoginComponent} />
         </Switch> 
         
       </div> 
@@ -66,4 +66,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
   );
 
-export default App;
+export default Auth;

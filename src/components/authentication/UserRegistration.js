@@ -1,32 +1,30 @@
 import React, { Component } from 'react';
 import API from '../api/api';
-import LoadingComponent from '../LoadingComponent';
+import HomeComponent from './HomePage';
+import 'bootstrap/dist/js/bootstrap.js';
+import "./StyleSheet.css";
 export default class UserRegistrationComponent extends Component{
     constructor(props){
         super(props);
-        console.log(props);
         this.state={
-            role:"ROLE_PATIENT",
-            firstName:props.location.aboutProps.edit.user.firstName,           
-            lastName:props.location.aboutProps.edit.user.lastName,
-            dateOfBirth:props.location.aboutProps.edit.user.dateOfBirth,
-            gender:props.location.aboutProps.edit.user.gender,
-            contactNo:props.location.aboutProps.edit.user.contactNo,
-            address:props.location.aboutProps.edit.user.address,
-            password:props.location.aboutProps.edit.user.password,
+            role:localStorage.getItem("role"),
+            firstName:"",           
+            lastName:"",
+            dateOfBirth:"",
+            gender:"",
+            contactNo:"",
+            address:"",
+            password:"",
             qualification:"",
             specialization:"",
             consultationFee:"",
-            bloodGroup:props.location.aboutProps.edit.bloodGroup,
+            bloodGroup:"",
             doctorId:"",
-            patientId:props.location.aboutProps.edit.patientId,
-            userId:props.location.aboutProps.edit.patientId,
             loaded:false
         }
-        //this.loaded=false;
         this.doctors=[];
     }
-   
+    
     async componentDidMount() {
         await API.get("doctors")
         .then(res => {
@@ -36,8 +34,16 @@ export default class UserRegistrationComponent extends Component{
         })
     }
 
-
-    handlevalidation=(e) =>{
+    // handleEmptyValidation=(e) =>{            
+    //     var result=true;
+    //     if(this.state.firstName===""){
+    //         document.getElementById('firstName').style.borderColor = "red";
+    //         result=false;
+    //     }
+    //     if(result===true)
+    //     this.handlevalidation(e);
+    // }
+    handlevalidation=(e) =>{        
         e.preventDefault();
         var temp=document.getElementById('validation');            
         temp.innerHTML="";
@@ -58,7 +64,7 @@ export default class UserRegistrationComponent extends Component{
                 '<li><font color="Red"> Password cannot be empty</font></li>'       
         else if(this.state.password.length<6)
             temp.innerHTML+=
-            '<li><font color="Red"> Password should be atleast six characters</font></li>'
+            '<li><font color="Red"> Password should be atleast six characters</font></li>'            
         else if(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/.test(this.state.password)===false)
             temp.innerHTML+=
             '<li><font color="Red"> Password should have atleast one alphabet and one special character</font></li>'
@@ -72,18 +78,11 @@ export default class UserRegistrationComponent extends Component{
             temp.innerHTML+=
             '<li><font color="Red"> Enter the Date Of Birth</font></li>'
         else{
-            var dates = this.state.dateOfBirth.split("/");
-            const d = new Date(dates[2], dates[1]-1, dates[0]);
-            if(dates[2].length!=4) {
-                temp.innerHTML+=
-            '<li><font color="Red">Date Of Birth is invalid/ correct format is (dd/mm/yyyy)</font></li>'
-            }
-            console.log(dates)
-            var today=new Date(); 
-            console.log(today,d)            
-            if(d>today)
+            const formatYmd = date => date.toISOString().slice(0, 10);
+            var today=formatYmd(new Date());             
+            if(this.state.dateOfBirth>today)
             temp.innerHTML+=
-            '<li><font color="Red">Date Of Birth is invalid</font></li>'
+            '<li><font color="Red">Date Of Birth cannot be in future</font></li>'
         }        
         if(this.state.contactNo==="")    
             temp.innerHTML+=
@@ -119,10 +118,8 @@ export default class UserRegistrationComponent extends Component{
     }    
 
     handleSubmit = (e) => {
-        e.preventDefault();        
-        var dates = this.state.dateOfBirth.split("/")
-        this.state.dateOfBirth = dates[2]+"-"+dates[1]+"-"+dates[0];
-        console.log(this.state.dateOfBirth)
+        e.preventDefault();   
+        console.log(this.state);
         API.post("users/registration", this.state)
         .then(response =>{            
             document.getElementById('validation').innerHTML=""; 
@@ -130,7 +127,7 @@ export default class UserRegistrationComponent extends Component{
            console.log("Registration Successful")
            alert(response.data)
            if (response.status === 200) 
-            window.location = "/admin/patient-list";
+            window.location = "/register" 
         }).catch(error => {                  
             document.getElementById('validation').innerHTML=
             '<li><font color="Red"> Registration Failed</font> </li>'            
@@ -143,57 +140,61 @@ export default class UserRegistrationComponent extends Component{
 
     render() {
         if(!this.state.loaded) {
-            return <LoadingComponent/>
+            return "loading"
         }
-        
-          return  (
-          <div>
+        return (
+            <div>
+                <h1 style={{color:'blue'}}>User Registration</h1>
                 <div className="container">
                 <div id="validation"></div>                       
-                <form onSubmit={this.handlevalidation}>   
-                <div className="containe">
-                  <div className="row register-form">
-                    <div className="col-md-4">
+                <form onSubmit={this.handlevalidation}> 
+                <div className="container">
+                  <div className="row container register-form">
+                    <div className="col-md-4 col-xs-4">
                     <div className="form-group">
                         <input type="text" className="form-control"
-                         name="firstName" placeholder="First Name *" 
-                        value={this.state.firstName} onChange={this.handleChange}/>
+                         name="firstName" id="firstName" placeholder="First Name *" 
+                        value={this.state.firstName} onChange={this.handleChange}/>                                             
                     </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 col-xs-4">
                     <div className="form-group">
                         <input type="text" className="form-control" 
                         name="lastName" placeholder="Last Name *"
                         value={this.state.lastName} onChange={this.handleChange}/>
                     </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 col-xs-4">
                     <div className="form-group">
-                        <input type="text" className="form-control" 
+                        <input type="password" className="form-control" 
                         name="password" placeholder="Password *" 
                         value={this.state.password} onChange={this.handleChange}/>
                     </div>
                     </div>
 
-                    
-                    <div className="col-md-4">
+                   
+                    <div className="col-md-4 col-xs-4">
                     <div className="form-group">
                         <input type="text" className="form-control" 
                         name="address" placeholder="Address *"
                         value={this.state.address} onChange={this.handleChange}/>
                     </div>    
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 col-xs-4">
                     <div className="form-group">
-                    <input type="text" className="form-control" 
-                        name="gender" placeholder="Gender *"
-                        value={this.state.gender} onChange={this.handleChange}/>
-                       
+                        <select className="form-control" name="gender" 
+                            onChange={this.handleChange}>
+                            <option className="hidden" value="DEFAULT">
+                                Select your Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Other</option>
+                        </select>
                     </div> 
                     </div>    
                     <div className="col-md-4">
                     <div className="form-group">
-                        <input type="text" className="form-control"                             
+                        <input type="date" className="form-control"                             
                             name="dateOfBirth" placeholder="Date Of Birth *" 
                         value={this.state.dateOfBirth} onChange={this.handleChange}/>
                     </div>
@@ -206,6 +207,7 @@ export default class UserRegistrationComponent extends Component{
                     </div> 
                     </div>                  
                 </div>
+                
                 {this.state.role==="ROLE_DOCTOR"?
                 <div className="row register-form" style={{marginTop:"0px"}}>
                     <div className="col-md-4">
@@ -231,43 +233,42 @@ export default class UserRegistrationComponent extends Component{
                     </div>                   
                     </div>:""}
 
-                    {
-                    this.state.role==="ROLE_PATIENT"?
+                    {this.state.role==="ROLE_PATIENT"?
                     <div className="row register-form" style={{marginTop:"0px"}}>
-                    <div className="col-md-4">
+                    
+                    <div className="col col-md-4">
                     <div className="form-group">
                         <input type="text" className="form-control" 
                         name="bloodGroup" placeholder="BloodGroup *" 
                         value={this.state.bloodGroup} onChange={this.handleChange}/>
                     </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col col-md-4">
                     <div className="form-group">
                     <select className="form-control" name="doctorId" 
                             onChange={this.handleChange}>
-                            <option className="hidden" value="DEFAULT">
-                                Select a doctor</option>                            
-                            {
-                                
-                            this.doctors.map(details=>{
-                               
-    return <option key={details.doctorId} value={details.doctorId}>{details.user.firstName + " " + details.user.lastName}</option>
-                            })
-                            }
-
-                        </select>
+                        <option className="hidden" value="DEFAULT">
+                            Select a doctor</option>                            
+                        {   
+                        this.doctors.map(details=>{
+                            return(
+                            <option key={details.doctorId} value={details.doctorId}>
+                                {details.user.firstName+ " " + details.user.lastName}
+                            </option>)
+                        })}
+                    </select>
                     </div>
                     </div>
                     </div>:""}
                     <div className="text-center">
                     <button type="Submit" className="btn btn-primary">
-                        Edit</button>    
+                        Register</button>    
                     </div>                                     
                     </div>                                
             </form>
-                <a className="link"  href="help">Help</a> 
-            </div>
-            </div>         
-          )                  
+                <a className="bottom"  href="help">Help</a> 
+                </div>
+            </div>                           
+        );
     }
 }

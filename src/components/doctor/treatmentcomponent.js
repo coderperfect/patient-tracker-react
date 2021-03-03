@@ -7,6 +7,7 @@ import {CardBody,CardTitle, Card, CardText, Badge} from 'reactstrap';
 import {Button, Form, FormGroup, Label, Input, FormText, Alert  } from 'reactstrap';
 import api from "../api/api";
 import auth from "../authentication/auth";
+import LoadingComponent from "../LoadingComponent";
 
 
 export function Treatment(props) {
@@ -51,11 +52,7 @@ export function TreatmentList(props) {
 
   return loading ?
   (
-    <div>
-    <div class="row spinner-grow" role="status" style={{marginTop:"20%"}}></div>
-    <div class="row spinner-grow" role="status" style={{marginTop:"20%"}}></div>
-    <div class="row spinner-grow" role="status" style={{marginTop:"20%"}}></div>
-    </div>
+    <LoadingComponent/>
   )
   :
   [

@@ -1,13 +1,14 @@
 import API from '../api/api';
 import React, {Component} from 'react';
 import UpdatePendingTestResult from './UpdatePendingTestResult';
+import LoadingComponent from '../LoadingComponent';
 
 class PendingTestResults extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            testReportList: [],
+            testReportList:[],
             update: false,
             updateTestResultId: null,
             updateTestResultText: null
@@ -101,12 +102,9 @@ class PendingTestResults extends Component {
         );
     }
 
-    renderContent = () => {
-        const testResultsPendingUpdate = (
-            <div className="container-fluid">
-                <h3>Test Results Pending Update</h3>
-
-                <table className="table container" style={{marginTop:'40px'}}>
+    renderTableSkeleton = () => {
+        let table = (
+            <table className="table container" style={{marginTop:'40px'}}>
                 <thead>
                     <tr key="table-header">
                         <th scope="col">Test Result Id</th>
@@ -119,6 +117,21 @@ class PendingTestResults extends Component {
                     {this.renderTable()}
                 </tbody>
             </table>
+        );
+
+        if(this.state.testReportList.length===0){
+            return <LoadingComponent/>
+        }
+
+        return table;
+    }
+
+    renderContent = () => {
+        const testResultsPendingUpdate = (
+            <div className="container-fluid">
+                <h3>Test Results Pending Update</h3>
+
+                {this.renderTableSkeleton()}
             </div>
         );
 
@@ -138,7 +151,6 @@ class PendingTestResults extends Component {
             );
         }
     }
-
     render() {
         return (
             this.renderContent()

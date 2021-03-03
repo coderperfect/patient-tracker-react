@@ -7,9 +7,14 @@ class TestResults extends Component {
         super(props);
         this.state = {
             testreports: [],
-            loaded: false
+            loaded: false,
+            request:"request"
         }
         
+    }
+
+    handleRequest = (event) => {
+        API.get("")
     }
 
     async componentDidMount() {
@@ -99,10 +104,11 @@ class TestResults extends Component {
                                     return (
                                         <tr key={report.testResultId}>
                                             <td>
-                                                <Link to={{ pathname: '/test-details-for-patient', aboutProps: { report: report } }}>{report.testResultId}</Link>
+                                                <Link to={{ pathname: '/patient/test-details-for-patient', aboutProps: { report: report } }}>{report.testResultId}</Link>
                                             </td>
                                             <td>{report.test.testName}</td>
                                             <td>{report.testResult ? 'Done' : 'Pending'}</td>
+                                            <td><button id={report.testResultId} onClick={this.handleRequest}>{report.testResult ? '' : this.request}</button></td>
                                         </tr>
                                     )
                                 })}

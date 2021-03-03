@@ -10,6 +10,8 @@ import api from "../api/api";
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import AsyncSelect from 'react-select/async';
 import auth from "../authentication/auth";
+import LoadingComponent from "../LoadingComponent";
+import { useHistory } from "react-router-dom";
 
 export function PrescriptionView(props) {
 
@@ -37,11 +39,7 @@ export function PrescriptionView(props) {
         [
             loading ?
             (
-                <div>
-                <div class="row spinner-grow" role="status" style={{marginTop:"20%"}}></div>
-                <div class="row spinner-grow" role="status" style={{marginTop:"20%"}}></div>
-                <div class="row spinner-grow" role="status" style={{marginTop:"20%"}}></div>
-                </div>
+                <LoadingComponent/>
             )
             :
             [
@@ -224,8 +222,8 @@ export function PrescriptionForm(props) {
                 <Input  invalid={!daysValid} type="number" {...bindDays}  rows={4} name="cost" id="cost" placeholder="Enter No of Days" />
             </FormGroup>
             <FormGroup className="row form-group" style={{display:"flex",justifyContent:"space-between"}}>
-                <Button onClick={handleAdd}>Add</Button>
-                <Button type="submit">{props.update ? "Update" : "Create"} Prescription</Button>
+                <Button color="info" onClick={handleAdd}>Add</Button>
+                <Button color="info" type="submit">{props.update ? "Update" : "Create"} Prescription</Button>
             </FormGroup>
         </Form> 
     )
@@ -268,7 +266,7 @@ export function Prescription(props) {
                     <Input  disabled={!props.update} type="number" {...bindDays}  rows={4} name="cost" id="cost" placeholder="Enter No of Days" />
             </FormGroup>
             <FormGroup  className="row form-group" style={{visibility:visibile, display:"flex",justifyContent:"space-between"}}>
-                <Button style={{visibility:visibile}} onClick={() =>{handleUpdate(props.medicineQuantity)}}>Update Medication</Button>
+                <Button color="info" style={{visibility:visibile}} onClick={() =>{handleUpdate(props.medicineQuantity)}}>Update Medication</Button>
             </FormGroup>
             </Form>
         </Toast>
@@ -277,6 +275,7 @@ export function Prescription(props) {
 
 export default function PrescriptionComponent(props) {
     const [medicineQuantities,setMedicineQuantities]=useState([]);
+    let history = useHistory();
 
     var prescriptions={
         "recordId":auth.getRecordId(),
@@ -302,18 +301,24 @@ export default function PrescriptionComponent(props) {
             .then(response => {
                 console.log(response);
                 setMedicineQuantities([], ()=> {
-                    alert((props.update ? "Update" : "Created") + "Successfully");
+                    
                 })
+                alert((props.update ? "Update" : "Created") + " Successfully");
+                history.push("/doctor/patientrecord/patientrecords/"+auth.getRecordId());
             })
+            
         }
         else {
             API.post("patientrecord/addprescription",prescriptions)
             .then(response => {
                 console.log(response);
                 setMedicineQuantities([], ()=> {
-                    alert((props.update ? "Update" : "Created") + "Successfully");
+                    alert((props.update ? "Update" : "Created") + " Successfully");
                 })
+                alert((props.update ? "Update" : "Created") + " Successfully");
+                history.push("/doctor/patientrecord/patientrecords/"+auth.getRecordId());
             })
+           
         }
        
         

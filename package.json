@@ -12,6 +12,7 @@
     "popper.js": "^1.16.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-search-autocomplete": "^5.0.3",
