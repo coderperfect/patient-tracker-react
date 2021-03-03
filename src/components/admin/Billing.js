@@ -26,6 +26,7 @@ class Billing extends Component {
             labs: null,
             inPatientRecord: null,
             billingTotal: 0,
+            prescriptionsResponse: null,
             consultationsRespose: null,
             stayRespose: null,
             labsRespose: null,
@@ -144,6 +145,21 @@ class Billing extends Component {
     async handleSubmit(event) {
         event.preventDefault();
 
+        try {
+            const response = await axios.get(
+                `http://localhost:8081/billing/${this.state.patientId}`
+            );
+
+            this.setState({
+                billing: response.data
+            })
+        }
+        catch(error) {
+            alert(error);
+        }
+    }
+
+    async handlePrescriptionsClick() {
         try {
             const response = await axios.get(
                 `http://localhost:8081/billing/${this.state.patientId}`
