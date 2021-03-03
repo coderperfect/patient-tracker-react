@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import axios from 'axios';
+=======
+import API from '../api/api';
+>>>>>>> main
 import React, {Component} from 'react';
 import UpdatePendingTestResult from './UpdatePendingTestResult';
 
@@ -16,7 +20,11 @@ class PendingTestResults extends Component {
 
     async componentDidMount() {
         try {
+<<<<<<< HEAD
             const response = await axios.get("http://localhost:8081/testreport");
+=======
+            const response = await API.get("testreport");
+>>>>>>> main
             this.setState({
                 testReportList: response.data
             });
@@ -32,7 +40,11 @@ class PendingTestResults extends Component {
         });
 
         try {
+<<<<<<< HEAD
             const response = await axios.get("http://localhost:8081/testreport");
+=======
+            const response = await API.get("testreport");
+>>>>>>> main
             this.setState({
                 testReportList: response.data
             });
@@ -72,8 +84,13 @@ class PendingTestResults extends Component {
         event.preventDefault();
 
         try {
+<<<<<<< HEAD
             const response = await axios.put(
                 `http://localhost:8081/testreport/${this.state.updateTestResultId}`,
+=======
+            const response = await API.put(
+                `testreport/${this.state.updateTestResultId}`,
+>>>>>>> main
                 {
                     testResult: this.state.updateTestResultText
                 }
