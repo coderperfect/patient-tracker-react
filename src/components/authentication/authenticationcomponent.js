@@ -6,6 +6,7 @@ import UserRegistrationComponent from './UserRegistration';
 import auth from "./auth";
 import MenuComponent from "./menucomponent";
 import HomeComponent from './HomePage';
+import NewPassword from './NewPassword';
 class Auth extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +42,7 @@ class Auth extends Component {
          <Route path="/help" component ={LoginComponent} />
          <Route path="/register" component={HomeComponent} />
          <Route path="/registration" component={UserRegistrationComponent} />
+         <Route path="/new-password" component={NewPassword} />
          <PrivateRoute path="/patient" component={LoginComponent} />
         </Switch> 
         

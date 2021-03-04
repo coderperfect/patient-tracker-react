@@ -9,6 +9,8 @@ class NewPassword extends Component {
 
         this.state = {
             userId: this.props.userId,
+            token: this.props.toke,
+            userData: null,
             newPassword: null,
             reNewPassword: null,
             newPasswordInvalid: false,
@@ -25,7 +27,7 @@ class NewPassword extends Component {
         switch(name) {
             case "newPassword":
                 this.setState({
-                    patientId: value
+                    newPassword: value
                 });
                 break;
             case "reNewPassword":
@@ -49,7 +51,6 @@ class NewPassword extends Component {
                 newPasswordInvalidMessage: "Please Enter New Password"
             });
         }
-
         else {
             await this.setState({
                 newPasswordInvalid: false,
@@ -65,14 +66,15 @@ class NewPassword extends Component {
         }
         else {
             await this.setState({
-                newPasswordInvalid: false,
+                reNewPasswordInvalid: false,
             });
         }
 
-        if(valid === false)
-            return valid;
 
-        if(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/.test(this.state.newPassword)===false){
+        if((this.state.newPassword !== null) 
+            && /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/
+                .test(this.state.newPassword)===false) {
+            
             valid = false;
 
             await this.setState({
@@ -80,7 +82,7 @@ class NewPassword extends Component {
                 newPasswordInvalidMessage: "Password should have atleast one alphabet and one special character"
             });
         }
-        else {
+        else if(this.state.newPassword !== null) {
             await this.setState({
                 newPasswordInvalid: false,
             });
@@ -101,8 +103,8 @@ class NewPassword extends Component {
                 `user/forgotpassword/`,
                 {
                     userId: this.state.userId,
-                    newPassword: this.state.newPassword,
-                    reNewPassword: this.state.reNewPassword
+                    password: this.state.newPassword,
+                    token: this.state.reNewPassword
                 }
             );
 
@@ -135,25 +137,25 @@ class NewPassword extends Component {
         );
 
         let contentsBeforeReset = (
-            <Form className="container mt-5" onSubmit={this.handleAddSubmit}>
+            <Form className="container mt-5" onSubmit={this.handleSubmit.bind(this)}>
                 <FormGroup row>
-                    <Label for="newPassword" sm={2}>Enter New Password:</Label>
-                    <Col sm={2}>
+                    <Label for="newPassword" sm={3}>Enter New Password:</Label>
+                    <Col sm={3}>
                         <Input invalid={this.state.newPasswordInvalid} type="password" id="newPassword" name="newPassword" onChange={(event) => {this.handleChange(event)}}/>
                         <FormFeedback>{this.state.newPasswordInvalidMessage}</FormFeedback>
                     </Col>
                 </FormGroup>
 
                 <FormGroup row>
-                    <Label for="reNewPassword" sm={2}>Re-enter New Password:</Label>
-                    <Col sm={2}>
+                    <Label for="reNewPassword" sm={3}>Re-enter New Password:</Label>
+                    <Col sm={3}>
                         <Input invalid={this.state.reNewPasswordInvalid} type="password" id="reNewPassword" name="reNewPassword" onChange={(event) => {this.handleChange(event)}}/>
                         <FormFeedback>Passwords Do Not Match</FormFeedback>
                     </Col>
                 </FormGroup>
 
                 <FormGroup className="mt-5">
-                        <Button type="submit">Change Password</Button>
+                        <Button color="info" type="submit">Change Password</Button>
                 </FormGroup>
             </Form>
         );
