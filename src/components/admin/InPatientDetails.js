@@ -47,11 +47,11 @@ const InPatientDetails = (props) => {
                 </Col>
 
                 <Col sm={1}>
-                    <Button className="mt-3" onClick={props.edit}>Edit</Button>
+                    <Button color="info" className="mt-3" onClick={props.edit}>Edit</Button>
                 </Col>
 
                 <Col sm={2}>
-                    <Button className="mt-3" onClick={props.back}>Back To List</Button>
+                    <Button color="info" className="mt-3" onClick={props.back}>Back To List</Button>
                 </Col>
             </Row>
 

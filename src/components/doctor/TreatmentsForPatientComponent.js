@@ -3,7 +3,7 @@ import API from '../api/api';
 import {Link} from 'react-router-dom';
 import ViewDietDescription from './ViewDietDescription';
 import LoadingComponent from '../LoadingComponent';
-import { Alert } from 'bootstrap';
+import { Alert } from 'reactstrap';
 
 class TreatmentsForPatientComponent extends Component {
     constructor(props){

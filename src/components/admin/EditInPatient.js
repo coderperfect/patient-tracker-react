@@ -10,11 +10,11 @@ const EditInPatient = (props) => {
                 </Col>
 
                 <Col sm={2}>
-                    <Button className="mt-3" onClick={props.backToDetails}>Back to Details</Button>
+                    <Button color="info" className="mt-3" onClick={props.backToDetails}>Back to Details</Button>
                 </Col>
 
                 <Col sm={5}>
-                    <Button className="mt-3" onClick={props.backToList}>Back to List</Button>
+                    <Button color="info" className="mt-3" onClick={props.backToList}>Back to List</Button>
                 </Col>
             </Row>
 
@@ -36,7 +36,7 @@ const EditInPatient = (props) => {
                 <FormGroup row>
                     <Label for="editAdmissionDate" sm={2}>Admission Date:</Label>
                     <Col sm={3}>
-                        <Input required type="date" id="editAdmissionDate" name="editAdmissionDate" placeholder="Admission Date" defaultValue={props.inPatientDetails.admissionDate} onChange={(event) => {props.handleChange(event)}}/>
+                        <Input type="date" id="editAdmissionDate" name="editAdmissionDate" placeholder="Admission Date" defaultValue={props.inPatientDetails.admissionDate} onChange={(event) => {props.handleChange(event)}}/>
                     </Col>
                 </FormGroup>
 
@@ -48,7 +48,7 @@ const EditInPatient = (props) => {
                 </FormGroup>
 
                 <FormGroup className="mt-5">
-                        <Button type="submit">Save</Button>
+                        <Button color="info" type="submit">Save</Button>
                 </FormGroup>
             </Form>
         </div>

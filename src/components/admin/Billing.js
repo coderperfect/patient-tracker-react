@@ -1,6 +1,6 @@
 import API from '../api/api';
 import React, {Component} from 'react';
-import { Alert, Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, Table, UncontrolledButtonDropdown } from 'reactstrap';
+import { Alert, Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Form, FormFeedback, FormGroup, Input, Label, Row, Table, UncontrolledButtonDropdown } from 'reactstrap';
 import ConsultationBilling from './ConsultationBilling';
 import LabBilling from './LabBilling';
 import NursingBilling from './NursingBilling';
@@ -33,7 +33,9 @@ class Billing extends Component {
             consultationsResponse: null,
             stayResponse: null,
             labsResponse: null,
-            nursingResponse: null
+            nursingResponse: null,
+            patientIdInvalid: false
+            
         }
     }
 
@@ -233,6 +235,14 @@ class Billing extends Component {
 
     async handleSubmit(event) {
         event.preventDefault();
+        if(this.state.patientId === null || this.state.patientId.length === 0){
+            alert("Please provide patientId");
+            this.setState({
+                patientIdInvalid: true
+            })
+            return;
+        }
+
 
         try {
             const response = await API.get(
@@ -529,9 +539,14 @@ class Billing extends Component {
                         <Form inline className="container mt-5" onSubmit={this.handleSubmit.bind(this)}>
                             <FormGroup>
                                 <Label for="patientId" className="mb-2 mr-sm-2 mb-sm-0">Patient Id:</Label>
-                                <Input required type="text" id="patientId" name="patientId" className="mb-2 mr-sm-2 mb-sm-0" onChange={(event) => {this.handleChange(event)}}/>
-                            </FormGroup>
-                            <Button color="info" type="submit">Load</Button>
+                                <Input invalid={this.state.patientIdInvalid} type="text" id="patientId" name="patientId" className="mb-2 mr-sm-2 mb-sm-0" onChange={(event) => {this.handleChange(event)}}/>
+                                <Button color="info" type="submit">Load</Button>
+                                <br/>
+                                <FormFeedback>Please provide Patient Id to Load Bill</FormFeedback>                        
+                                </FormGroup>
+                            
+
+                           
                         </Form>
                     </Col>
 
