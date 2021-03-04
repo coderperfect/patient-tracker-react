@@ -2,7 +2,7 @@ import API from '../api/api';
 import React, {Component} from 'react';
 import UpdatePendingTestResult from './UpdatePendingTestResult';
 import LoadingComponent from '../LoadingComponent';
-
+import {Alert,Table} from "reactstrap";
 class PendingTestResults extends Component {
     constructor(props) {
         super(props);
@@ -95,7 +95,7 @@ class PendingTestResults extends Component {
                         <td>{testReport.testResultId}</td>
                         <td>{testReport.patient.patientId}</td>
                         <td>{testReport.doctor.doctorId}</td>
-                        <td><button className="btn btn-primary" onClick = {()=>this.handleUpdateClick(testReport.testResultId)}>Update</button></td>
+                        <td><button className="btn btn-info" onClick = {()=>this.handleUpdateClick(testReport.testResultId)}>Update</button></td>
                     </tr>
                 );
             })
@@ -108,7 +108,7 @@ class PendingTestResults extends Component {
         }
         
         let table = (
-            <table className="table container" style={{marginTop:'40px'}}>
+            <Table striped  className="table container" style={{marginTop:'40px'}}>
                 <thead>
                     <tr key="table-header">
                         <th scope="col">Test Result Id</th>
@@ -120,7 +120,7 @@ class PendingTestResults extends Component {
                 <tbody>
                     {this.renderTable()}
                 </tbody>
-            </table>
+            </Table>
         );
 
         return table;
@@ -129,7 +129,7 @@ class PendingTestResults extends Component {
     renderContent = () => {
         const testResultsPendingUpdate = (
             <div className="container-fluid">
-                <h3>Test Results Pending Update</h3>
+                <Alert color="info">Test Results Pending Update</Alert>
 
                 {this.renderTableSkeleton()}
             </div>

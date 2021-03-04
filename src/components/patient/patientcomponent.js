@@ -6,6 +6,7 @@ import TreatmentHistory from './TreatmentHistory';
 import DietComponent from './DietComponent';
 import DietDetails from './DietDetails';
 import TestResults from "./TestResults";
+import HelpComponent from "./Help";
 class Patient extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +44,7 @@ class Patient extends Component {
           <Route path="/patient/test-details-for-patient" render={props => <TestDetailsForPatient {...props} />} />
           <Route path="/patient/treatment-history" component={TreatmentHistory} />
           <Route path="/patient/diet" component={DietComponent} />
+          <Route path="/patient/help" component={HelpComponent} />
           <Route path="/patient/view-diet-details" component={DietDetails} />
         </Switch>
       </div>

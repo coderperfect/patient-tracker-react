@@ -9,8 +9,7 @@ class TestResults extends Component {
             testreports: [],
             loaded: false,
             request:"request"
-        }
-        
+        } 
     }
 
     handleRequest = (event) => {
@@ -18,11 +17,12 @@ class TestResults extends Component {
     }
 
     async componentDidMount() {
-        API.get(`patient/patientrecord/${auth.getRecordId()}`)
+        await API.get(`patient/patientrecord/${auth.getUserId()}`)
             .then(res => {
                 const data = res.data;
                 this.setState({ testreports: data.testreports });
                 this.setState({ loaded: true });
+                console.log(res)
             })
             .catch(error => {
                 alert(error);

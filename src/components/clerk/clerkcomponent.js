@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import MenuComponent from './menucomponent';
-import Billing from './Billing';
-import EditPatient from './EditPatient';
-import PatientList from './PatientList';
+import Billing from '../admin/Billing';
+import EditPatient from '../clerk/EditPatient';
+import PatientList from '../clerk/PatientList';
+import UserRegistrationComponent from "../clerk/UserRegistration";
 class Clerk extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +41,8 @@ class Clerk extends Component {
         {/* <Route path="/clerk/registration-approvals-list" component={RegistrationApprovalList} /> */}
           <Route path="/clerk/patient-list" component={PatientList} />
           <Route path="/clerk/edit-patient" component={EditPatient} />
-          {/* <Route path="/clerk/add-patient" component={UserRegistrationComponent} /> */}
+          {/* /*<Route path="/clerk/add-patient" component={EditPatient} /> */}
+            <Route path="/clerk/add-patient" component={UserRegistrationComponent} /> 
           {/* <Route 
             path="/clerk/update-test-results" exact
             render={

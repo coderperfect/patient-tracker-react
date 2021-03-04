@@ -5,6 +5,7 @@ import PendingTestResults from './PendingTestResults';
 import InPatients from './InPatients';
 import Billing from './Billing';
 import EditPatient from './EditPatient';
+import EditPatient2 from '../clerk/UserRegistration';
 import RegistrationApprovalList from './RegistrationApprovalList';
 import PatientList from './PatientList';
 import UserRegistrationComponent from '../admin/UserRegistration';
@@ -43,6 +44,7 @@ class Admin extends Component {
         <Switch>
         <Route path="/admin/registration-approvals-list" component={RegistrationApprovalList} />
           <Route path="/admin/patient-list" component={PatientList} />
+          <Route path="/clerk/add-patient" component={EditPatient2} />
           <Route path="/admin/edit-patient" component={EditPatient} />
           <Route path="/admin/add-patient" component={UserRegistrationComponent} />
           <Route 

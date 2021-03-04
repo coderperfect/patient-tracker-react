@@ -12,7 +12,7 @@ const UpdatePendingTestResult = (props) => {
                 </Col>
 
                 <Col sm={7}>
-                    <Button className="btn btn-primary mt-3" onClick={props.handleBack}>Back to Test List</Button>
+                    <Button color="info" className="btn btn-primary mt-3" onClick={props.handleBack}>Back to Test List</Button>
                 </Col>
             </Row>
 
@@ -27,10 +27,10 @@ const UpdatePendingTestResult = (props) => {
                 <FormGroup row>
                     <Label for="testResult" sm={2}>Test Result:</Label>
                     <Col sm={5}>
-                        <Input type="textarea" id="testResult" name="testResult" placeholder="Enter Test Result" onChange={(event) => {props.handleChange(event)}}/>
+                        <Input required type="textarea" id="testResult" name="testResult" placeholder="Enter Test Result" onChange={(event) => {props.handleChange(event)}}/>
                     </Col>
                 </FormGroup>
-                <Button type="submit">Save</Button>
+                <Button color="info" type="submit">Save</Button>
             </Form>
         </div>
     );

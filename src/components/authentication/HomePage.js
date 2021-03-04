@@ -5,6 +5,10 @@ import "./StyleSheet.css"
 export default class HomeComponent extends Component{
     constructor(props) {
         super(props);
+        localStorage.setItem("role","");
+        localStorage.setItem("token","");
+        localStorage.setItem("userId","");
+        localStorage.setItem("recordId","");
         this.state={
         role:""
         };

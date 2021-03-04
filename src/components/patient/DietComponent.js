@@ -24,7 +24,7 @@ class DietComponent extends Component {
 
     async componentDidMount() {
        
-        API.get(`patient/patientrecord/${auth.getRecordId()}`)
+        API.get(`patient/patientrecord/${auth.getUserId()}`)
             .then(res => {
                 const data = res.data;
                 this.setState({ patientrecord: data });

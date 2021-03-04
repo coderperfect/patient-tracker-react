@@ -42,7 +42,7 @@ class ViewDietDescription extends Component {
                         <div className='col-xs-12'>
                             <div className='my-5' style={{display: 'flex',justifyContent: 'space-between'}}>
                                 <h3>Treatment ID: <span>{this.props.location.aboutProps.treatment.treatmentId}</span></h3>
-                                <button className='btn btn-secondary' onClick={() => {this.setState({disabled: false})}}>Update</button>
+                                <button className='btn btn-info' onClick={() => {this.setState({disabled: false})}}>Update</button>
                             </div>
                             <div>
                                 <textarea rows='10' cols='100' name='description' value={this.state.description} disabled={this.state.disabled} onChange={this.handleChange}>
@@ -50,7 +50,7 @@ class ViewDietDescription extends Component {
                                 </textarea>
                             </div>
                             {this.state.disabled ? '' : (
-                                <button className='btn btn-primary' onClick={this.handleClick}>Save</button>
+                                <button className='btn btn-info' onClick={this.handleClick}>Save</button>
                             )}
                         </div>
                     </div>

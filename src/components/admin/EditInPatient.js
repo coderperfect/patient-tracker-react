@@ -36,7 +36,7 @@ const EditInPatient = (props) => {
                 <FormGroup row>
                     <Label for="editAdmissionDate" sm={2}>Admission Date:</Label>
                     <Col sm={3}>
-                        <Input type="date" id="editAdmissionDate" name="editAdmissionDate" placeholder="Admission Date" defaultValue={props.inPatientDetails.admissionDate} onChange={(event) => {props.handleChange(event)}}/>
+                        <Input required type="date" id="editAdmissionDate" name="editAdmissionDate" placeholder="Admission Date" defaultValue={props.inPatientDetails.admissionDate} onChange={(event) => {props.handleChange(event)}}/>
                     </Col>
                 </FormGroup>
 

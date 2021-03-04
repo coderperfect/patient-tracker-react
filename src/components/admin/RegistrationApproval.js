@@ -42,8 +42,8 @@ function RegistrationApproval(props) {
                         <th scope="row">{item.userId}</th>
                         <td>{item.firstName}</td>
                         <td>{item.lastName}</td>
-                        <td><Button color="primary" onClick={() => handleApproval(item.userId)}>Approve</Button>{' '}
-                            <Button color="secondary" onClick={() => handleDenial(item.userId)}>Deny</Button>{' '}</td>
+                        <td><Button color="info" onClick={() => handleApproval(item.userId)}>Approve</Button>{' '}
+                            <Button color="danger" onClick={() => handleDenial(item.userId)}>Deny</Button>{' '}</td>
                     </tr>)}
 
                 </tbody>

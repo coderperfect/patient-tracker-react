@@ -155,9 +155,17 @@ export function PrescriptionForm(props) {
       }
     
     const validate = () => {
+        
+        var med = JSON.parse(localStorage.getItem("med"));
+        console.log(med)
         let valid = true;
-        if(JSON.parse(localStorage.getItem("med")).length ===0) {
+        if(med.length ===0) {
              setMedValid(false);
+             alert("Please Select Medicine\nPlease input all fields");
+             valid = false;
+        }
+        if(!med.medicineName) {
+            setMedValid(false);
              alert("Please Select Medicine\nPlease input all fields");
              valid = false;
         }

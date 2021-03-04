@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../api/api';
+import LoadingComponent from '../LoadingComponent';
 import "./StyleSheet.css"
 export default class UserRegistrationComponent extends Component{
     constructor(props){
@@ -138,11 +139,11 @@ export default class UserRegistrationComponent extends Component{
 
     render() {
         if(!this.state.loaded) {
-            return "loading"
+            return <LoadingComponent/>
         }
         return (
             <div>
-                <h1 style={{color:'blue'}}>Patient Registration</h1>
+                <h1 style={{color:'#3e5d7ce'}}>Patient Registration</h1>
                 <div className="container">
                 <div id="validation"></div>                       
                 <form onSubmit={this.handlevalidation}> 
@@ -259,7 +260,7 @@ export default class UserRegistrationComponent extends Component{
                     </div>
                     </div>:""}
                     <div className="text-center">
-                    <button type="Submit" className="btn btn-primary">
+                    <button type="Submit" className="btn btn-info">
                         Register</button>    
                     </div>                                     
                     </div>                                

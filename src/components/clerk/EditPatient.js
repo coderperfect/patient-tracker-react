@@ -128,9 +128,9 @@ export default class UserRegistrationComponent extends Component{
             document.getElementById('validation').innerHTML=""; 
             console.log(response)
            console.log("Registration Successful")
-           alert(response.data)
+           alert("Patient Details Edited Successfully")
            if (response.status === 200) 
-            window.location = "/admin/patient-list";
+            window.location = "/clerk/patient-list";
         }).catch(error => {                  
             document.getElementById('validation').innerHTML=
             '<li><font color="Red"> Registration Failed</font> </li>'            
@@ -260,7 +260,7 @@ export default class UserRegistrationComponent extends Component{
                     </div>
                     </div>:""}
                     <div className="text-center">
-                    <button type="Submit" className="btn btn-primary">
+                    <button type="Submit" className="btn btn-info">
                         Edit</button>    
                     </div>                                     
                     </div>                                

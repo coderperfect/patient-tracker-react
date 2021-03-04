@@ -1,6 +1,6 @@
 import API from '../api/api';
 import React, {Component} from 'react';
-import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, Table, UncontrolledButtonDropdown } from 'reactstrap';
+import { Alert, Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, Table, UncontrolledButtonDropdown } from 'reactstrap';
 import ConsultationBilling from './ConsultationBilling';
 import LabBilling from './LabBilling';
 import NursingBilling from './NursingBilling';
@@ -87,7 +87,8 @@ class Billing extends Component {
     }
 
     async handleGenerateBill() {
-        let billing = {...this.state.billing};
+        // alert("clicked")
+          let billing = {...this.state.billing};
         let inPatientRecord = {...this.state.inPatientRecord};
         
         if(this.state.prescription !== null) {
@@ -119,6 +120,8 @@ class Billing extends Component {
         }
 
         if(this.state.stay !== null || this.state.nursing !== null)
+            billing.inPatientRecord = {...inPatientRecord}
+
 
         try {
             let response = await API.post(
@@ -343,10 +346,19 @@ class Billing extends Component {
                 `billing/inpatientrecord/${this.state.patientId}`
             );
 
+            let stayResponse = null;
+            let nursingResponse = null;
+
+            if(response.data[0]!== undefined && response.data[0].roomChargesBilled !== true)
+                stayResponse = response.data[0];
+
+            if(response.data[0]!== undefined && response.data[0].nursingChargesBilled !== true)
+                nursingResponse = response.data[0];
+
             this.setState({
                 inPatientRecord: response.data[0],
-                stayResponse: response.data[0],
-                nursingResponse: response.data[0]
+                stayResponse: stayResponse,
+                nursingResponse: nursingResponse
             })
         }
         catch(error) {
@@ -410,7 +422,7 @@ class Billing extends Component {
                 <tr key="billPrescription">
                     <td>{serialNumber}</td>
                     <td>{"Prescription"}</td>
-                    <td>{this.state.prescription.prescriptionCost}</td>
+                    <td>{this.state.prescription.prescriptionCost.toFixed(2)}</td>
                 </tr>
             );
         }
@@ -424,7 +436,7 @@ class Billing extends Component {
                 <tr key="billConsultation">
                     <td>{serialNumber}</td>
                     <td>{"Consultation"}</td>
-                    <td>{this.state.consultations[0].doctorId.consultationFee}</td>
+                    <td>{this.state.consultations[0].doctorId.consultationFee.toFixed(2)}</td>
                 </tr>
             );
         }
@@ -438,7 +450,7 @@ class Billing extends Component {
                 <tr key="billStay">
                     <td>{serialNumber}</td>
                     <td>{"Stay"}</td>
-                    <td>{this.state.stayTotal}</td>
+                    <td>{this.state.stayTotal.toFixed(2)}</td>
                 </tr>
             );
         }
@@ -452,7 +464,7 @@ class Billing extends Component {
                 <tr key="billNursingCharges">
                     <td>{serialNumber}</td>
                     <td>{"Nursing Charges"}</td>
-                    <td>{this.state.nursingTotal}</td>
+                    <td>{this.state.nursingTotal.toFixed(2)}</td>
                 </tr>
             );
         }
@@ -466,7 +478,7 @@ class Billing extends Component {
                 <tr key="billLabCharges">
                     <td>{serialNumber}</td>
                     <td>{"Lab Charges"}</td>
-                    <td>{this.state.labsTotal}</td>
+                    <td>{this.state.labsTotal.toFixed(2)}</td>
                 </tr>
             );
         }
@@ -478,7 +490,7 @@ class Billing extends Component {
                 <tr key="billTotal">
                     <th></th>
                     <td>{"Total"}</td>
-                    <td>{billTotal}</td>
+                    <td>{billTotal.toFixed(2)}</td>
                 </tr>
             );
         }
@@ -498,24 +510,34 @@ class Billing extends Component {
     }
 
     render() {
+        let generateBillButton = false;
+        if(this.state.prescription !== null 
+            || this.state.consultations !== null 
+            || this.state.stayTotal !== null
+            || this.state.nursingTotal !== null
+            || this.state.labsTotal !== null
+            )
+            {
+                generateBillButton = true;
+            }
         return (
             <div className="container-fluid">
-                <h2>Billing</h2>
+                <Alert color="info"><b>Billing</b></Alert>
 
                 <Row>
                     <Col sm="4">
                         <Form inline className="container mt-5" onSubmit={this.handleSubmit.bind(this)}>
                             <FormGroup>
                                 <Label for="patientId" className="mb-2 mr-sm-2 mb-sm-0">Patient Id:</Label>
-                                <Input type="text" id="patientId" name="patientId" className="mb-2 mr-sm-2 mb-sm-0" onChange={(event) => {this.handleChange(event)}}/>
+                                <Input required type="text" id="patientId" name="patientId" className="mb-2 mr-sm-2 mb-sm-0" onChange={(event) => {this.handleChange(event)}}/>
                             </FormGroup>
-                            <Button type="submit">Load</Button>
+                            <Button color="info" type="submit">Load</Button>
                         </Form>
                     </Col>
 
                     <Col sm="4">
                     <UncontrolledButtonDropdown className="mt-5">
-                        <DropdownToggle caret>
+                        <DropdownToggle color="info" caret>
                             Add Components
                         </DropdownToggle>
                         
@@ -555,7 +577,7 @@ class Billing extends Component {
 
                 <hr/>
 
-                <Button className="mb-5" onClick={this.handleGenerateBill.bind(this)}>Generate Bill</Button>
+                <Button color="info" className="mb-5" disabled={!generateBillButton} onClick={this.handleGenerateBill.bind(this)}>Generate Bill</Button>
 
                 <PrescriptionBilling modal={this.state.showPrescriptionPopUp} toggle={this.togglePrescriptionPopUp} prescription={this.state.prescription} setPrescription={this.setPrescription.bind(this)} prescriptionsResponse={this.state.prescriptionsResponse}/>
                 <ConsultationBilling modal={this.state.showConsultationsPopUp} toggle={this.toggleConsultationsPopUp} consultations={this.state.consultations} setConsultations={this.setConsultations.bind(this)} consultationsResponse={this.state.consultationsResponse}/>

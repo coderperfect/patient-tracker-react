@@ -22,15 +22,14 @@ const StayBilling = (props) => {
             var Difference_In_Time = dateToday.getTime() - dateAdmission.getTime(); 
             var numberOfDays = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
 
-            stayTotal =  (numberOfDays*stayResponse.room.tariff).toFixed(2);
-
+            stayTotal =  numberOfDays*stayResponse.room.tariff;
             return (
                 <tbody>
                     <tr key={stayResponse.inPatientRecordId}>
                         <td>{stayResponse.room.roomType}</td>
                         <td>{stayResponse.room.tariff}</td>
                         <td>{numberOfDays}</td>
-                        <td>{numberOfDays*stayResponse.room.tariff}</td>
+                        <td>{(numberOfDays*stayResponse.room.tariff).toFixed(2)}</td>
                     </tr>
                 </tbody>
             );
@@ -63,7 +62,7 @@ const StayBilling = (props) => {
                 
                 <ModalFooter>
                     <Button color="danger" onClick={toggle}>Cancel</Button>
-                    <Button color="primary" disabled={stay===null?false:true} onClick={() => {setStay(stayResponse, stayTotal); toggle()}}>Add to Bill</Button>
+                    <Button color="primary" disabled={stay===null && (stayResponse !== null && stayResponse !== undefined)?false:true} onClick={() => {setStay(stayResponse, stayTotal); toggle()}}>Add to Bill</Button>
                 </ModalFooter>
             </Modal>
         </div>

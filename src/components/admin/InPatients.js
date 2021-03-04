@@ -1,6 +1,6 @@
 import API from '../api/api';
 import React, {Component} from 'react';
-import { Button, Col, Row} from 'reactstrap';
+import { Alert, Button, Col, Row} from 'reactstrap';
 import AddInPatient from './AddInPatient';
 import EditInPatient from './EditInPatient';
 import InPatientDetails from './InPatientDetails';
@@ -164,7 +164,7 @@ class InPatients extends Component {
                         <td>{inPatient.inPatientRecordId}</td>
                         <td>{inPatient.patient.patientId}</td>
                         <td>{inPatient.room.roomNo}</td>
-                        <td><button className="btn btn-primary" onClick = {()=>this.handleViewClick(inPatient)}>View</button></td>
+                        <td><button className="btn btn-info" onClick = {()=>this.handleViewClick(inPatient)}>View</button></td>
                     </tr>
                 );
             })
@@ -176,11 +176,11 @@ class InPatients extends Component {
             <div className="container-fluid">
                 <Row>
                     <Col sm={9}>
-                        <h3>In Patient List</h3>
+                        <Alert color="info">In Patient List</Alert>
                     </Col>
 
                     <Col sm={3}>
-                        <Button className="mt-3" onClick={this.handleAddClick}>Add In Patient</Button>
+                        <Button color="info" className="mt-3" onClick={this.handleAddClick}>Add In Patient</Button>
                     </Col>
                 </Row>
 
