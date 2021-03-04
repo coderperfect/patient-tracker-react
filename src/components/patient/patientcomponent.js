@@ -7,6 +7,7 @@ import DietComponent from './DietComponent';
 import DietDetails from './DietDetails';
 import TestResults from "./TestResults";
 import HelpComponent from "./Help";
+import Welcome from '../welcome';
 class Patient extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +47,7 @@ class Patient extends Component {
           <Route path="/patient/diet" component={DietComponent} />
           <Route path="/patient/help" component={HelpComponent} />
           <Route path="/patient/view-diet-details" component={DietDetails} />
+          <Route exact path="/patient" component ={Welcome} />
         </Switch>
       </div>
     );

@@ -12,6 +12,7 @@ import TreatmentForm , { TreatmentList, } from "./treatmentcomponent";
 import PrescriptionComponent, { PrescriptionForm, PrescriptionView } from './prescriptioncomponent';
 import { TestReportForm, TestReportUpdateForm } from './testreportcomponent';
 import HelpComponent from "./Help";
+import Welcome from "../welcome";
 class Doctor extends Component {
   constructor(props) {
     localStorage.setItem("meds",JSON.stringify([]))
@@ -48,6 +49,7 @@ class Doctor extends Component {
       <div className="App">
         <MenuComponent isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
         <Switch>
+        <Route exact path="/doctor"> <Welcome /> </Route>
         <Route path="/doctor/help"> <HelpComponent /> </Route>
           <Route path="/doctor/patientrecord/treatments"> <TreatmentList /> </Route>
           <Route path="/doctor/patientrecord/prescriptions"><PrescriptionView/></Route>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import  './StyleSheet.css'
 import API from '../api/api';
+import { Label } from 'semantic-ui-react';
+import { Alert } from 'reactstrap';
 export default class HelpComponent extends Component{
     constructor(props){
         super(props);
@@ -56,9 +58,11 @@ export default class HelpComponent extends Component{
                             <tr>
                                 <td></td>
                                 <td> <h4>Help</h4></td>
-                               
                              </tr>
-                        <tr>                      
+                        <tr>
+                        <td></td>
+                            <Alert color="info" disabled>help@patienttracker.com</Alert>    </tr>            
+                        <tr>     
                         <td>Issue</td>
                         <td><textarea rows = "2" cols = "35"
                         name="issue" value={this.state.issue} onChange={this.handleChange}>

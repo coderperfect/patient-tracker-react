@@ -19,7 +19,8 @@ export default class UserRegistrationComponent extends Component{
             consultationFee:"",
             bloodGroup:"",
             doctorId:"",
-            loaded:false
+            loaded:false,
+            userId:-1
         }
         this.doctors=[];
     }
@@ -181,7 +182,7 @@ export default class UserRegistrationComponent extends Component{
                     </div>
                     <div className="col-md-4 col-xs-4">
                     <div className="form-group">
-                        <select className="form-control" name="gender" 
+                        <select className="form-control" name="gender"  style={{width:"300px"}}
                             onChange={this.handleChange}>
                             <option className="hidden" value="DEFAULT">
                                 Select your Gender</option>
@@ -244,7 +245,7 @@ export default class UserRegistrationComponent extends Component{
                     </div>
                     <div className="col col-md-4">
                     <div className="form-group">
-                    <select className="form-control" name="doctorId" 
+                    <select className="form-control" name="doctorId" style={{width:"300px"}}
                             onChange={this.handleChange}>
                         <option className="hidden" value="DEFAULT">
                             Select a doctor</option>                            

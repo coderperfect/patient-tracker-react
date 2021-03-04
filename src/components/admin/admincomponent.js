@@ -9,6 +9,7 @@ import EditPatient2 from '../clerk/UserRegistration';
 import RegistrationApprovalList from './RegistrationApprovalList';
 import PatientList from './PatientList';
 import UserRegistrationComponent from '../admin/UserRegistration';
+import Welcome from '../welcome';
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +48,7 @@ class Admin extends Component {
           <Route path="/clerk/add-patient" component={EditPatient2} />
           <Route path="/admin/edit-patient" component={EditPatient} />
           <Route path="/admin/add-patient" component={UserRegistrationComponent} />
+          <Route exact path="/admin" component={Welcome} />
           <Route 
             path="/admin/update-test-results" exact
             render={

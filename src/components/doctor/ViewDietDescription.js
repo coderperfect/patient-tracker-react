@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../api/api';
+import auth from '../authentication/auth';
 
 class ViewDietDescription extends Component {
     constructor(props){
@@ -18,6 +19,7 @@ class ViewDietDescription extends Component {
         API.put(`treatment/update`, this.state.treatment)
             .then(res => {
                 alert(`Diet Description saved successfully`);
+                window.location="/doctor/patientrecord/dietexercise";
             })
             .catch(error => {
                 alert(error);
@@ -50,7 +52,7 @@ class ViewDietDescription extends Component {
                                 </textarea>
                             </div>
                             {this.state.disabled ? '' : (
-                                <button className='btn btn-info' onClick={this.handleClick}>Save</button>
+                                <button color="info" className='btn btn-info' onClick={this.handleClick}>Save</button>
                             )}
                         </div>
                     </div>

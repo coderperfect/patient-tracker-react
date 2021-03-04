@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import API from '../api/api';
 import { Link } from 'react-router-dom';
 import auth from "../authentication/auth";
+import { Alert } from 'reactstrap';
+import LoadingComponent from '../LoadingComponent';
 class TestResults extends Component {
     constructor(props) {
         super(props);
@@ -33,16 +35,13 @@ class TestResults extends Component {
     
         if (!this.state.loaded) {
             return (
-                <div className="spinner-grow" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
+                <LoadingComponent/>
             );
         }
         else if (this.state.testreports.length === 0) {
             return (
-                <div className="container-fluid justify-content-center">
-                    <span>No Test Report present</span>
-                </div>
+               
+                    <Alert color="danger">No Test Report present</Alert>
             );
         }
            

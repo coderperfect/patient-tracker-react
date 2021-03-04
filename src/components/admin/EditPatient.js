@@ -21,7 +21,8 @@ export default class UserRegistrationComponent extends Component{
             doctorId:"",
             patientId:props.location.aboutProps.edit.patientId,
             userId:props.location.aboutProps.edit.patientId,
-            loaded:false
+            loaded:false,
+            
         }
         //this.loaded=false;
         this.doctors=[];

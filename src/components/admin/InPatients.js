@@ -97,7 +97,9 @@ class InPatients extends Component {
                 }
             );
 
-            alert(response.data);
+            if(response.data) {
+                alert("Added Sucessfully");
+            }
         }
         catch(error) {
             alert(error);
@@ -117,7 +119,10 @@ class InPatients extends Component {
                 }
             );
 
-            alert(response.data);
+            if(response.data) {
+                alert("Edited Sucessfully");
+            }
+            
         }
         catch(error) {
             alert(error);

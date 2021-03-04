@@ -12,6 +12,7 @@ import Clerk from './components/clerk/clerkcomponent';
 import MenuComponent from './components/authentication/menucomponent';
 import UserRegistrationComponent from "./components/authentication/UserRegistration";
 import LoginComponent from "./components/authentication/LoginPage";
+import Welcome from "./components/welcome";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +49,7 @@ class App extends Component {
          <Route path="/help" component ={LoginComponent} />
          <Route path="/register" component={HomeComponent} />
          <Route path="/registration" component={UserRegistrationComponent} />
-         <Route path="/" component={HomeComponent} />
+         <Route exact path="/" component={HomeComponent} />
         </Switch> 
         
       </div> 

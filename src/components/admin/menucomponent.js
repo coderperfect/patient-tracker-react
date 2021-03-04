@@ -60,6 +60,7 @@ const MenuComponent = (props) => {
             <div className="collapse navbar-collapse" id="navbarNav">
                 {menu}
             </div>
+            <span class="navbar-text" style={{color:"white"}}> {localStorage.getItem("role").substring(5,)} : {localStorage.getItem("userId")}</span>
         </nav>
     );
 }
