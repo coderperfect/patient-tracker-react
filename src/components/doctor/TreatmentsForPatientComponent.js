@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import Axios from 'axios';
+import API from '../api/api';
 import {Link} from 'react-router-dom';
 import ViewDietDescription from './ViewDietDescription';
+import LoadingComponent from '../LoadingComponent';
 
 class TreatmentsForPatientComponent extends Component {
     constructor(props){
@@ -13,11 +14,13 @@ class TreatmentsForPatientComponent extends Component {
     }
 
     async componentDidMount(){
-        Axios.get(`http://localhost:8081/patientrecord/patientrecord/${this.props.match.params.patientId}`)
+        API.get(`patientrecord/patientrecord/${this.props.match.params.patientId}`)
             .then(res => {
                 const data = res.data;
+                console.log(data);
                 this.setState({patientrecord : data});
                 this.setState({loaded: true});
+                
             })
             .catch(error => {
                 alert(error);
@@ -27,9 +30,7 @@ class TreatmentsForPatientComponent extends Component {
     render(){ 
         if(!this.state.loaded)
             return(
-                <div className="spinner-grow" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
+               <LoadingComponent/>
             );
         if(this.state.patientrecord.treatments.length <= 0)
             return(
@@ -50,8 +51,8 @@ class TreatmentsForPatientComponent extends Component {
                                             <td><p>Treatment ID: <span>{treatment.treatmentId}</span></p></td>
                                             <td>
                                                 {treatment.dietExcerciseDescription ? 
-                                                <Link to={{pathname:'/viewdiet', aboutProps:{treatment: treatment,fromAdd: false}}}>Read the Diet Description</Link>
-                                                :<span>No Diet description Available <Link to={{pathname:'/viewdiet', aboutProps:{treatment: treatment,fromAdd: true}}}>Add Diet Description</Link></span>
+                                                <Link to={{pathname:'/doctor/patientrecord/viewdiet', aboutProps:{treatment: treatment,fromAdd: false}}}>Read the Diet Description</Link>
+                                                :<span>No Diet description Available <Link to={{pathname:'/doctor/patientrecord/viewdiet', aboutProps:{treatment: treatment,fromAdd: true}}}>Add Diet Description</Link></span>
                                                 }
                                             </td>
                                         </tr>

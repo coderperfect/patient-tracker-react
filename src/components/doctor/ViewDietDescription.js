@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import {Link} from 'react-router-dom';
+import API from '../api/api';
 
 class ViewDietDescription extends Component {
     constructor(props){
@@ -16,7 +15,7 @@ class ViewDietDescription extends Component {
 
     handleClick(event){
         event.preventDefault();
-        Axios.put(`http://localhost:8081/treatment/update`, this.state.treatment)
+        API.put(`treatment/update`, this.state.treatment)
             .then(res => {
                 alert(`Diet Description saved successfully`);
             })

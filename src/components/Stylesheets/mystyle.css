@@ -1,0 +1,80 @@
+.row {
+    padding-top: 5px;
+    margin-left: 5px;
+    margin-right:5px;
+}
+
+.col {
+    padding-top: 5px;
+    margin-left: 5px;
+    margin-right:5px;
+}
+
+.card-text {
+    height: 100px;
+}
+
+.red {
+    color: red;
+}
+
+
+.lgn-btn{
+    float: left;
+}
+
+.watch {
+    margin-left: 15px;
+    background-color:#0069D9;
+    color: white;
+}
+
+.card-col {
+    padding-top: 20px;
+}
+
+.remove {
+    margin-left: 15px;
+    background-color:#be2e35;
+    color: white;
+}
+
+.droplist, dropdown {
+   
+    padding-top: 10px;
+}
+
+.form-row {
+    margin-left: 40px;
+}
+
+.form-group {
+    margin-left: 10px;
+    margin-right:10px;
+}
+
+
+.fetch {
+    padding-top: 10px;
+}
+
+.invalid {
+    border-color: red;
+}
+
+.text-bold {
+    font-weight: bolder;
+}
+
+td {
+    width:200px;
+}
+
+.nav-link, .navbar-brand {
+    color: white;
+    
+}
+
+nav-link:hover {
+    background-color: "#138496";
+}
