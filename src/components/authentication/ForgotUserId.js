@@ -73,15 +73,15 @@ class ForgotUserId extends Component {
                     <div className='col-md-2'></div>
                     <div className='col-md-8'>
                         <Alert color='info' className='text-center'><b>Forgot UserId Form</b></Alert>
-                        <Form className='needs-validation' onSubmit={this.handleSubmit} noValidate>
+                        <Form  onSubmit={this.handleSubmit}>
                             <div className='mb-3'>
                                 <label className='form-label'>Enter your Contact Number</label>
-                                <Input invalid={this.state.mobileValidation.length === 0 ? false:true} className='form-control' required type='text' name='mobileNo' value={this.state.mobileNo} onChange={this.handleChange}/>
+                                <Input invalid={this.state.mobileValidation.length === 0 ? false:true} className='form-control'  type='text' name='mobileNo' value={this.state.mobileNo} onChange={this.handleChange}/>
                                 <FormFeedback>{this.state.mobileValidation}</FormFeedback>
                             </div>
                             <div className='mb-3'>
                                 <label className='form-label'>Enter your Date of Birth</label>
-                                <Input invalid={this.state.dateOfBirthValidation.length === 0 ? false:true} className='form-control' required type='date' name='dateOfBirth' value={this.state.dateOfBirth} onChange={this.handleChange}/>
+                                <Input invalid={this.state.dateOfBirthValidation.length === 0 ? false:true} className='form-control' type='date' name='dateOfBirth' value={this.state.dateOfBirth} onChange={this.handleChange}/>
                                 <FormFeedback>{this.state.dateOfBirthValidation}</FormFeedback>
                             </div>
                             <Button type='submit' className='btn btn-info'>Submit</Button>

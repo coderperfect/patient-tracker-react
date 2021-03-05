@@ -14,6 +14,8 @@ export default function TokenTimer() {
     });
 
     return (
-        <Alert color="danger"> {Math.floor(ttl/60)}:{ttl%60}</Alert>
+        <div style={{justifyContent:"left"}}>
+            <Alert color="danger"> {Math.floor(ttl/60)}:{ttl%60}</Alert>
+        </div>
     )
 }

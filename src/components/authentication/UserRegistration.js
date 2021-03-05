@@ -4,9 +4,11 @@ import HomeComponent from './HomePage';
 import LoadingComponent from "../LoadingComponent";
 import 'bootstrap/dist/js/bootstrap.js';
 import "./StyleSheet.css";
+import ReactDOM from 'react-dom';
 export default class UserRegistrationComponent extends Component{
     constructor(props){
         super(props);
+        console.log( ReactDOM.findDOMNode(this.refs.container).style);
         this.state={
             role:localStorage.getItem("role"),
             firstName:"",           
@@ -142,7 +144,7 @@ export default class UserRegistrationComponent extends Component{
                 <form onSubmit={this.handlevalidation}> 
                 <div className="container">
                   <div className="row container register-form">
-                    <div className="col-md-4 col-xs-4">
+                    <div className="col-md-4 col-xs-4 ">
                     <div className="form-group">
                         <input required type="text" className="form-control"
                          name="firstName" id="firstName" placeholder="First Name *" 

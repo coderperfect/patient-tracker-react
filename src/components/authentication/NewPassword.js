@@ -119,7 +119,10 @@ class NewPassword extends Component {
                     submittedResponse: response.data
                   
                 })
-                window.location = "/login";
+                setTimeout(() => {
+                    window.location = "/login";
+                },2000);
+                
             }
                 
         }
