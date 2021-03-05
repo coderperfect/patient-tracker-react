@@ -65,7 +65,7 @@ const ConsultationBilling = (props) => {
                 
                 <ModalFooter>
                     <Button color="danger" onClick={toggle}>Cancel</Button>
-                    <Button color="primary" disabled={consultations===null?false:true} onClick={() => {setConsultations(consultationsResponse); toggle()}}>Add to Bill</Button>
+                    <Button color="primary" disabled={consultations===null && (consultationsResponse !== null && consultationsResponse.length !== 0)?false:true} onClick={() => {setConsultations(consultationsResponse); toggle()}}>Add to Bill</Button>
                 </ModalFooter>
             </Modal>
         </div>

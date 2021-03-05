@@ -5,7 +5,6 @@ import "../Stylesheets/mystyle.css";
 import API from "../api/api";
 import {CardBody,CardTitle, Card, CardText, Badge} from 'reactstrap';
 import {Button, Form, FormGroup, Label, Input, FormText, Alert  } from 'reactstrap';
-import api from "../api/api";
 import auth from "../authentication/auth";
 import LoadingComponent from "../LoadingComponent";
 
@@ -186,7 +185,7 @@ export default function TreatmentForm(props) {
             <Input  invalid={costInValid} type="number" min={0} step="0.01" {...bindCost}  rows={4} name="cost" id="cost" placeholder="Enter Cost" />
           </FormGroup>
           <FormGroup className="row form-group">
-            <Button type="submit">{props.method} Treatment</Button>
+            <Button color="info" type="submit">{props.method} Treatment</Button>
           </FormGroup>
         </Form>
       </div>

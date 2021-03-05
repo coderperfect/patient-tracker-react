@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import API from '../api/api';
 import { Link } from 'react-router-dom';
 import auth from "../authentication/auth";
+import LoadingComponent from '../LoadingComponent';
+import { Alert } from 'reactstrap';
 
 class DietComponent extends Component {
     constructor(props) {
@@ -24,7 +26,7 @@ class DietComponent extends Component {
 
     async componentDidMount() {
        
-        API.get(`patient/patientrecord/${auth.getRecordId()}`)
+        API.get(`patient/patientrecord/${auth.getUserId()}`)
             .then(res => {
                 const data = res.data;
                 this.setState({ patientrecord: data });
@@ -38,14 +40,12 @@ class DietComponent extends Component {
     render() {
         if (!this.state.loaded)
             return (
-                <div className="spinner-grow" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
+               <LoadingComponent />
             );
         if (this.state.patientrecord.treatments.length <= 0)
             return (
                 <div className="container-fluid justify-content-center">
-                    <span>No Diets or Exercises are Present</span>
+                    <Alert color="danger">No Diets or Exercises are Present</Alert>
                 </div>
             );
         return (

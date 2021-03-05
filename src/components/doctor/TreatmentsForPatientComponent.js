@@ -3,6 +3,7 @@ import API from '../api/api';
 import {Link} from 'react-router-dom';
 import ViewDietDescription from './ViewDietDescription';
 import LoadingComponent from '../LoadingComponent';
+import { Alert } from 'reactstrap';
 
 class TreatmentsForPatientComponent extends Component {
     constructor(props){
@@ -34,9 +35,9 @@ class TreatmentsForPatientComponent extends Component {
             );
         if(this.state.patientrecord.treatments.length <= 0)
             return(
-                <div className="container-fluid justify-content-center">
+                <Alert color="danger" className="container-fluid justify-content-center">
                     <span>No Treatments present</span>
-                </div>
+                </Alert>
             );
         return(
             <div className='container-fluid'>

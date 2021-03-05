@@ -137,7 +137,7 @@ const PrescriptionBilling = (props) => {
                 </ModalBody>
                 
                 <ModalFooter>
-                    <Button color="primary" onClick={toggle}>Cancel</Button>
+                    <Button color="danger" onClick={toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>
         </div>

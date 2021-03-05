@@ -7,7 +7,14 @@ import Doctor from "./components/doctor/doctorcomponent";
 import Admin from "./components/admin/admincomponent";
 import Patient from './components/patient/patientcomponent';
 import Auth from "../src/components/authentication/authenticationcomponent";
+import HomeComponent from "../src/components/authentication/HomePage";
 import Clerk from './components/clerk/clerkcomponent';
+import MenuComponent from './components/authentication/menucomponent';
+import UserRegistrationComponent from "./components/authentication/UserRegistration";
+import LoginComponent from "./components/authentication/LoginPage";
+import Welcome from "./components/welcome";
+import ForgotUserId from '../src/components/authentication/ForgotUserId';
+import ForgotPassword from '../src/components/authentication/ForgotPassword';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +47,13 @@ class App extends Component {
          <PrivateRoute path="/admin" component={Admin} />
          <PrivateRoute path="/patient" component={Patient} />
          <PrivateRoute path="/clerk" component={Clerk} />
-         <Route path="/" component={Auth} />
+         <Route path="/login" component ={LoginComponent} />
+         <Route path="/help" component ={LoginComponent} />
+         <Route path="/register" component={HomeComponent} />
+         <Route path="/registration" component={UserRegistrationComponent} />
+         <Route exact path="/" component={HomeComponent} />
+         <Route path="/forgotuserid" component ={ForgotUserId} />
+         <Route path="/forgotpassword" component ={ForgotPassword} />
         </Switch> 
         
       </div> 

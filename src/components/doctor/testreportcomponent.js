@@ -80,7 +80,7 @@ export function TestReportForm(props) {
                 />
             </FormGroup>
             <FormGroup className="row form-group">
-                <Button type="submit" style={{width:"100px", marginRight: "auto"}}>Add Test</Button>
+                <Button color="info" type="submit" style={{width:"100px", marginRight: "auto"}}>Add Test</Button>
             </FormGroup>
         </Form>
 
@@ -125,7 +125,7 @@ export function TestReportUpdateForm(props) {
             <Input invalid={resultValid} type="textarea" {...bindResult}  rows={4} name="treatment" id="treatment" placeholder="Enter Description" />
         </FormGroup>
         <FormGroup className="row form-group">
-            <Button type="submit">Update Test Report</Button>
+            <Button color="info" type="submit">Update Test Report</Button>
         </FormGroup>
         </Form>
     </div>

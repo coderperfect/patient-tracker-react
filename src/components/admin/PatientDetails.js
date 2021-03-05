@@ -7,7 +7,14 @@ function PatientDetails(props) {
 
     let history = useHistory();
     const handleAdd = () => {
-        history.push("/admin/add-patient")
+        var role = localStorage.getItem("role")
+        if(role==="ROLE_ADMIN") {
+            history.push("/admin/add-patient")
+        }
+        else {
+            history.push("/clerk/add-patient")
+        }
+        
     }
 
     function handleClick(patientId) {
@@ -32,7 +39,7 @@ function PatientDetails(props) {
 
     return (
         <div className="container">
-            <Button outline onClick={handleAdd} color="primary" className="mt-3" style={{ color: 'primary', marginLeft: '1000px' }}>Add Patient</Button>
+            <Button outline onClick={handleAdd} color="info" className="mt-3" style={{ color: 'info', marginLeft: '1000px' }}>Add Patient</Button>
             <Modal isOpen={modal} toggle={toggle} className={className}>
                 <ModalHeader toggle={toggle}>Patient Details</ModalHeader>
                 <ModalBody>
@@ -44,7 +51,7 @@ function PatientDetails(props) {
                     <p>{`Address: ${details === false ? null : details.user.address}`}</p>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={toggle}>Close</Button>{' '}
+                    <Button color="info" onClick={toggle}>Close</Button>{' '}
                 </ModalFooter>
             </Modal>
             <h3>List Of Patients</h3>
@@ -62,7 +69,7 @@ function PatientDetails(props) {
                     {props.u.map((item) => <tr>
                         <td scope="row">{item.patientId}</td>
                         <td>{item.user.firstName}  {item.user.lastName}</td>
-                        <td><Button color="primary" onClick={() => handleClick(item.patientId)} >View Details</Button>{' '}
+                        <td><Button color="info" onClick={() => handleClick(item.patientId)} >View Details</Button>{' '}
                             <Link to={{ pathname: '/admin/edit-patient', aboutProps: { edit: item } }}>Edit Details</Link>
                         </td>
                     </tr>)}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../api/api';
+import LoadingComponent from '../LoadingComponent';
 import "./StyleSheet.css"
 export default class UserRegistrationComponent extends Component{
     constructor(props){
@@ -18,7 +19,8 @@ export default class UserRegistrationComponent extends Component{
             consultationFee:"",
             bloodGroup:"",
             doctorId:"",
-            loaded:false
+            loaded:false,
+            userId:-1
         }
         this.doctors=[];
     }
@@ -138,11 +140,11 @@ export default class UserRegistrationComponent extends Component{
 
     render() {
         if(!this.state.loaded) {
-            return "loading"
+            return <LoadingComponent/>
         }
         return (
             <div>
-                <h1 style={{color:'blue'}}>Patient Registration</h1>
+                <h1 style={{color:'#3e5d7ce'}}>Patient Registration</h1>
                 <div className="container">
                 <div id="validation"></div>                       
                 <form onSubmit={this.handlevalidation}> 
@@ -180,7 +182,7 @@ export default class UserRegistrationComponent extends Component{
                     </div>
                     <div className="col-md-4 col-xs-4">
                     <div className="form-group">
-                        <select className="form-control" name="gender" 
+                        <select className="form-control" name="gender"  style={{width:"300px"}}
                             onChange={this.handleChange}>
                             <option className="hidden" value="DEFAULT">
                                 Select your Gender</option>
@@ -243,7 +245,7 @@ export default class UserRegistrationComponent extends Component{
                     </div>
                     <div className="col col-md-4">
                     <div className="form-group">
-                    <select className="form-control" name="doctorId" 
+                    <select className="form-control" name="doctorId" style={{width:"300px"}}
                             onChange={this.handleChange}>
                         <option className="hidden" value="DEFAULT">
                             Select a doctor</option>                            
@@ -259,7 +261,7 @@ export default class UserRegistrationComponent extends Component{
                     </div>
                     </div>:""}
                     <div className="text-center">
-                    <button type="Submit" className="btn btn-primary">
+                    <button type="Submit" className="btn btn-info">
                         Register</button>    
                     </div>                                     
                     </div>                                

@@ -1,6 +1,6 @@
 import API from '../api/api';
 import React, {Component} from 'react';
-import { Button, Col, Row} from 'reactstrap';
+import { Alert, Button, Col, Row} from 'reactstrap';
 import AddInPatient from './AddInPatient';
 import EditInPatient from './EditInPatient';
 import InPatientDetails from './InPatientDetails';
@@ -17,7 +17,10 @@ class InPatients extends Component {
             addRoomNo: null,
             addAdmissionDate: null,
             editAdmissionDate: null,
-            editDischargeDate: null
+            editDischargeDate: null,
+            addPatientIdInvalid: false,
+            addRoomNoInvalid: false,
+            addAdmissionDateInvalid: false
         }
     }
 
@@ -86,9 +89,53 @@ class InPatients extends Component {
         }
     }
 
+    async validateAddForm() {
+        var valid = true;
+
+        if(this.state.addPatientId === null || this.state.addPatientId.length === 0) {
+            await this.setState({
+                addPatientIdInvalid: true
+            });
+            valid = false;
+        }
+        else {
+            await this.setState({
+                addPatientIdInvalid: false
+            });
+        }
+
+        if(this.state.addRoomNo === null || this.state.addRoomNo.length === 0) {
+            await this.setState({
+                addRoomNoInvalid: true
+            });
+            valid = false;
+        }
+        else {
+            await this.setState({
+                addRoomNoInvalid: false
+            });
+        }
+
+        if(this.state.addAdmissionDate === null || this.state.addAdmissionDate.length ===0) {
+            await this.setState({
+                addAdmissionDateInvalid: true
+            });
+            valid = false;
+        }
+        else {
+            await this.setState({
+                addAdmissionDateInvalid: false
+            });
+        }
+
+        return valid;
+    }
+
     async handleAddSubmit(event) {
         event.preventDefault();
-
+        if(await this.validateAddForm() === false) {
+            return;
+        }
         try {
             const response = await API.post(
                 `inpatientrecord/${this.state.addPatientId}/${this.state.addRoomNo}`,
@@ -97,12 +144,17 @@ class InPatients extends Component {
                 }
             );
 
-            alert(response.data);
+            if(response.data) {
+                alert("Added Sucessfully");
+            }
         }
         catch(error) {
             alert(error);
         }
+
     }
+
+
 
     async handleEditSubmit(event) {
         event.preventDefault();
@@ -117,7 +169,10 @@ class InPatients extends Component {
                 }
             );
 
-            alert(response.data);
+            if(response.data) {
+                alert("Edited Sucessfully");
+            }
+            
         }
         catch(error) {
             alert(error);
@@ -164,7 +219,7 @@ class InPatients extends Component {
                         <td>{inPatient.inPatientRecordId}</td>
                         <td>{inPatient.patient.patientId}</td>
                         <td>{inPatient.room.roomNo}</td>
-                        <td><button className="btn btn-primary" onClick = {()=>this.handleViewClick(inPatient)}>View</button></td>
+                        <td><button className="btn btn-info" onClick = {()=>this.handleViewClick(inPatient)}>View</button></td>
                     </tr>
                 );
             })
@@ -176,11 +231,11 @@ class InPatients extends Component {
             <div className="container-fluid">
                 <Row>
                     <Col sm={9}>
-                        <h3>In Patient List</h3>
+                        <Alert color="info">In Patient List</Alert>
                     </Col>
 
                     <Col sm={3}>
-                        <Button className="mt-3" onClick={this.handleAddClick}>Add In Patient</Button>
+                        <Button color="info" className="mt-3" onClick={this.handleAddClick}>Add In Patient</Button>
                     </Col>
                 </Row>
 
@@ -212,8 +267,10 @@ class InPatients extends Component {
         }
         else if(this.state.page === "add") {
             return (
-                <AddInPatient handleChange={this.handleChange} handleAddSubmit={this.handleAddSubmit.bind(this)} back={this.handleGetBack.bind(this)}/>
-            );
+
+                <AddInPatient addPatientIdInvalid={this.state.addPatientIdInvalid} addRoomNoInvalid={this.state.addRoomNoInvalid} addAdmissionDateInvalid={this.state.addAdmissionDateInvalid} handleChange={this.handleChange} handleAddSubmit={this.handleAddSubmit.bind(this)} back={this.handleGetBack.bind(this)}/>
+                
+                );
         }
         else if(this.state.page === "edit") {
             return (
@@ -225,6 +282,7 @@ class InPatients extends Component {
                 null
             );
         }
+
     }
 
     render() {

@@ -34,7 +34,7 @@ export default class HelpComponent extends Component{
            console.log("Details Saved");
            console.log(response);
         if (response.status === 200) 
-            window.location = "/doctor" 
+            window.location = "/patient" 
         }).catch(error => {                  
             document.getElementById('validation').innerHTML=
             '<li><font color="Red"> Failed to Save the Details</font> </li>'            

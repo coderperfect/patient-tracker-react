@@ -22,14 +22,14 @@ const NursingBilling = (props) => {
             var Difference_In_Time = dateToday.getTime() - dateAdmission.getTime(); 
             var numberOfDays = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
 
-            nursingTotal =  (numberOfDays*nursingResponse.room.tariff).toFixed(2);
+            nursingTotal =  numberOfDays*nursingResponse.room.tariff;
 
             return (
                 <tbody>
                     <tr key="1">
                         <td>{nursingResponse.room.roomType}</td>
                         <td>{numberOfDays}</td>
-                        <td>{numberOfDays*nursingResponse.room.tariff}</td>
+                        <td>{(numberOfDays*nursingResponse.room.tariff).toFixed(2)}</td>
                     </tr>
                 </tbody>
             );
@@ -61,7 +61,7 @@ const NursingBilling = (props) => {
                 
                 <ModalFooter>
                     <Button color="danger" onClick={toggle}>Cancel</Button>
-                    <Button color="primary" disabled={nursing===null?false:true} onClick={() => {setNursing(nursingResponse, nursingTotal); toggle()}}>Add to Bill</Button>
+                    <Button color="primary" disabled={nursing===null && (nursingResponse !== null && nursingResponse !== undefined)?false:true} onClick={() => {setNursing(nursingResponse, nursingTotal); toggle()}}>Add to Bill</Button>
                 </ModalFooter>
             </Modal>
         </div>

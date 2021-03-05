@@ -3,6 +3,7 @@ import { Table } from 'reactstrap';
 import auth from "../authentication/auth";
 import API from '../api/api';
 import {Treatment, TreatmentList } from "../doctor/treatmentcomponent";
+import { Alert } from 'reactstrap';
 class TreatmentHistory extends Component {
 
 
@@ -35,15 +36,19 @@ class TreatmentHistory extends Component {
     };
 
     render() {
+        if(this.state.treatmentHistory.length ===0)
+            return <Alert color="danger">You have no Treatment History</Alert>
         return (
             <div className="row">
                 <div className="container col col-md-2"></div>
                 <div className="container col col-md-8">
-                    
+                
                             {
+                           
                             this.state.treatmentHistory.map((item) => {
                                 return <Treatment treatment={item} visible="collapse" />
                             })
+                            
                             }                 
                                 
                 </div>

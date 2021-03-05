@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import API from '../api/api';
 import 'bootstrap/dist/js/bootstrap.js';
 import "../Stylesheets/mystyle.css";
+import {Link} from 'react-router-dom';
 export default class LoginComponent extends Component{
     constructor(props){
         localStorage.setItem("token","");
@@ -59,15 +60,16 @@ export default class LoginComponent extends Component{
         API.post("users/login", this.state)
         .then(response =>{            
             document.getElementById('validation').innerHTML="";            
-            //alert(this.state.role);
+            // console.log("**"+response.data);  
          if(response.data.authToken.length>1) {
             localStorage.setItem("role",response.data.role);
             localStorage.setItem("token",response.data.authToken);
             localStorage.setItem("userId",response.data.userId);
-            //localStorage.setItem("r",response.data.userId);
+            //localStorage.setItem("first",response.data.userId);
+            //localStorage.setItem("last",response.data.userId);
+            //localStorage.setItem("recordId",response.data.userId);
             var role = localStorage.getItem("role");
             if(role ==="ROLE_PATIENT") {
-                
                 window.location = "/patient";
             }
             else if(role ==="ROLE_ADMIN") {
@@ -81,9 +83,20 @@ export default class LoginComponent extends Component{
             }
          }
                
-        }).catch(error => {                  
-            document.getElementById('validation').innerHTML=
-            '<li><font color="Red"> Invalid userId/password</font> </li>'    
+        }).catch(error => {   
+            if (error.response.data.message==="Invalid User")   {
+                document.getElementById('validation').innerHTML=
+                '<li><font color="Red"> Please wait for login approval</font> </li>' 
+            }   
+            else if(error.response.data.message==="Rejected User") {
+                document.getElementById('validation').innerHTML=
+                '<li><font color="Red">Your approval is rejected</font> </li>' 
+            }
+            else {
+                document.getElementById('validation').innerHTML=
+            '<li><font color="Red"> Invalid userId/password</font> </li>'   
+            }         
+             
                     
         })
     } 
@@ -114,6 +127,7 @@ export default class LoginComponent extends Component{
                   
             <div id="validation"></div>                            
                 
+            <div>    
             <input class="form-control" style={{ width:"300px", border:this.state.invalid}} type="text"  name="userId" 
                 placeholder="Enter UserId" value={this.state.userId} onChange={this.handleChange}/>
                                                     
@@ -126,10 +140,11 @@ export default class LoginComponent extends Component{
                       
                     
     <button type="submit" style={{marginTop:"20px"}} className="btn btn-info">Login</button>
-                    
-                    
-                  
-                  
+    </div> 
+            <div className='mt-4'>
+               <Link className='mt-4' to="/forgotuserid">Forgot UserId</Link><br/>     
+               <Link className='mt-4' to="/forgotpassword">Forgot Password</Link> 
+            </div>
                                        
             </form>
             
