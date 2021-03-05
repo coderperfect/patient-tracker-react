@@ -99,6 +99,7 @@ class Billing extends Component {
             billing.prescription = {...prescription};
         }
 
+
         if(this.state.consultations !== null) {
             let consultations = [...this.state.consultations];
             billing.consultations = [...consultations];
@@ -242,6 +243,11 @@ class Billing extends Component {
             })
             return;
         }
+        else {
+            this.setState({
+                patientIdInvalid: false
+            })
+        }
 
 
         try {
@@ -361,9 +367,18 @@ class Billing extends Component {
 
             if(response.data[0]!== undefined && response.data[0].roomChargesBilled !== true)
                 stayResponse = response.data[0];
+            else if(response.data[0]!== undefined && response.data[0].roomChargesBilled === true)
+                stayResponse = "billed"
+            else if(response.data.length === 0)
+                stayResponse = "billed"
+
 
             if(response.data[0]!== undefined && response.data[0].nursingChargesBilled !== true)
                 nursingResponse = response.data[0];
+            else if(response.data[0]!== undefined && response.data[0].nursingChargesBilled === true)
+                nursingResponse = "billed"
+            else if(response.data.length === 0)
+                nursingResponse = "billed"
 
             this.setState({
                 inPatientRecord: response.data[0],
@@ -594,11 +609,11 @@ class Billing extends Component {
 
                 <Button color="info" className="mb-5" disabled={!generateBillButton} onClick={this.handleGenerateBill.bind(this)}>Generate Bill</Button>
 
-                <PrescriptionBilling modal={this.state.showPrescriptionPopUp} toggle={this.togglePrescriptionPopUp} prescription={this.state.prescription} setPrescription={this.setPrescription.bind(this)} prescriptionsResponse={this.state.prescriptionsResponse}/>
-                <ConsultationBilling modal={this.state.showConsultationsPopUp} toggle={this.toggleConsultationsPopUp} consultations={this.state.consultations} setConsultations={this.setConsultations.bind(this)} consultationsResponse={this.state.consultationsResponse}/>
-                <StayBilling modal={this.state.showStayPopUp} toggle={this.toggleStayPopUp} stay={this.state.stay} setStay={this.setStay.bind(this)} stayResponse={this.state.stayResponse}/>
-                <LabBilling modal={this.state.showLabsPopUp} toggle={this.toggleLabsPopUp} labs={this.state.labs} setLabs={this.setLabs.bind(this)} labsResponse={this.state.labsResponse} setLabsTotal={this.setLabsTotal.bind(this)}/>
-                <NursingBilling modal={this.state.showNursingPopUp} toggle={this.toggleNursingPopUp} nursing={this.state.nursing} setNursing={this.setNursing.bind(this)} nursingResponse={this.state.nursingResponse}/>
+                <PrescriptionBilling modal={this.state.showPrescriptionPopUp} toggle={this.togglePrescriptionPopUp} prescription={this.state.prescription} setPrescription={this.setPrescription.bind(this)} prescriptionsResponse={this.state.prescriptionsResponse} billing={this.state.billing}/>
+                <ConsultationBilling modal={this.state.showConsultationsPopUp} toggle={this.toggleConsultationsPopUp} consultations={this.state.consultations} setConsultations={this.setConsultations.bind(this)} consultationsResponse={this.state.consultationsResponse} billing={this.state.billing}/>
+                <StayBilling modal={this.state.showStayPopUp} toggle={this.toggleStayPopUp} stay={this.state.stay} setStay={this.setStay.bind(this)} stayResponse={this.state.stayResponse} billing={this.state.billing}/>
+                <LabBilling modal={this.state.showLabsPopUp} toggle={this.toggleLabsPopUp} labs={this.state.labs} setLabs={this.setLabs.bind(this)} labsResponse={this.state.labsResponse} setLabsTotal={this.setLabsTotal.bind(this)} billing={this.state.billing}/>
+                <NursingBilling modal={this.state.showNursingPopUp} toggle={this.toggleNursingPopUp} nursing={this.state.nursing} setNursing={this.setNursing.bind(this)} nursingResponse={this.state.nursingResponse} billing={this.state.billing}/>
             </div>
         );
     }

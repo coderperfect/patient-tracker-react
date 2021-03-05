@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table, Alert } from 'reactstrap';
+import LoadingComponent from '../LoadingComponent';
 
 const StayBilling = (props) => {
     const {
@@ -8,13 +9,14 @@ const StayBilling = (props) => {
         className,
         stay,
         setStay,
-        stayResponse
+        stayResponse,
+        billing
     } = props;
 
     let stayTotal = null;
 
     const renderStayTable = () => {
-        if(stayResponse === null || stayResponse === undefined)
+        if(stayResponse === null || stayResponse === undefined || stayResponse === "billed")
             return null;
         else{
             var dateAdmission = new Date(stayResponse.admissionDate);
@@ -36,12 +38,9 @@ const StayBilling = (props) => {
         }
     }
 
-    return (
-        <div>
-            <Modal size="lg" isOpen={modal} toggle={toggle} className={className}>
-
-                <ModalHeader toggle={toggle}>Stay</ModalHeader>
-
+    const renderContent = () => {
+        let content = (
+            <span>
                 <ModalBody>
 
                     <Table bordered size="sm" className="container" style={{marginTop:'40px'}}>
@@ -55,15 +54,70 @@ const StayBilling = (props) => {
                         </thead>
                         {renderStayTable()}
                     </Table>
-                    
+
                     <br/>
 
                 </ModalBody>
-                
+
                 <ModalFooter>
                     <Button color="danger" onClick={toggle}>Cancel</Button>
-                    <Button color="primary" disabled={stay===null && (stayResponse !== null && stayResponse !== undefined)?false:true} onClick={() => {setStay(stayResponse, stayTotal); toggle()}}>Add to Bill</Button>
+                    <Button color="info" disabled={stay===null && (stayResponse !== null && stayResponse !== undefined)?false:true} onClick={() => {setStay(stayResponse, stayTotal); toggle()}}>Add to Bill</Button>
                 </ModalFooter>
+            </span>
+        );
+
+        if(billing === null) {
+            return (
+                <span>
+                    <Alert color="danger">
+                        <h4 className="alert-heading">Please select patient</h4>
+                        <p>
+                            Please select patient to add components
+                        </p>
+                    </Alert>
+                    <ModalFooter>
+                        <Button color="info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else if(stayResponse === null) {
+            return (
+                <span>
+                    <LoadingComponent/>
+                    <ModalFooter>
+                        <Button color="info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else if(stayResponse === "billed") {
+            return (
+                <span>
+                    <Alert color="info">
+                        <h4 className="alert-heading">No Unbilled Stay Charges Results</h4>
+                        <p>
+                            There are no unbilled stay charges for this patient
+                        </p>
+                    </Alert>
+                    <ModalFooter>
+                            <Button color = "info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else {
+            return (content);
+        }
+    }
+
+    return (
+        <div>
+            <Modal size="lg" isOpen={modal} toggle={toggle} className={className}>
+
+                <ModalHeader toggle={toggle}>Stay</ModalHeader>
+                {renderContent()}
+                
             </Modal>
         </div>
     );

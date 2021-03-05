@@ -85,11 +85,12 @@ export default class LoginComponent extends Component{
          }
                
         }).catch(error => {   
-            if (error.response.data.message==="Invalid User")   {
+            console.log(error.response.data.message)
+            if (error.response.data.message==="Exception arised Invalid User")   {
                 document.getElementById('validation').innerHTML=
                 '<li><font color="Red"> Please wait for login approval</font> </li>' 
             }   
-            else if(error.response.data.message==="Rejected User") {
+            else if(error.response.data.message==="Exception arised Rejected User") {
                 document.getElementById('validation').innerHTML=
                 '<li><font color="Red">Your approval is rejected</font> </li>' 
             }

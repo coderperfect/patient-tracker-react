@@ -166,7 +166,7 @@ export default class UserRegistrationComponent extends Component{
                     </div>
                     <div className="col-md-4 col-xs-4">
                     <div className="form-group">
-                        <input type="text" className="form-control" 
+                        <input type="password" className="form-control" 
                         name="password" placeholder="Password *" 
                         value={this.state.password} onChange={this.handleChange}/>
                     </div>

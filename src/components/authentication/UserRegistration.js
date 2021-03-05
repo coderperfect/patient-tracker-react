@@ -4,11 +4,11 @@ import HomeComponent from './HomePage';
 import LoadingComponent from "../LoadingComponent";
 import 'bootstrap/dist/js/bootstrap.js';
 import "./StyleSheet.css";
-import ReactDOM from 'react-dom';
+
 export default class UserRegistrationComponent extends Component{
     constructor(props){
         super(props);
-        console.log( ReactDOM.findDOMNode(this.refs.container).style);
+        
         this.state={
             role:localStorage.getItem("role"),
             firstName:"",           

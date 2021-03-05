@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table, Alert } from 'reactstrap';
+import LoadingComponent from '../LoadingComponent';
 
 const LabBilling = (props) => {
     const {
@@ -9,7 +10,8 @@ const LabBilling = (props) => {
         labs,
         setLabs,
         labsResponse,
-        setLabsTotal
+        setLabsTotal,
+        billing
     } = props;
 
     let labsTotal = null;
@@ -60,12 +62,9 @@ const LabBilling = (props) => {
         );
     }
 
-    return (
-        <div>
-            <Modal size="lg" isOpen={modal} toggle={toggle} className={className}>
-
-                <ModalHeader toggle={toggle}>Lab Charges Not Billed</ModalHeader>
-
+    const renderContent = () => {
+        let content = (
+            <span>
                 <ModalBody>
 
                     <Table bordered size="sm" className="container" style={{marginTop:'40px'}}>
@@ -80,15 +79,70 @@ const LabBilling = (props) => {
                         </thead>
                         {renderLabListTable()}
                     </Table>
-                    
+
                     <br/>
 
                 </ModalBody>
-                
+
                 <ModalFooter>
-                    <Button color="danger" onClick={toggle}>Cancel</Button>
-                    <Button color="primary"  disabled={labs===null && labsResponse !== null ?false:true} onClick={() => {setLabs(labsResponse); setLabsTotal(labsTotal); toggle()}}>Add to Bill</Button>
+                <Button color="danger" onClick={toggle}>Cancel</Button>
+                <Button color="primary"  disabled={labs===null && labsResponse !== null ?false:true} onClick={() => {setLabs(labsResponse); setLabsTotal(labsTotal); toggle()}}>Add to Bill</Button>
                 </ModalFooter>
+            </span>
+        );
+
+        if(billing === null) {
+            return (
+                <span>
+                    <Alert color="danger">
+                        <h4 className="alert-heading">Please select patient</h4>
+                        <p>
+                            Please select patient to add components
+                        </p>
+                    </Alert>
+                    <ModalFooter>
+                        <Button color="info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else if(labsResponse === null) {
+            return (
+                <span>
+                    <LoadingComponent/>
+                    <ModalFooter>
+                        <Button color="info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else if(labsResponse.length === 0) {
+            return (
+                <span>
+                    <Alert color="info">
+                        <h4 className="alert-heading">No Unbilled Lab Results</h4>
+                        <p>
+                            There are no unbilled lab results for this patient
+                        </p>
+                    </Alert>
+                    <ModalFooter>
+                            <Button color = "info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else {
+            return (content);
+        }
+    }
+
+    return (
+        <div>
+            <Modal size="lg" isOpen={modal} toggle={toggle} className={className}>
+
+                <ModalHeader toggle={toggle}>Lab Charges Not Billed</ModalHeader>
+                {renderContent()}
+                
             </Modal>
         </div>
     );

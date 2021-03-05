@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table, Alert } from 'reactstrap';
+import LoadingComponent from '../LoadingComponent'; 
 
 const PrescriptionBilling = (props) => {
     const {
@@ -9,7 +10,8 @@ const PrescriptionBilling = (props) => {
         className,
         prescription,
         setPrescription,
-        prescriptionsResponse
+        prescriptionsResponse,
+        billing
     } = props;
 
     const [popUpPrescription, setPopUpPrescription] = useState(null);
@@ -111,12 +113,9 @@ const PrescriptionBilling = (props) => {
         </Modal>
     );
 
-    return (
-        <div>
-            <Modal size="lg" isOpen={modal} toggle={toggle} className={className}>
-
-                <ModalHeader toggle={toggle}>Prescriptions Not Billed</ModalHeader>
-
+    const renderContent = () => {
+        const content = (
+            <span>
                 <ModalBody>
                     <h6>Select  Prescription</h6>
 
@@ -139,6 +138,61 @@ const PrescriptionBilling = (props) => {
                 <ModalFooter>
                     <Button color="danger" onClick={toggle}>Cancel</Button>
                 </ModalFooter>
+            </span>
+        );
+
+        if(billing === null) {
+            return (
+                <span>
+                    <Alert color="danger">
+                        <h4 className="alert-heading">Please select patient</h4>
+                        <p>
+                            Please select patient to add components
+                        </p>
+                    </Alert>
+                    <ModalFooter>
+                        <Button color="info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else if(prescriptionsResponse === null) {
+            return (
+                <span>
+                    <LoadingComponent/>
+                    <ModalFooter>
+                        <Button color="info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else if(prescriptionsResponse.length === 0) {
+            return (
+                <span>
+                    <Alert color="info">
+                        <h4 className="alert-heading">No Unbilled Prescriptions</h4>
+                        <p>
+                            There are no unbilled prescriptions for this patient
+                        </p>
+                    </Alert>
+                    <ModalFooter>
+                            <Button color = "info" onClick={toggle}>Ok</Button>
+                    </ModalFooter>
+                </span>
+            );
+        }
+        else {
+            return (content);
+        }
+    }
+
+    return (
+        <div>
+            <Modal size="lg" isOpen={modal} toggle={toggle} className={className}>
+
+                <ModalHeader toggle={toggle}>Prescriptions Not Billed</ModalHeader>
+                {renderContent()}
+                
             </Modal>
         </div>
     );
