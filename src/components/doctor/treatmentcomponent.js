@@ -3,7 +3,7 @@ import { useInput } from './inputhook';
 import 'bootstrap/dist/js/bootstrap.js';
 import "../Stylesheets/mystyle.css";
 import API from "../api/api";
-import {CardBody,CardTitle, Card, CardText, Badge} from 'reactstrap';
+import {CardBody,CardTitle, Card, CardText, Badge, FormFeedback} from 'reactstrap';
 import {Button, Form, FormGroup, Label, Input, FormText, Alert  } from 'reactstrap';
 import auth from "../authentication/auth";
 import LoadingComponent from "../LoadingComponent";
@@ -115,6 +115,9 @@ export default function TreatmentForm(props) {
           return false;
         }
         else {
+          if(dto.treatment.treatmentDescription.trim().length > 0) {
+            setTreatmentInValid(false);
+          }
           if(costValue>=0) {
             setTreatmentInValid(false);
             
@@ -175,6 +178,7 @@ export default function TreatmentForm(props) {
           <FormGroup className="row form-group">
             <Label  className="text-bold" for="treatment">Treatment Description</Label>
             <Input invalid={treatmentInValid} type="textarea" {...bindTreatment}  rows={4} name="treatment" id="treatment" placeholder="Enter Description" />
+            <FormFeedback>Treatment Description cannot be empty</FormFeedback>
           </FormGroup>
           <FormGroup className="row form-group">
             <Label  className="text-bold" for="diet">Diet / Excercise Description</Label>
@@ -183,6 +187,7 @@ export default function TreatmentForm(props) {
           <FormGroup className="row form-group">
             <Label  className="text-bold" for="cost">Treatment Cost</Label>
             <Input  invalid={costInValid} type="number" min={0} step="0.01" {...bindCost}  rows={4} name="cost" id="cost" placeholder="Enter Cost" />
+            <FormFeedback>Treatment Cost cannot be empty</FormFeedback>
           </FormGroup>
           <FormGroup className="row form-group">
             <Button color="info" type="submit">{props.method} Treatment</Button>

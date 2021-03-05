@@ -29,7 +29,7 @@ export default class HomeComponent extends Component{
                 
                  <select className="form-control col col-sm-12"  value={this.state.role} onChange={this.handleChange}>
                             <option className="hidden" value="DEFAULT">
-                                Select your Role</option>
+                                Select your Role To Register</option>
                                     <option value="ROLE_ADMIN">Admin</option>
                                     <option value="ROLE_CLERK">Clerk</option>
                                     <option value="ROLE_PATIENT">Patient</option>

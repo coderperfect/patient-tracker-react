@@ -39,7 +39,7 @@
     color: white;
 }
 
-.droplist, dropdown {
+.droplist.dropdown {
    
     padding-top: 10px;
 }
