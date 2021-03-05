@@ -43,7 +43,7 @@ export default class HomeComponent extends Component{
                                 Login</button> 
                    
                     <button type="button" className="btn btn-info" style={{marginTop:"20px", width:"100px"}}
-                                onClick={event =>  window.location.href='/registration'}>
+                                onClick={event =>  this.state.role.length>0 ? window.location.href='/registration': alert("select role")}>
                                     Register</button>
                         </div>
                                          

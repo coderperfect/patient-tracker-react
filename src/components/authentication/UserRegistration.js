@@ -29,21 +29,12 @@ export default class UserRegistrationComponent extends Component{
     async componentDidMount() {
         await API.get("doctors")
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.doctors=res.data;
             this.setState({loaded:true})
         })
     }
 
-    // handleEmptyValidation=(e) =>{            
-    //     var result=true;
-    //     if(this.state.firstName===""){
-    //         document.getElementById('firstName').style.borderColor = "red";
-    //         result=false;
-    //     }
-    //     if(result===true)
-    //     this.handlevalidation(e);
-    // }
     handlevalidation=(e) =>{        
         e.preventDefault();
         var temp=document.getElementById('validation');            

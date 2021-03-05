@@ -13,9 +13,14 @@ import MenuComponent from './components/authentication/menucomponent';
 import UserRegistrationComponent from "./components/authentication/UserRegistration";
 import LoginComponent from "./components/authentication/LoginPage";
 import Welcome from "./components/welcome";
+import ForgotPassword from './components/authentication/ForgotPassword';
+import ForgotUserId from './components/authentication/ForgotUserId';
+import NewPassword from './components/authentication/NewPassword';
 class App extends Component {
+  
   constructor(props) {
     super(props);
+    
     this.state = {
       isLoggedIn: true,
       user: null,
@@ -48,6 +53,9 @@ class App extends Component {
          <Route path="/login" component ={LoginComponent} />
          <Route path="/help" component ={LoginComponent} />
          <Route path="/register" component={HomeComponent} />
+         <Route path="/forgotpassword" component={ForgotPassword}/>
+         <Route path="/forgotuserid" component={ForgotUserId}/>
+         <PrivateRoute path="/resetpassword" component={NewPassword}/>
          <Route path="/registration" component={UserRegistrationComponent} />
          <Route exact path="/" component={HomeComponent} />
         </Switch> 

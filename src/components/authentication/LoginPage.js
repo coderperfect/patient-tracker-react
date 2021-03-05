@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import API from '../api/api';
 import 'bootstrap/dist/js/bootstrap.js';
 import "../Stylesheets/mystyle.css";
+import {Link} from 'react-router-dom';
 export default class LoginComponent extends Component{
     constructor(props){
         localStorage.setItem("token","");
+        localStorage.removeItem("guest");
         super(props);
         this.state={
             userId:"",
@@ -126,6 +128,7 @@ export default class LoginComponent extends Component{
                   
             <div id="validation"></div>                            
                 
+            <div>    
             <input class="form-control" style={{ width:"300px", border:this.state.invalid}} type="text"  name="userId" 
                 placeholder="Enter UserId" value={this.state.userId} onChange={this.handleChange}/>
                                                     
@@ -138,10 +141,11 @@ export default class LoginComponent extends Component{
                       
                     
     <button type="submit" style={{marginTop:"20px"}} className="btn btn-info">Login</button>
- 
-                    
-                  
-                  
+    </div> 
+            <div className='mt-4'>
+               <Link className='mt-4' to="/forgotuserid">Forgot UserId</Link><br/>     
+               <Link className='mt-4' to="/forgotpassword">Forgot Password</Link> 
+            </div>
                                        
             </form>
             
