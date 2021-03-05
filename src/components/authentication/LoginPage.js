@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 export default class LoginComponent extends Component{
     constructor(props){
         localStorage.setItem("token","");
+        localStorage.removeItem("guest");
         super(props);
         this.state={
             userId:"",

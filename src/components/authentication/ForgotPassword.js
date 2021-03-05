@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import API from '../api/api';
 import 'bootstrap/dist/js/bootstrap.js';
 import "../Stylesheets/mystyle.css";
-//import NewPassword from './NewPassword';
+import NewPassword from './NewPassword';
 import {Alert, Form, Input, FormFeedback, Button} from 'reactstrap';
 export default class  ForgotPassword extends Component {
     constructor(props){

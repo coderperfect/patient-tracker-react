@@ -28,7 +28,8 @@ class ForgotUserId extends Component {
                 window.location = '/login';
             })
             .catch(error => {
-                alert(error.response.data.message);
+                alert(error.response.data);
+                
             })
     }
 
@@ -62,7 +63,7 @@ class ForgotUserId extends Component {
     }
 
     handleChange(event){
-        this.setState({[event.target.name] : [event.target.value]});
+        this.setState({[event.target.name] : event.target.value});
     }
 
     render(){
@@ -72,10 +73,10 @@ class ForgotUserId extends Component {
                     <div className='col-md-2'></div>
                     <div className='col-md-8'>
                         <Alert color='info' className='text-center'><b>Forgot UserId Form</b></Alert>
-                        <Form className='needs-validation' onSubmit={this.handleSubmit} noValidate>
+                        <Form  onSubmit={this.handleSubmit}>
                             <div className='mb-3'>
                                 <label className='form-label'>Enter your Contact Number</label>
-                                <Input invalid={this.state.mobileValidation.length === 0 ? false:true} className='form-control' type='text' name='mobileNo' value={this.state.mobileNo} onChange={this.handleChange}/>
+                                <Input invalid={this.state.mobileValidation.length === 0 ? false:true} className='form-control'  type='text' name='mobileNo' value={this.state.mobileNo} onChange={this.handleChange}/>
                                 <FormFeedback>{this.state.mobileValidation}</FormFeedback>
                             </div>
                             <div className='mb-3'>

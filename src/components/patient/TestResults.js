@@ -15,7 +15,10 @@ class TestResults extends Component {
     }
 
     handleRequest = (event) => {
-        API.get("")
+        API.put("testreport/requested/"+event.target.id)
+        .then(res => {
+            alert(res.data);
+        })
     }
 
     async componentDidMount() {
@@ -107,7 +110,7 @@ class TestResults extends Component {
                                             </td>
                                             <td>{report.test.testName}</td>
                                             <td>{report.testResult ? 'Done' : 'Pending'}</td>
-                                            <td><button id={report.testResultId} onClick={this.handleRequest}>{report.testResult ? '' : this.request}</button></td>
+                                            {/* <td><button style={{width:"100px", height:"20px"}} id={report.testResultId} onClick={this.handleRequest}>{report.testResult ? '' : this.request}</button></td> */}
                                         </tr>
                                     )
                                 })}
